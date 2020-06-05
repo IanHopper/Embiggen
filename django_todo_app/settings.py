@@ -31,7 +31,9 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # Local
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'todos.apps.TodosConfig',
+    'apis.apps.ApisConfig',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +52,7 @@ ROOT_URLCONF = 'django_todo_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
