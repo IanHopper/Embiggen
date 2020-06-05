@@ -17,7 +17,7 @@ class Todo(models.Model):
   priority = models.IntegerField(choices=Priority.choices, default=4)
   tags = models.CharField(max_length=150, blank=True, null=True)
   cost = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-  purchase = models.BooleanField()
+  purchase = models.BooleanField(blank=True, null=True)
   estimated_time = models.IntegerField(blank=True, null=True)
 
   def __str__(self):

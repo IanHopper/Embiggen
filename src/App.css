@@ -1,38 +1,79 @@
-.App {
+:root {
+  --primary-color: rgb(16, 69, 201);
+  --secondary-color: rgb(4, 212, 4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  z-index: 1;
+  width: 100%;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  border: #ccc 1px dotted;
+  margin: 0.7rem 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+
+.text-center {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  color: var(--primary-color);
+  font-size: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.todo-id {
+  vertical-align: super;
+  font-size: 22px;
+  color: var(--secondary-color);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.brand {
+  color: var(--secondary-color);
+}
+
+.input {
+  padding: 1rem;
+  border: 1px #333 solid;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 1rem;
+}
+
+.button {
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px #333 solid;
+  margin: 5px;
+  background-color: blue;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  font-size: 1rem;
 }
