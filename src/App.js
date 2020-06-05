@@ -26,8 +26,8 @@ class App extends Component {
       <div className='App'>
         <Navbar title='Embiggen' icon='fas fa-tree brand' />
         <header className='App-header'>
+        {/* <AddTodo fetchTodos={this.fetchTodos} /> */}
         <div className='container'>
-          <AddTodo fetchTodos={this.fetchTodos} />
           <TodoList todos={this.state.todos} />
         </div>
         </header>

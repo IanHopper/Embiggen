@@ -3,19 +3,14 @@ import TodoItem from './TodoItem';
 
 const TodoList = (props) => {
     return (
-      <div className={userStyle}>
+      <div className="todo-list">
+        <h1>Task List</h1>
         {props.todos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </div>
     );
 
-}
-
-const userStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gridGap: '1rem'
 }
 
 export default TodoList;

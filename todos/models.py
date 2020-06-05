@@ -12,13 +12,13 @@ class Todo(models.Model):
   username = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
   task_name = models.CharField(max_length=200)
   description = models.TextField(blank=True, null=True)
-  date_created = models.TimeField(auto_now_add=True)
-  due_date = models.TimeField(blank=True, null=True)
+  date_created = models.DateField(auto_now_add=True, blank=True, null=True)
+  due_date = models.DateField(blank=True, null=True)
   priority = models.IntegerField(choices=Priority.choices, default=4)
   tags = models.CharField(max_length=150, blank=True, null=True)
   cost = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
   purchase = models.BooleanField(blank=True, null=True)
-  estimated_time = models.IntegerField(blank=True, null=True)
+  duration = models.IntegerField(blank=True, null=True)
 
   def __str__(self):
     return self.task_name

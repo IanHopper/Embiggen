@@ -1,6 +1,7 @@
 :root {
   --primary-color: rgb(16, 69, 201);
-  --secondary-color: rgb(4, 212, 4);
+  --secondary-color: rgba(3, 164, 67, 0.742);
+  --tertiary-color: #ddd;
 }
 
 * {
@@ -12,7 +13,7 @@
 body {
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
+  background-color: var(--tertiary-color);
   color: #333;
 }
 
@@ -26,6 +27,35 @@ body {
   width: 100%;
   opacity: 0.9;
   margin-bottom: 1rem;
+  background-color: #fff;
+}
+
+.item-header {
+  grid-area: header;
+}
+
+.item-main {
+  grid-area: main;
+}
+
+.item-duration {
+  grid-area: duration;
+}
+
+.item-date {
+  grid-area: date;
+}
+
+.item-cost {
+  grid-area: cost;
+}
+
+.item-edit {
+  grid-area: edit;
+}
+
+.item-delete {
+  grid-area: delete;
 }
 
 .card {
@@ -34,11 +64,24 @@ body {
   margin: 0.7rem 0;
 }
 
+.card {
+  display: grid;
+  /* grid-auto-rows: minmax(auto); */
+  grid-template-areas:
+    "header header header header header header date"
+    "main main main . . . duration"
+    "main main main . . . cost"
+    "main main main . . . delete"
+}
+
+
 .container {
   max-width: 600px;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .text-center {
@@ -60,20 +103,62 @@ h1 {
   color: var(--secondary-color);
 }
 
-.input {
+.input, select {
   padding: 1rem;
-  border: 1px #333 solid;
+  border: none;
   border-radius: 5px;
   margin: 5px;
   font-size: 1rem;
+  background-color: var(--tertiary-color);
+  
+}
+
+.input::placeholder {
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: var(--tertiary-color);
+  color: #333;
 }
 
 .button {
   padding: 1rem;
   border-radius: 5px;
-  border: 1px #333 solid;
+  border: none;
   margin: 5px;
-  background-color: blue;
+  background-color: var(--secondary-color);
   color: white;
   font-size: 1rem;
 }
+
+.task-form {
+  border: 1px black solid;
+  border-radius: 5px;
+  padding: 1rem;
+  border: none;
+  background-color: white;
+  margin: auto;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  display: grid;
+  overflow: hidden;
+}
+
+.vital {
+  color: red;
+}
+
+.important {
+  color: orange;
+}
+
+.urgent {
+  color: blue;
+}
+
+.todo-list {
+  /* text-align: center; */
+  padding: 1rem;
+}
+
+
+
