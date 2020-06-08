@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TodoItem = ({
-  todo: { id, task_name, description, priority, due_date, duration, cost },
+  
+  todo: { id, task_name, description, priority, due_date, duration, cost }, deleteTodo, openModal
 }) => {
   const priorityList = {
     1: 'vital',
@@ -12,7 +13,7 @@ const TodoItem = ({
   };
   return (
     <div className='card'>
-      <div className='item-header'>
+      <div className='item-header' onClick={(e) => openModal(id, task_name, description, priority, due_date, duration, cost, e )}>
         <p className={priorityList[priority]}>{task_name}</p>
       </div>
       <div className='item-date'>
@@ -36,8 +37,7 @@ const TodoItem = ({
         ) : null}
       </div>
       <div className='item-delete'>
-        
-        <i className='fas fa-trash-alt'></i>
+        <i className='fas fa-trash-alt' onClick={(e) => deleteTodo(id, e)} ></i>
       </div>
    
     </div>

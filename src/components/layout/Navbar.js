@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Navbar = ({ title, icon, toggleTodoForm }) => {
+const Navbar = ({ title, icon, openModal }) => {
   return (
     <nav className='navbar'>
       <i className={icon}><span>&nbsp;{title}</span></i>
-      <i className='fas fa-plus-circle' id="add-task" onClick={toggleTodoForm}> <span>&nbsp;Add Task</span></i>
+      <i className='fas fa-plus-circle' id="add-task" onClick={openModal}> <span>&nbsp;Add Task</span></i>
       
     </nav>
   );

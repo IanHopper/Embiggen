@@ -53,6 +53,14 @@ body {
   margin-top: 95px;
 }
 
+.todo-form-modal {
+  top: 40px;
+  bottom: 40px;
+  max-width: 600px;
+  background-color: #ddd;
+  
+}
+
 .item-header {
   grid-area: header;
   font-weight: bold;
@@ -175,11 +183,16 @@ body {
   background-color: var(--brand-color);
   color: white;
   font-size: 1rem;
+  font-weight: bold;
 }
 
-/* .add-task-form {
+.btn-cancel {
+  background-color: red;
+}
 
-} */
+.btn-save {
+  background-color: steelblue;
+}
 
 .vital {
   color: red;
