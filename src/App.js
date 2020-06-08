@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Navbar from './components/layout/Navbar';
 import TodoList from './components/todos/TodoList';
-import AddTodo from './components/todos/AddTodo';
+import TodoForm from './components/todos/TodoForm';
+import TodoFormTest from './components/todos/TodoFormTest';
 
 import './App.css';
 
@@ -10,6 +11,13 @@ class App extends Component {
   state = {
     todos: [],
     loading: false,
+    todoFormVisible: false,
+  };
+
+  toggleTodoForm = () => {
+    this.setState({
+      todoFormVisible: !this.state.todoFormVisible,
+    });
   };
 
   async componentDidMount() {
@@ -24,12 +32,20 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <Navbar title='Embiggen' icon='fas fa-tree brand' />
+        <Navbar
+          title='Embiggen'
+          icon='fas fa-tree brand'
+          toggleTodoForm={this.toggleTodoForm}
+        />
         <header className='App-header'>
-        {/* <AddTodo fetchTodos={this.fetchTodos} /> */}
-        <div className='container'>
-          <TodoList todos={this.state.todos} />
-        </div>
+          <div className='container'>
+            <TodoList todos={this.state.todos} />
+          </div>
+          <div>
+            {this.state.todoFormVisible ? (
+              <TodoFormTest toggle={this.toggleTodoForm} />
+            ) : null}
+          </div>
         </header>
       </div>
     );
