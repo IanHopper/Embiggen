@@ -29,7 +29,6 @@ const TodoForm = (props) => {
     taskName.value = '';
     description.value = '';
     priority.value = '';
-    props.closeModal()
   };
 
   return (

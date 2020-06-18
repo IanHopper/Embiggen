@@ -2,22 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TodoItem = ({
-  
-  todo: { id, task_name, description, priority, due_date, duration, cost }, deleteTodo, openModal
+  todo, deleteTodo, displayModal
 }) => {
+  const {
+    id, task_name, description, priority, due_date, duration, cost } = todo
+ 
+  // Names for priority numbers used to add classe for color coding
   const priorityList = {
     1: 'vital',
     2: 'important',
     3: 'urgent',
     4: 'trivial',
   };
+
+  // Task card layout
   return (
     <div className='card'>
-      <div className='item-header' onClick={(e) => openModal(id, task_name, description, priority, due_date, duration, cost, e )}>
-        <p className={priorityList[priority]}>{task_name}</p>
+      {/* Click on task name to open update modal */}
+      <div className='item-header' onClick={()=> displayModal(todo)}>
+        <p className={priorityList[priority]}>{task_name} {id}</p>
       </div>
       <div className='item-date'>
-        <p>{due_date}</p>
+        <p>{due_date} &nbsp;<i className="fa fa-calendar-alt"></i></p>
       </div>
       <div className='item-main'>
         <p>{description}</p>
@@ -37,9 +43,9 @@ const TodoItem = ({
         ) : null}
       </div>
       <div className='item-delete'>
-        <i className='fas fa-trash-alt' onClick={(e) => deleteTodo(id, e)} ></i>
+      {/* Click delete icon to delete task */}
+        <i className='fas fa-trash-alt' onClick={() => deleteTodo(id)}></i>
       </div>
-   
     </div>
   );
 };

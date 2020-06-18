@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Navbar = ({ title, icon, openModal }) => {
+const Navbar = ({ title, icon, displayModal }) => {
   return (
     <nav className='navbar'>
       <i className={icon}><span>&nbsp;{title}</span></i>
-      <i className='fas fa-plus-circle' id="add-task" onClick={openModal}> <span>&nbsp;Add Task</span></i>
+      {/* Click add task icon to open create task modal */}
+      <i className='fas fa-plus-circle' id="add-task" onClick={() => displayModal(null)}> <span>&nbsp;Add Task</span></i>
       
     </nav>
   );

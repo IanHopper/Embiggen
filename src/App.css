@@ -1,20 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 :root {
-  --primary-color: rgb(16, 69, 201);
-  --brand-color: rgba(3, 164, 67, 0.742);
-  --tertiary-color: #ddd;
+  --modal-duration: 0.5s;
+  --primary-color: rgb(6, 120, 76);
+  --secondary-color: rgb(184, 9, 44);
+  --money-color: rgb(109, 219, 109);
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-size: 1rem;
-  line-height: 1.6;
-  background-color: var(--tertiary-color);
-  color: #333;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  transition: transform 0.3s ease;
+}
+
+p {
+  margin: 0;
 }
 
 /* Navbar */
@@ -37,12 +41,13 @@ body {
 .navbar i:first-of-type {
   display: flex;
   float: left;
+  color: var(--primary-color);
 }
 
 .navbar i:last-of-type {
   display: flex;
   float: right;
-  color: crimson;
+  color: var(--secondary-color);
 }
 
 #add-task:hover {
@@ -53,18 +58,13 @@ body {
   margin-top: 95px;
 }
 
-.todo-form-modal {
-  top: 40px;
-  bottom: 40px;
-  max-width: 600px;
-  background-color: #ddd;
-  
-}
+/* Todos */
 
 .item-header {
   grid-area: header;
   font-weight: bold;
   font-size: 1.2rem;
+  margin: 0;
 }
 
 .item-header p:hover {
@@ -72,12 +72,9 @@ body {
   opacity: 0.8;
 }
 
-.item-header span {
-  font-size: 1rem;
-}
-
 .item-main {
   grid-area: main;
+  max-width: 80%;
 }
 
 .item-duration {
@@ -92,15 +89,17 @@ body {
 
 .item-cost {
   grid-area: cost;
+  text-align: center;
 }
 
 .item-cost p {
   color: white;
-  text-align: center;
   font-weight: bold;
-  background-color: var(--brand-color);
+  background-color: var(--money-color);
   border-radius: 15px;
-  margin: 3px;
+  margin: 3px 0;
+  padding: 0 10px;
+  max-width: 100px;
 }
 
 .item-delete {
@@ -110,7 +109,9 @@ body {
 
 .item-delete i {
   font-size: 1.2rem;
-  padding: 0 4px;
+  padding: 0;
+  color: grey;
+  vertical-align: sub;
 }
 
 .item-delete i:hover {
@@ -119,20 +120,18 @@ body {
 }
 
 .card {
+  min-height: 120px;
   padding: 1rem;
-  border: #ccc 1px dotted;
+  border: #ccc 1px solid;
   margin: 0.7rem 0;
-}
-
-.card {
-  border-radius: 5px;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
     'header header header header header header date'
     'main main main . . . duration'
-    'main main main . . . cost'
-    'main main main . . . delete';
+    'main main main . . . .'
+    'cost . . . . . delete';
 }
 
 .container {
@@ -148,11 +147,11 @@ body {
   text-align: center;
 }
 
-.todo-id {
+/* .todo-id {
   vertical-align: super;
   font-size: 22px;
   color: var(--brand-color);
-}
+} */
 
 .brand {
   color: var(--brand-color);
@@ -176,10 +175,10 @@ body {
 }
 
 .button {
-  padding: 1rem;
+  padding: 8px 15px;
   border-radius: 5px;
   border: none;
-  margin: 5px;
+  /* margin: 5px; */
   background-color: var(--brand-color);
   color: white;
   font-size: 1rem;
@@ -191,7 +190,8 @@ body {
 }
 
 .btn-save {
-  background-color: steelblue;
+  background-color: var(--primary-color);
+  width: 100%;
 }
 
 .vital {
@@ -207,11 +207,8 @@ body {
 }
 
 .todo-list {
-  /* text-align: center; */
   padding: 1rem;
 }
-
-
 
 .todo-list .add-task-icon h3 {
   font-size: 1.5rem;
@@ -225,4 +222,78 @@ body {
 
 #add-task-purchase-div input {
   transform: scale(1.5);
+}
+
+.modal-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.modal-container.show-modal {
+  display: block;
+}
+
+.modal-contents {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  width: 400px;
+}
+
+.modal-header {
+  background: var(--secondary-color);
+  color: white;
+  padding: 15px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-form div {
+  margin: 15px 0;
+}
+
+.modal-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.modal-form .form-input {
+  padding: 8px;
+  width: 100%;
+}
+
+.close-btn {
+  background: transparent;
+  font-size: 25px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.close-btn:focus {
+  outline: none;
 }
