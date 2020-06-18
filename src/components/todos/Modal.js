@@ -3,8 +3,9 @@ import axios from 'axios';
 
 const Modal = ({ displayModal, modal, modalNew, fetchTodos, todo : initialTodo }) => {
   // Initialize state for todo
-  const [todo, setTodo] = useState(null);
+  const [todo, setTodo] = useState({});
 
+  
   // Update state value to reflect current todo selection
   useEffect(() => {
     setTodo(initialTodo)

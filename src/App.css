@@ -147,11 +147,17 @@ p {
   text-align: center;
 }
 
-/* .todo-id {
-  vertical-align: super;
-  font-size: 22px;
-  color: var(--brand-color);
-} */
+.todo-sorting {
+  display: flex;
+}
+
+.todo-sorting div {
+  padding: 0 5px;
+}
+
+.todo-sorting div label {
+  padding: 0 5px;
+}
 
 .brand {
   color: var(--brand-color);
