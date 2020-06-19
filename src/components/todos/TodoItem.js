@@ -20,7 +20,7 @@ const TodoItem = ({
     <div className='card'>
       {/* Click on task name to open update modal */}
       <div className='item-header' onClick={()=> displayModal(todo)}>
-        <p className={priorityList[priority]}>{task_name} {id}</p>
+        <p className={priorityList[priority]}>{task_name}</p>
       </div>
       <div className='item-date'>
         <p>{due_date} &nbsp;<i className="fa fa-calendar-alt"></i></p>

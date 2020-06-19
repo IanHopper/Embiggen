@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Modal = ({ displayModal, modal, modalNew, fetchTodos, todo : initialTodo }) => {
+const Modal = ({ displayModal, modal, modalNew, todo : initialTodo }) => {
   // Initialize state for todo
-  const [todo, setTodo] = useState({});
+  const [todo, setTodo] = useState();
 
   
   // Update state value to reflect current todo selection
@@ -31,9 +31,7 @@ const Modal = ({ displayModal, modal, modalNew, fetchTodos, todo : initialTodo }
       updateTodo();
       console.log('Modal False')
     }
-    
     displayModal(null);
-    fetchTodos();
   };
 
   // Create new task
