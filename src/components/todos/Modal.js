@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Modal = ({ displayModal, modal, modalNew, todo : initialTodo }) => {
+
+const Modal = ({ displayModal, modal, modalNew, todo: initialTodo }) => {
   // Initialize state for todo
   const [todo, setTodo] = useState();
 
-  
   // Update state value to reflect current todo selection
   useEffect(() => {
-    setTodo(initialTodo)
+    setTodo(initialTodo);
   }, [initialTodo]);
 
   // Change value for todo aspects
@@ -24,12 +24,12 @@ const Modal = ({ displayModal, modal, modalNew, todo : initialTodo }) => {
 
   // Submit task form
   const submit = () => {
-    if(modalNew){
+    if (modalNew) {
       createTodo();
-      console.log('Modal True')
+      console.log('Modal True');
     } else {
       updateTodo();
-      console.log('Modal False')
+      console.log('Modal False');
     }
     displayModal(null);
   };
@@ -43,7 +43,7 @@ const Modal = ({ displayModal, modal, modalNew, todo : initialTodo }) => {
       due_date: todo.due_date,
       priority: todo.priority,
       cost: todo.cost,
-      duration: todo.duration
+      duration: todo.duration,
     };
     await axios.post('http://127.0.0.1:8000/api/', headers);
   };
@@ -57,10 +57,12 @@ const Modal = ({ displayModal, modal, modalNew, todo : initialTodo }) => {
       due_date: todo.due_date,
       priority: todo.priority,
       cost: todo.cost,
-      duration: todo.duration
+      duration: todo.duration,
     };
-    await axios.put(`http://127.0.0.1:8000/api/${todo.id}/`, headers)
-  }
+    await axios.put(`http://127.0.0.1:8000/api/${todo.id}/`, headers);
+  };
+
+
 
   return (
     <div>
@@ -102,13 +104,22 @@ const Modal = ({ displayModal, modal, modalNew, todo : initialTodo }) => {
               </div>
               <div>
                 <label htmlFor='due_date'>Due Date</label>
-                <input type='date' id='due_date' className='form-input' value={todo.due_date ? todo.due_date : ""}
-                  onChange={handleInputChange}/>
+                <input
+                  type='date'
+                  id='due_date'
+                  className='form-input'
+                  value={todo.due_date ? todo.due_date : ''}
+                  onChange={handleInputChange}
+                />
               </div>
               <div>
                 <label htmlFor='priority'>Priority</label>
-                <select className='form-input' id='priority' value={todo.priority}
-                  onChange={handleInputChange}>
+                <select
+                  className='form-input'
+                  id='priority'
+                  value={todo.priority}
+                  onChange={handleInputChange}
+                >
                   <option value='1'>Vital</option>
                   <option value='2'>Important</option>
                   <option value='3'>Urgent</option>
@@ -122,7 +133,7 @@ const Modal = ({ displayModal, modal, modalNew, todo : initialTodo }) => {
                   id='cost'
                   placeholder='$0.00'
                   className='form-input'
-                  value={todo.cost ? todo.cost : ""}
+                  value={todo.cost ? todo.cost : ''}
                   onChange={handleInputChange}
                 />
               </div>
@@ -134,7 +145,7 @@ const Modal = ({ displayModal, modal, modalNew, todo : initialTodo }) => {
                   placeholder='Enter duration in minutes'
                   className='form-input'
                   step='5'
-                  value={todo.duration ? todo.duration : ""}
+                  value={todo.duration ? todo.duration : ''}
                   onChange={handleInputChange}
                 />
               </div>
