@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
 const Modal = ({ displayModal, modal, modalNew, todo: initialTodo }) => {
   // Initialize state for todo
   const [todo, setTodo] = useState();
@@ -54,15 +53,14 @@ const Modal = ({ displayModal, modal, modalNew, todo: initialTodo }) => {
       username: todo.username,
       task_name: todo.task_name,
       description: todo.description,
-      due_date: todo.due_date,
+      due_date: todo.due_date === '' ? null : todo.due_date,
       priority: todo.priority,
-      cost: todo.cost,
-      duration: todo.duration,
+      cost: (todo.cost === '') | (parseInt(todo.cost) === 0) ? null : todo.cost,
+      duration:
+        (todo.duration === '') | (todo.duration === '0') ? null : todo.duration,
     };
     await axios.put(`http://127.0.0.1:8000/api/${todo.id}/`, headers);
   };
-
-
 
   return (
     <div>
@@ -131,7 +129,7 @@ const Modal = ({ displayModal, modal, modalNew, todo: initialTodo }) => {
                 <input
                   type='number'
                   id='cost'
-                  placeholder='$0.00'
+                  placeholder='Enter $ if this task is a purchase...'
                   className='form-input'
                   value={todo.cost ? todo.cost : ''}
                   onChange={handleInputChange}

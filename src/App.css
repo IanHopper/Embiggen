@@ -87,6 +87,14 @@ p {
   text-align: right;
 }
 
+.item-date.today {
+  color: green;
+}
+
+.item-date.overdue {
+  color: red;
+}
+
 .item-cost {
   grid-area: cost;
   text-align: center;
