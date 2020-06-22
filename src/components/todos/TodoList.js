@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TodoItem from './TodoItem';
+import TodoContext from '../../context/todos/todoContext';
 
 const TodoList = ({ deleteTodo, displayModal, todos }) => {
+  const todoContext = useContext(TodoContext);
+
+ 
+  
   const [sortSelection, setSort] = useState('date-ascending');
   const [filterSelection, setFilter] = useState('active');
   const [todoList, setTodoList] = useState();
@@ -18,6 +23,7 @@ const TodoList = ({ deleteTodo, displayModal, todos }) => {
   const handleFilter = (e) => {
     const { value } = e.target;
     setFilter(value);
+    todoContext.fetchTodos()
   };
 
   const mapTodos = () => {
@@ -31,7 +37,7 @@ const TodoList = ({ deleteTodo, displayModal, todos }) => {
     }
     let displayList = [];
     if (filterSelection === 'active') {
-      displayList = todoList.filter((todo) => todo.completed !== true)
+      displayList = todoList.filter((todo) => todo.completed !== true);
     } else if (filterSelection === 'all') {
       displayList = todoList;
     } else if (filterSelection === 'today') {
@@ -79,7 +85,11 @@ const TodoList = ({ deleteTodo, displayModal, todos }) => {
           <option value='short'>(&lt; 15 mins)</option>
           <option value='long'>(&gt; 60 mins)</option>
         </select>
-        <i className='fas fa-plus-circle fa-3x' id="add-task" onClick={() => displayModal(null)}></i>
+        <i
+          className='fas fa-plus-circle fa-3x'
+          id='add-task'
+          onClick={() => displayModal(null)}
+        ></i>
       </div>
       <div>{todoList ? mapTodos() : null}</div>
     </div>

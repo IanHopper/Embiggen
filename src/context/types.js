@@ -1,0 +1,15 @@
+export const FETCH_TODOS = 'FETCH_TODOS';
+export const DETETE_TODO = 'DETETE_TODO';
+export const UPDATE_TODO = 'UPDATE_TODO';
+export const CREATE_TODO = 'CREATE_TODO';
+export const UPDATE_TODO_COMPLETED = 'UPDATE_TODO_COMPLETED';
+export const DISPLAY_MODAL = 'DISPLAY_MODAL';
+export const HANDLE_SORT = 'HANDLE_SORT';
+export const HANDLE_FILTER = 'HANDLE_FILTER';
+export const MAP_TODOS = 'MAP_TODOS';
+export const SUBMIT_MODAL = 'SUBMIT_MODAL';
+export const HANDLE_INPUT_CHANGE = 'HANDLE_INPUT_CHANGE';
+export const SET_DATE_CLASS = 'SET_DATE_CLASS';
+export const FORMAT_DATE = 'FORMAT_DATE';
+export const SORT_SELECTION = 'SORT_SELECTION';
+export const FILTER_SELECTION = 'FILTER_SELECTION';
