@@ -74,10 +74,9 @@ const Modal = ({ displayModal, modal, modalNew, todo: initialTodo }) => {
             <i className='fa fa-times'></i>
           </button>
           <div className='modal-header'>
-            <h3>Task</h3>
+            <h5>{todo.task_name === "" ? "New Task" : todo.task_name}</h5>
           </div>
-          <div className='modal-content'>
-            <p>Enter the information for your Todo and hit save.</p>
+          
             <form action='' className='modal-form'>
               <div>
                 <label htmlFor='taskname'>Task Name</label>
@@ -156,7 +155,7 @@ const Modal = ({ displayModal, modal, modalNew, todo: initialTodo }) => {
                 Save
               </button>
             </form>
-          </div>
+          
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ class Todo(models.Model):
   cost = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
   purchase = models.BooleanField(blank=True, null=True)
   duration = models.IntegerField(blank=True, null=True)
+  completed = models.BooleanField(default=False)
 
   def __str__(self):
     return self.task_name

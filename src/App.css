@@ -2,9 +2,11 @@
 
 :root {
   --modal-duration: 0.5s;
-  --primary-color: rgb(6, 120, 76);
-  --secondary-color: rgb(184, 9, 44);
-  --money-color: rgb(109, 219, 109);
+  --primary-color: rgb(4, 122, 87);
+  --secondary-color: red;
+  --background-color: rgb(194, 215, 229);
+  --money-color: rgb(48, 122, 48);
+  --money-background: rgba(90, 199, 90,.5);
 }
 
 * {
@@ -15,6 +17,7 @@ body {
   font-family: 'Lato', sans-serif;
   margin: 0;
   transition: transform 0.3s ease;
+  background-color: var(--background-color);
 }
 
 p {
@@ -32,26 +35,17 @@ p {
   background-color: #fff;
   top: 0;
   font-size: 2rem;
+  z-index: 100;
 }
 
 .navbar i span {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.navbar i:first-of-type {
+.navbar i {
   display: flex;
   float: left;
   color: var(--primary-color);
-}
-
-.navbar i:last-of-type {
-  display: flex;
-  float: right;
-  color: var(--secondary-color);
-}
-
-#add-task:hover {
-  cursor: pointer;
 }
 
 .App-header {
@@ -65,6 +59,7 @@ p {
   font-weight: bold;
   font-size: 1.2rem;
   margin: 0;
+  text-align: left;
 }
 
 .item-header p:hover {
@@ -88,7 +83,7 @@ p {
 }
 
 .item-date.today {
-  color: green;
+  color: var(--primary-color);
 }
 
 .item-date.overdue {
@@ -96,18 +91,23 @@ p {
 }
 
 .item-cost {
+  display: inline-block;
   grid-area: cost;
-  text-align: center;
+  
 }
 
 .item-cost p {
-  color: white;
+  
+  color: var(--money-color);
   font-weight: bold;
-  background-color: var(--money-color);
-  border-radius: 15px;
+  padding-top: 6px;
   margin: 3px 0;
-  padding: 0 10px;
-  max-width: 100px;
+  max-width: 70px;
+  height: 30px;
+  border: .25px solid var(--money-color);
+  background-color: var(--money-background);
+  line-height: .75rem;
+  text-align: center;
 }
 
 .item-delete {
@@ -127,53 +127,127 @@ p {
   opacity: 0.8;
 }
 
+.item-completed {
+  grid-area: completed;
+  text-align: left;
+  padding: 0 5px;
+}
+
+.item-completed input[type="checkbox"] {
+  opacity: 0;
+  
+}
+
+.item-completed label {
+  position: relative;
+  cursor: pointer;
+}
+
+.item-completed label::before,
+.item-completed label::after {
+  position: absolute;
+}
+
+.item-completed label::before {
+  content: '';
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border: 2.5px solid;
+  top: -6px;
+  left: -15px;
+  border-radius: 50%;
+}
+
+.item-completed label::after {
+  content: '';
+  display: inline-block;
+  height: 6px;
+  width: 9px;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(-45deg);
+  left: -9px;
+  top: 0px;
+}
+
+.item-completed input[type="checkbox"] + label::after {
+  content: none;
+}
+
+.item-completed input[type="checkbox"]:checked + label::after {
+  content: "";
+}
+
+.item-completed input[type="checkbox"]:hover + label::after {
+  content: "";
+  border-color: #999;
+}
+
+.item-completed input[type="checkbox"]:hover:checked + label::after {
+  content: "";
+  border-color: inherit;
+}
+
+
 .card {
   min-height: 120px;
   padding: 1rem;
   border: #ccc 1px solid;
-  margin: 0.7rem 0;
+  margin: 0.3rem 0;
   border-radius: 10px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 30px;
   grid-template-areas:
-    'header header header header header header date'
-    'main main main . . . duration'
-    'main main main . . . .'
-    'cost . . . . . delete';
+    'completed header header header header header date'
+    ' main main main . . . duration'
+    ' main main main . . . .'
+    'cost cost cost . . . delete';
 }
 
 .container {
+  width: 100%;
   max-width: 600px;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-  background-color: white;
-  border-radius: 5px;
+  background-color: var(--background-color);
+  border-radius: 10px;
 }
 
 .text-center {
   text-align: center;
 }
 
+/* Sorting menus */
+
 .todo-sorting {
   display: flex;
+  justify-content: space-between;
 }
 
-.todo-sorting div {
-  padding: 0 5px;
+/* Plus todo icon */
+.todo-sorting i {
+  float: right;
+  text-align: right;
+  color: var(--secondary-color);
+  cursor: pointer;
 }
 
-.todo-sorting div label {
-  padding: 0 5px;
+.select-menu {
+  padding: 5px;
+  border-radius: 5px;
+  border: 0;
+  font-weight: bold;
+  background-color: var(--background-color);
 }
 
-.todo-sorting h4 {
-  margin: auto;
-  width: 100%;
+.select-menu:focus {
+  outline: none;
 }
 
-.brand {
-  color: var(--brand-color);
+.select-menu:hover {
+  cursor: pointer;
 }
 
 .input {
@@ -244,7 +318,7 @@ p {
 }
 
 .modal-container {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
   position: fixed;
   top: 0;
   left: 0;
@@ -268,20 +342,27 @@ p {
   transform: translate(-50%, -50%);
   max-width: 100%;
   width: 400px;
+  padding:
 }
 
 .modal-header {
-  background: var(--secondary-color);
+  background: var(--primary-color);
   color: white;
   padding: 15px;
 }
 
-.modal-header h3 {
+.modal-header h5 {
   margin: 0;
   font-weight: bold;
+  font-size: 1.5em;
 }
 
-.modal-content {
+.modal-form-container {
+ 
+}
+
+.modal-form {
+  background-color: var(--background-color);
   padding: 20px;
 }
 
@@ -317,16 +398,3 @@ p {
   outline: none;
 }
 
-.select-menu {
-  margin: 0 10px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 0px;
-  background-color: #888;
-  color: white;
-  font-weight: bold;
-}
-
-.select-menu:focus {
-  outline: none;
-}

@@ -6,7 +6,7 @@ const Navbar = ({ title, icon, displayModal }) => {
     <nav className='navbar'>
       <i className={icon}><span>&nbsp;{title}</span></i>
       {/* Click add task icon to open create task modal */}
-      <i className='fas fa-plus-circle' id="add-task" onClick={() => displayModal(null)}> <span>&nbsp;Add Task</span></i>
+      {/* <i className='fas fa-plus-circle' id="add-task" onClick={() => displayModal(null)}> <span>&nbsp;Add Task</span></i> */}
       
     </nav>
   );

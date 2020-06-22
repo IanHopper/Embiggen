@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import TodoItem from './TodoItem';
 
 const TodoList = ({ deleteTodo, displayModal, todos }) => {
   const [sortSelection, setSort] = useState('date-ascending');
-  const [filterSelection, setFilter] = useState('all');
+  const [filterSelection, setFilter] = useState('active');
   const [todoList, setTodoList] = useState();
 
   useEffect(() => {
@@ -29,19 +29,25 @@ const TodoList = ({ deleteTodo, displayModal, todos }) => {
     } else if (sortSelection === 'date-descending') {
       todoList.sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
     }
-    let displayList = []
-    if (filterSelection === 'all') {
-      displayList = todoList
+    let displayList = [];
+    if (filterSelection === 'active') {
+      displayList = todoList.filter((todo) => todo.completed !== true)
+    } else if (filterSelection === 'all') {
+      displayList = todoList;
     } else if (filterSelection === 'today') {
-      displayList = todoList.filter(todo => todo.due_date === new Date().toISOString().slice(0,10))
-    } else if (("1234").includes(filterSelection)){
-      displayList = todoList.filter(todo => todo.priority === parseInt(filterSelection))
+      displayList = todoList.filter(
+        (todo) => todo.due_date === new Date().toISOString().slice(0, 10)
+      );
+    } else if ('1234'.includes(filterSelection)) {
+      displayList = todoList.filter(
+        (todo) => todo.priority === parseInt(filterSelection)
+      );
     } else if (filterSelection === '$') {
-      displayList = todoList.filter(todo => parseInt(todo.cost) > 0)
-    } else if (filterSelection === 'short'){
-      displayList = todoList.filter(todo => parseInt(todo.duration) <= 15)
-    } else if (filterSelection === 'long'){
-      displayList = todoList.filter(todo => parseInt(todo.duration) >= 60)
+      displayList = todoList.filter((todo) => parseInt(todo.cost) > 0);
+    } else if (filterSelection === 'short') {
+      displayList = todoList.filter((todo) => parseInt(todo.duration) <= 15);
+    } else if (filterSelection === 'long') {
+      displayList = todoList.filter((todo) => parseInt(todo.duration) >= 60);
     }
     return displayList.map((todo) => (
       <TodoItem
@@ -56,23 +62,24 @@ const TodoList = ({ deleteTodo, displayModal, todos }) => {
   return (
     <div className='todo-list'>
       <div className='todo-sorting'>
-      <h4>Sort & Filter</h4>
         <select className='select-menu' onChange={handleSort}>
           <option value='date-ascending'>Date Ascending</option>
           <option value='date-descending'>Date Descending</option>
           <option value='priority'>Priority</option>
         </select>
-        <select className='select-menu' onChange={handleFilter} name="" id="">
-          <option value="all">All Tasks</option>
-          <option value="today">Due Today</option>
-          <option value="1">Vital</option>
-          <option value="2">Important</option>
-          <option value="3">Urgent</option>
-          <option value="4">Trivial</option>
-          <option value="$">Purchase</option>
-          <option value="short">Quick (&lt; 15 mins)</option>
-          <option value="long">Long (&gt; 60 mins)</option>
+        <select className='select-menu' onChange={handleFilter}>
+          <option value='active'>Active Tasks</option>
+          <option value='all'>All Tasks</option>
+          <option value='today'>Due Today</option>
+          <option value='1'>Vital</option>
+          <option value='2'>Important</option>
+          <option value='3'>Urgent</option>
+          <option value='4'>Trivial</option>
+          <option value='$'>Purchase</option>
+          <option value='short'>(&lt; 15 mins)</option>
+          <option value='long'>(&gt; 60 mins)</option>
         </select>
+        <i className='fas fa-plus-circle fa-3x' id="add-task" onClick={() => displayModal(null)}></i>
       </div>
       <div>{todoList ? mapTodos() : null}</div>
     </div>
