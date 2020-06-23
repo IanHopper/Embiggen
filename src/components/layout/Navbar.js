@@ -4,7 +4,7 @@ import TodoContext from '../../context/todos/todoContext';
 
 const Navbar = ({ title, icon }) => {
   const todoContext = useContext(TodoContext);
-  const { handleSort, handleFilter, displayModal } = todoContext;
+  const { handleSort, handleFilter, displayModal, handleUndo } = todoContext;
 
   return (
     <nav className='navbar'>
@@ -30,7 +30,7 @@ const Navbar = ({ title, icon }) => {
           <option value='long'>(&gt; 60 mins)</option>
         </select>
         <div className='navbar-buttons'>
-          <i className='fas fa-undo' id='undo' onClick={''}></i>
+          <i className='fas fa-undo' id='undo' onClick={()=> handleUndo()}></i>
           <i
             className='fas fa-plus-circle fa-3x add-task'
             id='add-task'

@@ -8,16 +8,19 @@ import {
   HANDLE_SORT,
   HANDLE_FILTER,
   HANDLE_INPUT_CHANGE,
-  DISPLAY_DELETE_MODAL
+  DISPLAY_DELETE_MODAL,
+  HANDLE_UNDO,
+  DELETE_TODO,
 } from '../types';
 
 const TodoState = (props) => {
   const initialState = {
     todos: [],
     todo: {},
+    history: [],
     modal: false,
     modalNew: true,
-    deleteModal: 0,
+    deleteModal: '',
     sortSelection: 'date-ascending',
     filterSelection: 'active',
     defaultTodo: {
@@ -34,17 +37,21 @@ const TodoState = (props) => {
   const [state, dispatch] = useReducer(TodoReducer, initialState);
 
   // Add task
-   // Create new task
-   const createTodo = async () => {
-    const headers = {
-      username: 1,
-      task_name: state.todo.task_name,
-      description: state.todo.description,
-      due_date: state.todo.due_date,
-      priority: state.todo.priority,
-      cost: state.todo.cost,
-      duration: state.todo.duration,
-    };
+  const createTodo = async (optionalTodo) => {
+    let headers;
+    if (optionalTodo) {
+      headers = optionalTodo;
+    } else {
+      headers = {
+        username: 1,
+        task_name: state.todo.task_name,
+        description: state.todo.description,
+        due_date: state.todo.due_date,
+        priority: state.todo.priority,
+        cost: state.todo.cost,
+        duration: state.todo.duration,
+      };
+    }
     await axios.post('http://127.0.0.1:8000/api/', headers);
   };
 
@@ -66,35 +73,48 @@ const TodoState = (props) => {
       description: state.todo.description,
       due_date: state.todo.due_date === '' ? null : state.todo.due_date,
       priority: state.todo.priority,
-      cost: (state.todo.cost === '') | (parseInt(state.todo.cost) === 0) ? null : state.todo.cost,
+      cost:
+        (state.todo.cost === '') | (parseInt(state.todo.cost) === 0)
+          ? null
+          : state.todo.cost,
       duration:
-        (state.todo.duration === '') | (state.todo.duration === '0') ? null : state.todo.duration,
+        (state.todo.duration === '') | (state.todo.duration === '0')
+          ? null
+          : state.todo.duration,
     };
     await axios.put(`http://127.0.0.1:8000/api/${state.todo.id}/`, headers);
   };
 
   // Delete task
-  const deleteTodo = async (id) => {
-    await axios.delete(`http://127.0.0.1:8000/api/${id}`);
-    displayDeleteModal(id);
+  const deleteTodo = async (e, todo) => {
+    e.preventDefault();
+    // Assign variable to task for deletion
+    const deletedTask = todo;
+    await axios.delete(`http://127.0.0.1:8000/api/${todo.id}`);
+    displayDeleteModal(todo.id);
+    // dispatch deleted task to get added to history array in state
+    dispatch({
+      type: DELETE_TODO,
+      payload: { deletedTask },
+    });
   };
 
   // Display delete modal
   const displayDeleteModal = (currentTodo) => {
     let deleteModal;
     let todo;
-    if(state.deleteModal === 0) {
-      deleteModal = currentTodo.id
-      todo = currentTodo
+    if (state.deleteModal === '') {
+      deleteModal = currentTodo;
+      todo = currentTodo;
     } else {
-      deleteModal = 0
-      todo = state.defaultTodo
+      deleteModal = '';
+      todo = state.defaultTodo;
     }
     dispatch({
       type: DISPLAY_DELETE_MODAL,
-      payload: {deleteModal, todo}
-    })
-  }
+      payload: { deleteModal, todo },
+    });
+  };
 
   // Display create/update modal
   const displayModal = (currentTodo) => {
@@ -149,13 +169,29 @@ const TodoState = (props) => {
   };
 
   // Submit modal
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (state.modalNew) {
-      createTodo();}
-      else {
-        updateTodo();
-      }
+      createTodo();
+    } else {
+      updateTodo();
+    }
     displayModal(null);
+  };
+
+  // Undo last task deletion
+  const handleUndo = () => {
+    // Create new task from last task in history array
+    if (state.history.length > 0) {
+      const deletedTodo = state.history[state.history.length - 1];
+      createTodo(deletedTodo);
+    }
+    // Remove last task in history from array
+    const newHistory = state.history.slice(0, -1);
+    dispatch({
+      type: HANDLE_UNDO,
+      payload: { newHistory },
+    });
   };
 
   return (
@@ -168,6 +204,7 @@ const TodoState = (props) => {
         sortSelection: state.sortSelection,
         filterSelection: state.filterSelection,
         deleteModal: state.deleteModal,
+        history: state.history,
         fetchTodos,
         handleSort,
         handleFilter,
@@ -177,7 +214,8 @@ const TodoState = (props) => {
         createTodo,
         updateTodo,
         handleSubmit,
-        displayDeleteModal
+        displayDeleteModal,
+        handleUndo,
       }}
     >
       {props.children}

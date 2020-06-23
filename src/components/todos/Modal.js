@@ -25,7 +25,9 @@ const Modal = () => {
             <h5>{todo.task_name === '' ? 'New Task' : todo.task_name}</h5>
           </div>
 
-          <form action='' className='modal-form'>
+          <form action='' className='modal-form'
+          onSubmit={(e) => handleSubmit(e)}
+          >
             <div>
               <label htmlFor='taskname'>Task Name</label>
               <input
@@ -35,6 +37,7 @@ const Modal = () => {
                 className='form-input'
                 value={todo.task_name ? todo.task_name : ''}
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div>
@@ -96,9 +99,9 @@ const Modal = () => {
             </div>
             {/* type="button" prevents warning, but takes away submit on enter */}
             <button
-              type='button'
+              // type='button'
               className='button btn-save'
-              onClick={() => handleSubmit()}
+              // onClick={(e) => handleSubmit(e)}
             >
               Save
             </button>

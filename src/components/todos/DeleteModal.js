@@ -6,7 +6,7 @@ const DeleteModal = () => {
   const {deleteTodo, deleteModal, displayDeleteModal, todo } = todoContext
 
   // Do not render modal if the App state is false
-  if (deleteModal === 0) {
+  if (deleteModal === '') {
     return null;
   }
 
@@ -22,16 +22,16 @@ const DeleteModal = () => {
             <i className='fa fa-times'></i>
           </button>
           <div className='modal-header delete'>
-            <h5>{todo.task_name}</h5>
+            <p>{todo.task_name}</p>
           </div>
 
           <form action='' className='modal-form'>
             
             {/* type="button" prevents warning, but takes away submit on enter */}
             <button
-              type='button'
+              // type='button'
               className='button btn-delete'
-              onClick={() => deleteTodo(deleteModal)}
+              onClick={(e) => deleteTodo(e, deleteModal)}
             >
               Delete Task
             </button>
