@@ -1,97 +1,57 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import TodoItem from './TodoItem';
 import TodoContext from '../../context/todos/todoContext';
 
-const TodoList = ({ deleteTodo, displayModal, todos }) => {
+const TodoList = () => {
   const todoContext = useContext(TodoContext);
-
- 
-  
-  const [sortSelection, setSort] = useState('date-ascending');
-  const [filterSelection, setFilter] = useState('active');
-  const [todoList, setTodoList] = useState();
+  const { todos, sortSelection, filterSelection, fetchTodos } = todoContext
 
   useEffect(() => {
-    setTodoList(todos);
-  }, [todos]);
-
-  const handleSort = (e) => {
-    const { value } = e.target;
-    setSort(value);
-  };
-
-  const handleFilter = (e) => {
-    const { value } = e.target;
-    setFilter(value);
-    todoContext.fetchTodos()
-  };
+    fetchTodos();
+  })
 
   const mapTodos = () => {
     // This changes the state directly which I think is incorrect
     if (sortSelection === 'priority') {
-      todoList.sort((a, b) => a.priority - b.priority);
+      todos.sort((a, b) => a.priority - b.priority);
     } else if (sortSelection === 'date-ascending') {
-      todoList.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+      todos.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
     } else if (sortSelection === 'date-descending') {
-      todoList.sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
+      todos.sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
     }
     let displayList = [];
     if (filterSelection === 'active') {
-      displayList = todoList.filter((todo) => todo.completed !== true);
+      displayList = todos.filter((todo) => todo.completed !== true);
     } else if (filterSelection === 'all') {
-      displayList = todoList;
+      displayList = todos;
     } else if (filterSelection === 'today') {
-      displayList = todoList.filter(
+      displayList = todos.filter(
         (todo) => todo.due_date === new Date().toISOString().slice(0, 10)
       );
     } else if ('1234'.includes(filterSelection)) {
-      displayList = todoList.filter(
+      displayList = todos.filter(
         (todo) => todo.priority === parseInt(filterSelection)
       );
     } else if (filterSelection === '$') {
-      displayList = todoList.filter((todo) => parseInt(todo.cost) > 0);
+      displayList = todos.filter((todo) => parseInt(todo.cost) > 0);
     } else if (filterSelection === 'short') {
-      displayList = todoList.filter((todo) => parseInt(todo.duration) <= 15);
+      displayList = todos.filter((todo) => parseInt(todo.duration) <= 15);
     } else if (filterSelection === 'long') {
-      displayList = todoList.filter((todo) => parseInt(todo.duration) >= 60);
+      displayList = todos.filter((todo) => parseInt(todo.duration) >= 60);
     }
+
     return displayList.map((todo) => (
       <TodoItem
         key={todo.id}
         todo={todo}
-        deleteTodo={deleteTodo}
-        displayModal={displayModal}
       />
     ));
   };
 
   return (
     <div className='todo-list'>
-      <div className='todo-sorting'>
-        <select className='select-menu' onChange={handleSort}>
-          <option value='date-ascending'>Date Ascending</option>
-          <option value='date-descending'>Date Descending</option>
-          <option value='priority'>Priority</option>
-        </select>
-        <select className='select-menu' onChange={handleFilter}>
-          <option value='active'>Active Tasks</option>
-          <option value='all'>All Tasks</option>
-          <option value='today'>Due Today</option>
-          <option value='1'>Vital</option>
-          <option value='2'>Important</option>
-          <option value='3'>Urgent</option>
-          <option value='4'>Trivial</option>
-          <option value='$'>Purchase</option>
-          <option value='short'>(&lt; 15 mins)</option>
-          <option value='long'>(&gt; 60 mins)</option>
-        </select>
-        <i
-          className='fas fa-plus-circle fa-3x'
-          id='add-task'
-          onClick={() => displayModal(null)}
-        ></i>
-      </div>
-      <div>{todoList ? mapTodos() : null}</div>
+      
+      <div>{todos ? mapTodos() : null}</div>
     </div>
   );
 };

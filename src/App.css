@@ -6,7 +6,7 @@
   --secondary-color: red;
   --background-color: rgb(194, 215, 229);
   --money-color: rgb(48, 122, 48);
-  --money-background: rgba(90, 199, 90,.5);
+  --money-background: rgba(90, 199, 90, 0.5);
 }
 
 * {
@@ -27,8 +27,6 @@ p {
 /* Navbar */
 .navbar {
   position: fixed;
-  justify-content: space-between;
-  align-items: center;
   padding: 0.7rem 2rem;
   width: 100%;
   overflow: hidden;
@@ -38,15 +36,66 @@ p {
   z-index: 100;
 }
 
-.navbar i span {
-  font-family: 'Anton'
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+  align-self: center;
+  margin: auto;
 }
 
-.navbar i {
-  display: flex;
+.navbar i span {
+  font-family: 'Anton';
+}
+
+.navbar i:first-of-type {
+  /* display: flex; */
   float: left;
   color: var(--primary-color);
 }
+
+/* Sorting menus */
+
+.select-menu {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  padding: 5px;
+  border-radius: 5px;
+  border: 0;
+  font-weight: bold;
+}
+
+.select-menu:focus {
+  outline: none;
+}
+
+.select-menu:hover {
+  cursor: pointer;
+}
+
+.navbar-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Plus todo icon */
+.navbar #add-task, .navbar #undo {
+  margin: auto;
+  color: var(--secondary-color);
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 0 10px;
+}
+
+.navbar #undo {
+  color: #999;
+  font-size: 1.5rem;
+}
+
+/* App */
 
 .App-header {
   margin-top: 44px;
@@ -93,20 +142,18 @@ p {
 .item-cost {
   display: inline-block;
   grid-area: cost;
-  
 }
 
 .item-cost p {
-  
   color: var(--money-color);
   font-weight: bold;
   padding-top: 6px;
   margin: 3px 0;
   max-width: 70px;
   height: 30px;
-  border: .25px solid var(--money-color);
+  border: 0.25px solid var(--money-color);
   background-color: var(--money-background);
-  line-height: .75rem;
+  line-height: 0.75rem;
   text-align: center;
 }
 
@@ -133,9 +180,8 @@ p {
   padding: 0 5px;
 }
 
-.item-completed input[type="checkbox"] {
+.item-completed input[type='checkbox'] {
   opacity: 0;
-  
 }
 
 .item-completed label {
@@ -171,31 +217,30 @@ p {
   top: 0px;
 }
 
-.item-completed input[type="checkbox"] + label::after {
+.item-completed input[type='checkbox'] + label::after {
   content: none;
 }
 
-.item-completed input[type="checkbox"]:checked + label::after {
-  content: "";
+.item-completed input[type='checkbox']:checked + label::after {
+  content: '';
 }
 
-.item-completed input[type="checkbox"]:hover + label::after {
-  content: "";
+.item-completed input[type='checkbox']:hover + label::after {
+  content: '';
   border-color: #999;
 }
 
-.item-completed input[type="checkbox"]:hover:checked + label::after {
-  content: "";
+.item-completed input[type='checkbox']:hover:checked + label::after {
+  content: '';
   border-color: inherit;
 }
-
 
 .card {
   min-height: 120px;
   padding: 1rem;
   border: #ccc 1px solid;
   margin: 0.3rem 0;
-  /* border-radius: 10px; */
+
   display: grid;
   grid-template-columns: 30px;
   grid-template-areas:
@@ -210,44 +255,11 @@ p {
   max-width: 600px;
   margin: auto;
   overflow: hidden;
-  padding: 0 2rem;
   background-color: var(--background-color);
-  /* border-radius: 10px; */
 }
 
 .text-center {
   text-align: center;
-}
-
-/* Sorting menus */
-
-.todo-sorting {
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Plus todo icon */
-.todo-sorting i {
-  float: right;
-  text-align: right;
-  color: var(--secondary-color);
-  cursor: pointer;
-}
-
-.select-menu {
-  padding: 5px;
-  border-radius: 5px;
-  border: 0;
-  font-weight: bold;
-  background-color: var(--background-color);
-}
-
-.select-menu:focus {
-  outline: none;
-}
-
-.select-menu:hover {
-  cursor: pointer;
 }
 
 .input {
@@ -282,10 +294,15 @@ p {
   background-color: red;
 }
 
-.btn-save {
+.btn-save,
+.btn-delete {
   background-color: var(--primary-color);
   width: 100%;
   margin-top: 10px;
+}
+
+.btn-delete {
+  background-color: var(--secondary-color);
 }
 
 .vital {
@@ -343,7 +360,7 @@ p {
   transform: translate(-50%, -50%);
   max-width: 100%;
   width: 400px;
-  padding:
+  padding: ;
 }
 
 .modal-header {
@@ -354,11 +371,14 @@ p {
   border-radius: 0;
 }
 
+.modal-header.delete {
+  background: var(--primary-color);
+}
+
 .modal-header h5 {
   margin: 0;
   font-weight: bold;
   font-size: 1.5em;
-  /* color: var(--primary-color); */
 }
 
 .modal-form {
@@ -404,3 +424,7 @@ p {
   outline: none;
 }
 
+.footer {
+  width: 100%;
+  text-align: center;
+}
