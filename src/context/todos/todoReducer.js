@@ -6,7 +6,8 @@ import {
   HANDLE_INPUT_CHANGE,
   DISPLAY_DELETE_MODAL,
   HANDLE_UNDO,
-  DELETE_TODO
+  DELETE_TODO,
+  HANDLE_CHECKBOX_CHANGE
 } from '../types';
 
 export default (state, action) => {
@@ -57,6 +58,11 @@ export default (state, action) => {
       return {
         ...state,
         history: state.history.concat([action.payload.deletedTask])
+      }
+    case HANDLE_CHECKBOX_CHANGE:
+      return {
+        ...state,
+        todo: action.payload.todo
       }
     default:
       return state;

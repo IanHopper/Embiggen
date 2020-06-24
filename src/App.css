@@ -32,13 +32,11 @@ p {
   overflow: hidden;
   background-color: #fff;
   top: 0;
-  font-size: 2rem;
   z-index: 100;
 }
 
 .navbar-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   max-width: 800px;
   width: 100%;
@@ -46,6 +44,7 @@ p {
   margin: auto;
 }
 
+/* Brand */
 .navbar i span {
   font-family: 'Anton';
 }
@@ -54,18 +53,35 @@ p {
   /* display: flex; */
   float: left;
   color: var(--primary-color);
+  font-size: 2rem;
 }
 
-/* Sorting menus */
+/* Sorting & Filter menus */
+
+.navbar div {
+  display: flex;
+  margin: 0 auto;
+}
+
+.navbar label {
+  display: relative;
+  margin: 0 auto;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0 5px 0 0;
+}
 
 .select-menu {
   display: flex;
-  justify-content: space-between;
   font-size: 1rem;
-  padding: 5px;
-  border-radius: 5px;
   border: 0;
   font-weight: bold;
+  color: var(--primary-color);
+  width: 100%;
+  -o-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .select-menu:focus {
@@ -78,11 +94,10 @@ p {
 
 .navbar-buttons {
   display: flex;
-  justify-content: space-between;
 }
 
-/* Plus todo icon */
-.navbar #add-task, .navbar #undo {
+/* Plus/Undo/Settings icons */
+.navbar #add-task, .navbar #undo, .navbar #settings {
   margin: auto;
   color: var(--secondary-color);
   cursor: pointer;
@@ -91,8 +106,12 @@ p {
 }
 
 .navbar #undo {
-  color: #999;
+  color: #555;
   font-size: 1.5rem;
+}
+
+.navbar #settings {
+  color: #999;
 }
 
 /* App */

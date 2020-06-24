@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth import get_user_model, get_user
+from django.contrib.auth import get_user_model
 
 
 class Todo(models.Model):
@@ -9,7 +9,8 @@ class Todo(models.Model):
     URGENT = 3
     TRIVIAL = 4
   
-  username = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
+  username = models.ForeignKey(get_user_model(),on_delete=models.SET_NULL, null=True, blank=True)
+
   task_name = models.CharField(max_length=200)
   description = models.TextField(blank=True, null=True)
   date_created = models.DateField(auto_now_add=True, blank=True, null=True)

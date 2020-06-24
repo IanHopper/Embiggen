@@ -5,7 +5,7 @@ import TodoContext from '../../context/todos/todoContext';
 
 const TodoItem = ({todo}) => {
   const todoContext = useContext(TodoContext);
-  const { displayModal, deleteTodo, displayDeleteModal } = todoContext;
+  const { displayModal, displayDeleteModal, updateTodoCompleted } = todoContext;
 
   const {
     id,
@@ -17,17 +17,6 @@ const TodoItem = ({todo}) => {
     cost,
     completed,
   } = todo;
-
-  // Update todo
-  const updateTodoCompleted = async (e) => {
-    console.log(e.target.checked === true);
-    const headers = {
-      username: 1,
-      task_name: task_name,
-      completed: e.target.checked === true,
-    };
-    await axios.put(`http://127.0.0.1:8000/api/${id}/`, headers);
-  };
 
   // Names for priority numbers used to add classe for color coding
   const priorityList = {
@@ -86,7 +75,7 @@ const TodoItem = ({todo}) => {
           type='checkbox'
           className='checkbox'
           id={id}
-          onChange={updateTodoCompleted}
+          onChange={(e) => updateTodoCompleted(e, todo)}
           checked={completed}
         />
         <label className={priorityList[priority]} htmlFor={id}></label>
@@ -97,7 +86,7 @@ const TodoItem = ({todo}) => {
       <div className={dateClass()}>
         <p>
           {due_date ? dateTranslate() : null} &nbsp;
-          {due_date ? <i className='fa fa-calendar-alt'></i> : null}
+          {due_date ? <i className='fa fa-calendar-alt' onClick={()=>console.log(due_date, new Date())}></i> : null}
         </p>
       </div>
       <div className='item-main'>

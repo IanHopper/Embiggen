@@ -4,11 +4,11 @@ import TodoContext from '../../context/todos/todoContext';
 
 const TodoList = () => {
   const todoContext = useContext(TodoContext);
-  const { todos, sortSelection, filterSelection, fetchTodos } = todoContext
+  const { todos, sortSelection, filterSelection, fetchTodos } = todoContext;
 
   useEffect(() => {
     fetchTodos();
-  })
+  },[]);
 
   const mapTodos = () => {
     // This changes the state directly which I think is incorrect
@@ -18,6 +18,12 @@ const TodoList = () => {
       todos.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
     } else if (sortSelection === 'date-descending') {
       todos.sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
+    } else if (sortSelection === 'cost') {
+      todos.sort((a, b) => b.cost - a.cost);
+    } else if (sortSelection === 'duration-ascending') {
+      todos.sort((a, b) => b.duration - a.duration);
+    } else if (sortSelection === 'duration-descending') {
+      todos.sort((a, b) => a.duration - b.duration);
     }
     let displayList = [];
     if (filterSelection === 'active') {
@@ -40,17 +46,11 @@ const TodoList = () => {
       displayList = todos.filter((todo) => parseInt(todo.duration) >= 60);
     }
 
-    return displayList.map((todo) => (
-      <TodoItem
-        key={todo.id}
-        todo={todo}
-      />
-    ));
+    return displayList.map((todo) => <TodoItem key={todo.id} todo={todo} />);
   };
 
   return (
     <div className='todo-list'>
-      
       <div>{todos ? mapTodos() : null}</div>
     </div>
   );

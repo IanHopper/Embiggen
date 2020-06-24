@@ -11,6 +11,7 @@ import {
   DISPLAY_DELETE_MODAL,
   HANDLE_UNDO,
   DELETE_TODO,
+  HANDLE_CHECKBOX_CHANGE,
 } from '../types';
 
 const TodoState = (props) => {
@@ -36,13 +37,21 @@ const TodoState = (props) => {
 
   const [state, dispatch] = useReducer(TodoReducer, initialState);
 
+  // iandthopper token
+  const token = '8bc63db1837dfd7aa8c4b1359bdf7f8ac974ea46';
+
   // Add task
   const createTodo = async (optionalTodo) => {
-    let headers;
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    let data;
     if (optionalTodo) {
-      headers = optionalTodo;
+      data = optionalTodo;
     } else {
-      headers = {
+      data = {
         username: 1,
         task_name: state.todo.task_name,
         description: state.todo.description,
@@ -52,12 +61,18 @@ const TodoState = (props) => {
         duration: state.todo.duration,
       };
     }
-    await axios.post('http://127.0.0.1:8000/api/', headers);
+    await axios.post('http://127.0.0.1:8000/api/', data, config);
+    fetchTodos();
   };
 
   // Get tasks
   const fetchTodos = async () => {
-    const res = await axios.get('http://127.0.0.1:8000/api/');
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    const res = await axios.get('http://127.0.0.1:8000/api/', config);
 
     dispatch({
       type: FETCH_TODOS,
@@ -67,7 +82,12 @@ const TodoState = (props) => {
 
   // Update Task
   const updateTodo = async () => {
-    const headers = {
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    const data = {
       username: state.todo.username,
       task_name: state.todo.task_name,
       description: state.todo.description,
@@ -82,7 +102,8 @@ const TodoState = (props) => {
           ? null
           : state.todo.duration,
     };
-    await axios.put(`http://127.0.0.1:8000/api/${state.todo.id}/`, headers);
+    await axios.put(`http://127.0.0.1:8000/api/${state.todo.id}/`, data, config);
+    fetchTodos();
   };
 
   // Delete task
@@ -90,13 +111,19 @@ const TodoState = (props) => {
     e.preventDefault();
     // Assign variable to task for deletion
     const deletedTask = todo;
-    await axios.delete(`http://127.0.0.1:8000/api/${todo.id}`);
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    await axios.delete(`http://127.0.0.1:8000/api/${todo.id}`, config);
     displayDeleteModal(todo.id);
     // dispatch deleted task to get added to history array in state
     dispatch({
       type: DELETE_TODO,
       payload: { deletedTask },
     });
+    fetchTodos();
   };
 
   // Display delete modal
@@ -192,6 +219,23 @@ const TodoState = (props) => {
       type: HANDLE_UNDO,
       payload: { newHistory },
     });
+    fetchTodos();
+  };
+
+  // Update todo when box checked/unchecked
+  const updateTodoCompleted = async (e, todo) => {
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    const data = {
+      username: 1,
+      task_name: todo.task_name,
+      completed: e.target.checked === true,
+    };
+    await axios.put(`http://127.0.0.1:8000/api/${todo.id}/`, data, config);
+    fetchTodos();
   };
 
   return (
@@ -216,6 +260,7 @@ const TodoState = (props) => {
         handleSubmit,
         displayDeleteModal,
         handleUndo,
+        updateTodoCompleted,
       }}
     >
       {props.children}
