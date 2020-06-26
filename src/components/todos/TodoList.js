@@ -1,14 +1,19 @@
 import React, { useContext, useEffect } from 'react';
 import TodoItem from './TodoItem';
 import TodoContext from '../../context/todos/todoContext';
+import MultiSelect from '../layout/MultiSelect';
 
 const TodoList = () => {
   const todoContext = useContext(TodoContext);
   const { todos, sortSelection, filterSelection, fetchTodos } = todoContext;
 
+  let token = localStorage.getItem('token');
+
   useEffect(() => {
-    fetchTodos();
-  },[]);
+    if (token) {
+      fetchTodos();
+    }
+  }, []);
 
   const mapTodos = () => {
     // This changes the state directly which I think is incorrect
@@ -51,6 +56,9 @@ const TodoList = () => {
 
   return (
     <div className='todo-list'>
+      <div>
+        <MultiSelect />
+      </div>
       <div>{todos ? mapTodos() : null}</div>
     </div>
   );

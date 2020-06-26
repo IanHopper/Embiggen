@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import TodoContext from '../../context/todos/todoContext';
 
 const TodoItem = ({todo}) => {

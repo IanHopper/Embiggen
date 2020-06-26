@@ -7,7 +7,15 @@ import {
   DISPLAY_DELETE_MODAL,
   HANDLE_UNDO,
   DELETE_TODO,
-  HANDLE_CHECKBOX_CHANGE
+  HANDLE_CHECKBOX_CHANGE,
+  HANDLE_LOGIN_CHANGE,
+  HANDLE_REGISTER_CHANGE,
+  USER_LOADING,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT_USER,
 } from '../types';
 
 export default (state, action) => {
@@ -15,55 +23,117 @@ export default (state, action) => {
     case FETCH_TODOS:
       return {
         ...state,
-        todos: action.payload
-      }
+        todos: action.payload,
+      };
     case HANDLE_FILTER:
       return {
         ...state,
-        filterSelection: action.payload
-      }
+        filterSelection: action.payload,
+      };
     case HANDLE_SORT:
       return {
         ...state,
-        sortSelection: action.payload
-      }
+        sortSelection: action.payload,
+      };
     case DISPLAY_MODAL:
       return {
         ...state,
         modal: action.payload.modal,
         modalNew: action.payload.modalNew,
-        todo: action.payload.todo
-      }
+        todo: action.payload.todo,
+      };
     case HANDLE_INPUT_CHANGE:
       return {
         ...state,
         todo: {
           ...state.todo,
-          [action.payload.id]: action.payload.value
-        }
-      }
+          [action.payload.id]: action.payload.value,
+        },
+      };
     case DISPLAY_DELETE_MODAL:
       return {
         ...state,
         deleteModal: action.payload.deleteModal,
-        todo: action.payload.todo
-      }
+        todo: action.payload.todo,
+      };
     case HANDLE_UNDO:
-      if(!state.history.length) return state
+      if (!state.history.length) return state;
       return {
         ...state,
-        history: action.payload.newHistory
-      }
+        history: action.payload.newHistory,
+      };
     case DELETE_TODO:
       return {
         ...state,
-        history: state.history.concat([action.payload.deletedTask])
-      }
+        history: state.history.concat([action.payload.deletedTask]),
+      };
     case HANDLE_CHECKBOX_CHANGE:
       return {
         ...state,
-        todo: action.payload.todo
-      }
+        todo: action.payload.todo,
+      };
+    case HANDLE_LOGIN_CHANGE:
+      return {
+        ...state,
+        loginCredentials: {
+          ...state.loginCredentials,
+          [action.payload.id]: action.payload.value,
+        },
+      };
+    case HANDLE_REGISTER_CHANGE:
+      return {
+        ...state,
+        register: {
+          ...state.register,
+          [action.payload.id]: action.payload.value,
+        },
+      };
+    case USER_LOADING:
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          isLoading: true,
+        },
+      };
+    case USER_LOADED:
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          isAuthenticated: true,
+          isLoading: false,
+          user: action.payload,
+        },
+      };
+    case AUTH_ERROR:
+    case LOGOUT_USER:
+    case LOGIN_FAIL:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        auth: {
+          token: null,
+          user: null,
+          isAuthenticated: false,
+          isLoading: false,
+        },
+      };
+    case LOGIN_SUCCESS:
+      localStorage.setItem('token', action.payload.token);
+      return {
+        ...state,
+        ...action.payload,
+        auth: {
+          ...state.auth,
+          isAuthenticated: true,
+          isLoading: false,
+        },
+        loginCredentials: {
+          username: null,
+          password: null
+        }
+      };
     default:
       return state;
   }

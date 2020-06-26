@@ -1,17 +1,54 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TodoContext from '../../context/todos/todoContext';
 
 const Navbar = ({ title, icon }) => {
   const todoContext = useContext(TodoContext);
-  const { handleSort, handleFilter, displayModal, handleUndo } = todoContext;
+  const {
+    handleSort,
+    handleFilter,
+    displayModal,
+    handleUndo,
+    loadUser,
+    logout,
+    auth,
+  } = todoContext;
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const authLinks = (
+      <p className='nav-link' onClick={logout}>
+        Logout
+      </p>
+  );
+
+  const guestLinks = (
+    <div>
+      <Link to='/register' className='nav-link'>
+        Register
+      </Link>
+
+      <Link to='/login' className='nav-link'>
+        Login
+      </Link>
+    </div>
+  );
 
   return (
     <nav className='navbar'>
       <div className='navbar-container'>
-        <i className={icon} onClick={() => todoContext.fetchTodos()} id='brand'>
-          <span>&nbsp;{title}</span>
-        </i>
+        <Link to='/'>
+          <i
+            className={icon}
+            onClick={() => todoContext.fetchTodos()}
+            id='brand'
+          >
+            <span>&nbsp;{title}</span>
+          </i>
+        </Link>
         <div>
           <div>
             <label htmlFor='sort-select'>Sort</label>
@@ -47,6 +84,7 @@ const Navbar = ({ title, icon }) => {
               <option value='long'>(&gt; 60 mins)</option>
             </select>
           </div>
+          <div></div>
         </div>
         <div className='navbar-buttons'>
           <i className='fas fa-undo' id='undo' onClick={() => handleUndo()}></i>
@@ -55,7 +93,10 @@ const Navbar = ({ title, icon }) => {
             id='add-task'
             onClick={() => displayModal(null)}
           ></i>
-          <i className='fas fa-cog fa-2x' id='settings'></i>
+          {/* <i className='fas fa-user fa-2x' id='user'></i> */}
+          {/* <i className='fas fa-cog fa-2x' id='settings'></i> */}
+
+          {auth.isAuthenticated ? authLinks : guestLinks}
         </div>
       </div>
     </nav>
