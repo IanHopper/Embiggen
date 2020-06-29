@@ -18,17 +18,10 @@ const taskOptions = [
 
 const MultiSelect = () => {
   const todoContext = useContext(TodoContext);
-  const {
-    handleSort,
-    handleFilter,
-    displayModal,
-    handleUndo,
-    loadUser,
-    logout,
-    auth,
-  } = todoContext;
+ 
   return (
     <Select
+      ref={React.createRef}
       isMulti
       name='colors'
       options={taskOptions}
@@ -36,7 +29,7 @@ const MultiSelect = () => {
       // id='filter'
       onChange={(e)=>console.log(e)}
       // className="basic-multi-select"
-      // classNamePrefix="select"
+      classNamePrefix="select"
     />
   );
 };

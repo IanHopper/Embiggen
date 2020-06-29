@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import TodoItem from './TodoItem';
 import TodoContext from '../../context/todos/todoContext';
-import MultiSelect from '../layout/MultiSelect';
+// import MultiSelect from '../layout/MultiSelect';
 
 const TodoList = () => {
   const todoContext = useContext(TodoContext);
@@ -13,6 +13,7 @@ const TodoList = () => {
     if (token) {
       fetchTodos();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const mapTodos = () => {
@@ -57,7 +58,7 @@ const TodoList = () => {
   return (
     <div className='todo-list'>
       <div>
-        <MultiSelect />
+        {/* <MultiSelect /> */}
       </div>
       <div>{todos ? mapTodos() : null}</div>
     </div>

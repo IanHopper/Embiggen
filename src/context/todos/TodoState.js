@@ -19,6 +19,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_USER,
+  HANDLE_REGISTER_SUCCESS
 } from '../types';
 
 const TodoState = (props) => {
@@ -33,6 +34,12 @@ const TodoState = (props) => {
       username: null,
       password: null,
     },
+    registration: {
+      username: null,
+      email: null,
+      password: null,
+      password2: null,
+    },
     todos: [],
     todo: {},
     history: [],
@@ -41,9 +48,8 @@ const TodoState = (props) => {
     deleteModal: '',
     sortSelection: 'date-ascending',
     filterSelection: 'active',
-    currentUser: 1,
     defaultTodo: {
-      username: 1,
+      username: null,
       task_name: '',
       description: '',
       due_date: null,
@@ -58,9 +64,9 @@ const TodoState = (props) => {
   // Add task
   const createTodo = async (optionalTodo) => {
     let token = localStorage.getItem('token')
-    ? localStorage.getItem('token')
-    : '';
-    const config = {
+      ? localStorage.getItem('token')
+      : '';
+      const config = {
       headers: {
         Authorization: `Token ${token}`,
       },
@@ -70,7 +76,7 @@ const TodoState = (props) => {
       data = optionalTodo;
     } else {
       data = {
-        username: state.currentUser,
+        username: state.auth.user.id,
         task_name: state.todo.task_name,
         description: state.todo.description,
         due_date: state.todo.due_date,
@@ -86,8 +92,8 @@ const TodoState = (props) => {
   // Get tasks
   const fetchTodos = async () => {
     let token = localStorage.getItem('token')
-    ? localStorage.getItem('token')
-    : '';
+      ? localStorage.getItem('token')
+      : '';
     const config = {
       headers: {
         Authorization: `Token ${token}`,
@@ -104,8 +110,8 @@ const TodoState = (props) => {
   // Update Task
   const updateTodo = async () => {
     let token = localStorage.getItem('token')
-    ? localStorage.getItem('token')
-    : '';
+      ? localStorage.getItem('token')
+      : '';
     const config = {
       headers: {
         Authorization: `Token ${token}`,
@@ -140,8 +146,8 @@ const TodoState = (props) => {
     // Assign variable to task for deletion
     const deletedTask = todo;
     let token = localStorage.getItem('token')
-    ? localStorage.getItem('token')
-    : '';
+      ? localStorage.getItem('token')
+      : '';
     const config = {
       headers: {
         Authorization: `Token ${token}`,
@@ -175,7 +181,10 @@ const TodoState = (props) => {
   };
 
   // Display create/update modal
-  const displayModal = (currentTodo) => {
+  const displayModal = (e, currentTodo) => {
+    if(e.target.id === "deleteTask"){
+      return null
+    }
     // Open and close the task modal; modalType update for create or update
     let todo;
     let modal;
@@ -234,7 +243,7 @@ const TodoState = (props) => {
     } else {
       updateTodo();
     }
-    displayModal(null);
+    displayModal(e, null);
   };
 
   // Undo last task deletion
@@ -256,15 +265,15 @@ const TodoState = (props) => {
   // Update todo when box checked/unchecked
   const updateTodoCompleted = async (e, todo) => {
     let token = localStorage.getItem('token')
-    ? localStorage.getItem('token')
-    : '';
+      ? localStorage.getItem('token')
+      : '';
     const config = {
       headers: {
         Authorization: `Token ${token}`,
       },
     };
     const data = {
-      username: state.currentUser,
+      username: state.auth.user.id,
       task_name: todo.task_name,
       completed: e.target.checked === true,
     };
@@ -296,8 +305,8 @@ const TodoState = (props) => {
     dispatch({ type: USER_LOADING });
     // Get token from state
     let token = localStorage.getItem('token')
-    ? localStorage.getItem('token')
-    : '';
+      ? localStorage.getItem('token')
+      : '';
 
     // Headers
     const config = {
@@ -308,8 +317,7 @@ const TodoState = (props) => {
     // If token, add to headers config
     if (token) {
       config.headers['Authorization'] = `Token ${token}`;
-    }
-    await axios
+      await axios
       .get('http://localhost:8000/api/auth/user', config)
       .then((res) => {
         dispatch({
@@ -323,6 +331,8 @@ const TodoState = (props) => {
           type: AUTH_ERROR,
         });
       });
+    }
+    
   };
 
   // Login user
@@ -342,25 +352,50 @@ const TodoState = (props) => {
         body,
         config
       );
-      console.log(res.data);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
     } catch (err) {
       console.log(err.response.data, err.response.status);
-      console.log('ERROR?')
       dispatch({
         type: LOGIN_FAIL,
       });
     }
   };
 
+  // Login user
+  const register = async (e) => {
+    const { username, email, password } = state.registration;
+    e.preventDefault();
+    // Headers
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    // Login credentials
+    const body = JSON.stringify({ username, email, password });
+    try {
+      const res = await axios.post(
+        'http://localhost:8000/api/auth/register',
+        body,
+        config
+      );
+      dispatch({
+        type: HANDLE_REGISTER_SUCCESS,
+        payload: res.data,
+      })
+    } catch (err) {
+      console.log(err.response.data, err.response.status);
+    }
+  };
+
   // Logout
   const logout = async () => {
     let token = localStorage.getItem('token')
-    ? localStorage.getItem('token')
-    : '';
+      ? localStorage.getItem('token')
+      : '';
     // Headers
     const config = {
       headers: {
@@ -378,7 +413,6 @@ const TodoState = (props) => {
       });
     } catch (err) {
       console.log(err.response.data, err.response.status);
-      console.log('ERROR?')
     }
   };
 
@@ -396,6 +430,7 @@ const TodoState = (props) => {
         deleteModal: state.deleteModal,
         history: state.history,
         loginCredentials: state.loginCredentials,
+        registration: state.registration,
         fetchTodos,
         handleSort,
         handleFilter,
@@ -413,6 +448,7 @@ const TodoState = (props) => {
         handleRegisterChange,
         login,
         logout,
+        register,
       }}
     >
       {props.children}

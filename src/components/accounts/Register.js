@@ -1,16 +1,20 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import TodoContext from '../../context/todos/todoContext';
 
 const Register = () => {
   const todoContext = useContext(TodoContext);
-  const { handleRegister, handleRegisterChange, register } = todoContext;
+  const { register, handleRegisterChange, registration, auth } = todoContext;
+
+  if(auth.isAuthenticated){
+    return <Redirect to="/" />
+  }
 
   return (
     <div className='account-form'>
       <div>
         <h2>Register</h2>
-        <form onSubmit={handleRegister}>
+        <form onSubmit={(e,registration) => register(e)}>
           <div>
             <label>Username</label>
             <input
@@ -19,7 +23,7 @@ const Register = () => {
               className='form-control'
               name='username'
               onChange={handleRegisterChange}
-              value={register.username ? register.username : ''}
+              value={registration.username ? registration.username : ''}
             />
           </div>
           <div>
@@ -30,7 +34,7 @@ const Register = () => {
               className='form-control'
               name='email'
               onChange={handleRegisterChange}
-              value={register.email ? register.email : ''}
+              value={registration.email ? registration.email : ''}
             />
           </div>
           <div>
@@ -41,7 +45,7 @@ const Register = () => {
               className='form-control'
               name='password'
               onChange={handleRegisterChange}
-              value={register.password ? register.password : ''}
+              value={registration.password ? registration.password : ''}
             />
           </div>
           <div>
@@ -52,7 +56,7 @@ const Register = () => {
               className='form-control'
               name='password2'
               onChange={handleRegisterChange}
-              value={register.password2 ? register.password2 : ''}
+              value={registration.password2 ? registration.password2 : ''}
             />
           </div>
           <div className='form-group'>

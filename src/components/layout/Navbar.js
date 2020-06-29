@@ -17,12 +17,21 @@ const Navbar = ({ title, icon }) => {
 
   useEffect(() => {
     loadUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const authLinks = (
+  const authLinks = (user) => (
+    <div>
+      <i className='fas fa-undo' id='undo' onClick={() => handleUndo()}></i>
+      <i
+        className='fas fa-plus-circle add-task'
+        id='add-task'
+        onClick={() => displayModal(null)}
+      ></i>
       <p className='nav-link' onClick={logout}>
-        Logout
+        Logout ({user})
       </p>
+    </div>
   );
 
   const guestLinks = (
@@ -87,16 +96,7 @@ const Navbar = ({ title, icon }) => {
           <div></div>
         </div>
         <div className='navbar-buttons'>
-          <i className='fas fa-undo' id='undo' onClick={() => handleUndo()}></i>
-          <i
-            className='fas fa-plus-circle add-task'
-            id='add-task'
-            onClick={() => displayModal(null)}
-          ></i>
-          {/* <i className='fas fa-user fa-2x' id='user'></i> */}
-          {/* <i className='fas fa-cog fa-2x' id='settings'></i> */}
-
-          {auth.isAuthenticated ? authLinks : guestLinks}
+          {auth.isAuthenticated ? authLinks(auth.user.username) : guestLinks}
         </div>
       </div>
     </nav>

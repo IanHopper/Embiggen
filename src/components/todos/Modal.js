@@ -17,7 +17,7 @@ const Modal = () => {
           <button
             className='button close-btn'
             id='close'
-            onClick={() => displayModal(null)}
+            onClick={(e) => displayModal(e, null)}
           >
             <i className='fa fa-times'></i>
           </button>

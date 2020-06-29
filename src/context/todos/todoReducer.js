@@ -16,6 +16,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_USER,
+  HANDLE_REGISTER_SUCCESS
 } from '../types';
 
 export default (state, action) => {
@@ -83,10 +84,28 @@ export default (state, action) => {
     case HANDLE_REGISTER_CHANGE:
       return {
         ...state,
-        register: {
-          ...state.register,
+        registration: {
+          ...state.registration,
           [action.payload.id]: action.payload.value,
         },
+      };
+    case HANDLE_REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token);  
+      return {
+        ...state,
+        ...action.payload,
+        auth: {
+          ...state.auth,
+          isAuthenticated: true,
+          isLoading: false,
+          user: action.payload.user
+        },
+        registration: {
+          username: null,
+          email: null,
+          password: null,
+          password2: null
+        }
       };
     case USER_LOADING:
       return {
@@ -128,6 +147,7 @@ export default (state, action) => {
           ...state.auth,
           isAuthenticated: true,
           isLoading: false,
+          user: action.payload.user
         },
         loginCredentials: {
           username: null,

@@ -28,11 +28,11 @@ const TodoItem = ({todo}) => {
   // Add classes for styling overdue tasks and tasks for today
   const dateClass = () => {
     if (due_date === new Date().toISOString().slice(0, 10)) {
-      return 'item-date today';
+      return 'grid-item item-date today';
     } else if (new Date(due_date) < new Date() && due_date) {
-      return 'item-date overdue';
+      return 'grid-item item-date overdue';
     } else {
-      return 'item-date';
+      return 'grid-item item-date';
     }
   };
 
@@ -67,7 +67,7 @@ const TodoItem = ({todo}) => {
 
   // Task card layout
   return (
-    <div className='card'>
+    <div className='grid-card' onClick={(e) => displayModal(e, todo)}>
       {/* Click on task name to open update modal */}
       <div className='item-completed'>
         <input
@@ -79,7 +79,7 @@ const TodoItem = ({todo}) => {
         />
         <label className={priorityList[priority]} htmlFor={id}></label>
       </div>
-      <div className='item-header' onClick={() => displayModal(todo)}>
+      <div className='grid-item item-header'>
         <p className={priorityList[priority]}>{task_name}</p>
       </div>
       <div className={dateClass()}>
@@ -88,27 +88,27 @@ const TodoItem = ({todo}) => {
           {due_date ? <i className='fa fa-calendar-alt' onClick={()=>console.log(due_date, new Date())}></i> : null}
         </p>
       </div>
-      <div className='item-main'>
+      <div className='grid-item item-main'>
         <p>{description}</p>
       </div>
-      <div className='item-duration'>
+      <div className='grid-item item-duration'>
         {duration > 0 ? (
           <p>
             <i className='far fa-clock'></i> {duration} minutes
           </p>
         ) : null}
       </div>
-      <div className='item-cost'>
+      <div className='grid-item item-cost'>
         {cost > 0 ? (
           <p>
             <i className='fas fa-dollar-sign'></i> {cost.slice(0, -3)}
           </p>
         ) : null}
       </div>
-      <div className='item-delete'>
+      <div className='grid-item item-delete'>
         {/* Click delete icon to delete task */}
         {/* <i className='fas fa-trash-alt' onClick={() => deleteTodo(id)}></i> */}
-        <i className='fas fa-trash-alt' onClick={() => displayDeleteModal(todo)}></i>
+        <i className='fas fa-trash-alt' id="deleteTask" onClick={() => displayDeleteModal(todo)}></i>
       </div>
     </div>
   );

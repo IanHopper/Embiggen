@@ -134,18 +134,35 @@ p {
   margin-top: 44px;
 }
 
-/* Todos */
+/* Todo Card */
+
+.grid-card {
+  cursor: pointer;
+  min-height: 120px;
+  padding: 1rem;
+  border: #ccc 1px solid;
+  margin: 0.3rem 0;
+  background-color: white;
+  display: grid;
+  /* grid-template-columns: 30px;
+  grid-template-areas:
+    'completed header header header header . date'
+    'main main main . . . duration'
+    'main main main . . . .'
+    'cost cost cost . . . delete'; */
+}
+
+.grid-item {
+  
+}
 
 .item-header {
   grid-area: header;
   font-weight: bold;
   font-size: 1.2rem;
-  margin: 0;
-  text-align: left;
 }
 
 .item-header p:hover {
-  cursor: pointer;
   opacity: 0.8;
 }
 
@@ -203,7 +220,6 @@ p {
 }
 
 .item-delete i:hover {
-  cursor: pointer;
   opacity: 0.8;
 }
 
@@ -268,20 +284,7 @@ p {
   border-color: inherit;
 }
 
-.card {
-  min-height: 120px;
-  padding: 1rem;
-  border: #ccc 1px solid;
-  margin: 0.3rem 0;
 
-  display: grid;
-  grid-template-columns: 30px;
-  grid-template-areas:
-    'completed header header header header header date'
-    ' main main main . . . duration'
-    ' main main main . . . .'
-    'cost cost cost . . . delete';
-}
 
 .container {
   width: 100%;
@@ -419,7 +422,7 @@ p {
 .modal-header h5 {
   margin: 0;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .modal-form {
@@ -513,3 +516,4 @@ p {
 .dropbtn:hover .dropdown-contents {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
