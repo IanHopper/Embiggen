@@ -96,7 +96,7 @@ p {
 /* App */
 
 .App-header {
-  margin-top: 46px;
+  margin-top: 40px;
 }
 
 @media only screen  and (max-width: 600px){
@@ -151,13 +151,10 @@ p {
   cursor: pointer;
 }
 
-
-
 /* Todo Card */
 
 .grid-card {
   cursor: pointer;
-  min-height: 120px;
   padding: 1rem;
   border: #ccc 1px solid;
   margin: 0.3rem 0;
@@ -170,8 +167,6 @@ p {
       'main main main main main main main'
       'main main main main main main main'
 }
-
-
 
 .grid-item {
   /* display: flex; */
@@ -228,27 +223,9 @@ p {
   font-weight: bold;
 }
 
-.item-delete {
-  grid-area: delete;
-  text-align: right;
-}
-
-.item-delete i {
-  font-size: 1.2rem;
-  padding: 0;
-  color: grey;
-  vertical-align: sub;
-}
-
-.item-delete i:hover {
-  opacity: 0.6;
-  transform: scale(1.2)
-}
-
 .item-completed {
   grid-area: completed;
   text-align: left;
-  /* padding: 0 5px; */
 }
 
 .item-completed input[type='checkbox'] {
@@ -270,7 +247,7 @@ p {
   display: inline-block;
   height: 20px;
   width: 20px;
-  border: 2.5px solid;
+  border: 2px solid;
   top: -6px;
   left: -15px;
   border-radius: 50%;
@@ -306,12 +283,32 @@ p {
   border-color: inherit;
 }
 
+@media screen and (max-width: 600px) {
+  .item-completed label::before{
+    height: 20px;
+    width: 20px;
+    border: 1.5px solid;
+    top: -8px;
+    left: -15px;
+    border-radius: 50%;
+  }
+  .item-completed label::after {
+    height: 6px;
+    width: 9px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    transform: rotate(-45deg);
+    left: -9px;
+    top: -2px;
+  }
+}
+
+
 /* Small screen for cards */
 @media screen and (max-width: 600px) {
 
   .grid-card {
-    min-height: 80px;
-    padding: 0.5rem;
+    padding: 5px 5px 5px 10px;
     margin: 0;
     background-color: white;
     border-top: 1px solid var(--background-color);
@@ -381,12 +378,11 @@ p {
 
 .btn-logout {
   background-color: var(--background-color);
-  /* color: var(--primary-color); */
   margin-top: 0px;
 }
 
 .btn-delete {
-  background-color: var(--secondary-color);
+  background-color: black;
 }
 
 .navbar-buttons li {
@@ -473,7 +469,10 @@ p {
   margin: 0;
   font-weight: bold;
   font-size: 1.3em;
+  padding: 0 52px 0 0;
 }
+
+
 
 .modal-form {
   background-color: var(--background-color);
@@ -492,6 +491,16 @@ p {
 
 .modal-form .form-input:focus {
   outline: none;
+}
+
+.modal-header .trash-icon {
+  padding: 0 0 0 15px;
+  color: #999;
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 38px;
+  font-size: 1.5rem;
 }
 
 .close-btn {

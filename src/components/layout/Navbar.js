@@ -5,7 +5,14 @@ import TodoContext from '../../context/todos/todoContext';
 
 const Navbar = ({ title, icon }) => {
   const todoContext = useContext(TodoContext);
-  const { displayModal, handleUndo, loadUser, logout, auth } = todoContext;
+  const {
+    displayModal,
+    handleUndo,
+    loadUser,
+    logout,
+    auth,
+    history,
+  } = todoContext;
 
   useEffect(() => {
     loadUser();
@@ -14,7 +21,10 @@ const Navbar = ({ title, icon }) => {
 
   const authLinks = (user) => (
     <div>
-      <i className='fas fa-undo' id='undo' onClick={() => handleUndo()}></i>
+      {history.length > 0 ? (
+        <i className='fas fa-undo' id='undo' onClick={() => handleUndo()}></i>
+      ) : null}
+
       <i
         className='fas fa-plus-circle add-task'
         id='add-task'

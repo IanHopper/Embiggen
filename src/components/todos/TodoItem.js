@@ -4,7 +4,7 @@ import TodoContext from '../../context/todos/todoContext';
 
 const TodoItem = ({ todo }) => {
   const todoContext = useContext(TodoContext);
-  const { displayModal, displayDeleteModal, updateTodoCompleted } = todoContext;
+  const { displayModal, updateTodoCompleted } = todoContext;
 
   const {
     id,
@@ -37,9 +37,11 @@ const TodoItem = ({ todo }) => {
   };
 
   // Change date to better human readable format
-  const dateTranslate = (e) => {
+  const dateTranslate = () => {
     // Return today if task is due today
-    if (due_date === new Date().toISOString().slice(0, 10)) {
+    if (!due_date) {
+      return 'No Date';
+    } else if (due_date === new Date().toISOString().slice(0, 10)) {
       return 'Today';
     } else if (new Date(due_date) < new Date()) {
       return 'Overdue';
@@ -66,23 +68,17 @@ const TodoItem = ({ todo }) => {
   };
 
   const due_date_function = () => {
-    if (due_date) {
-      return (
-        <div className={dateClass()}>
-          <p>
-            {due_date ? (
-              <i
-                className='fa fa-calendar-alt'
-                onClick={() => console.log(due_date, new Date())}
-              ></i>
-            ) : null}{' '}
-            &nbsp; {due_date ? dateTranslate() : null}
-          </p>
-        </div>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <div className={dateClass()}>
+        <p>
+          <i
+            className='fa fa-calendar-alt'
+            onClick={() => console.log(due_date, new Date())}
+          ></i>
+          &nbsp; {dateTranslate()}
+        </p>
+      </div>
+    );
   };
 
   // Task card layout

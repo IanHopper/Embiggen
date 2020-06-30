@@ -31,7 +31,9 @@ const Modal = () => {
           <div className='modal-header'>
             <h5>
               {todo.task_name === '' ? 'New Task' : todo.task_name}
-              <span>
+              
+            </h5>
+            <span className='trash-icon'>
                 {' '}
                 &nbsp;
                 {todo.id ? (
@@ -42,7 +44,6 @@ const Modal = () => {
                   ></i>
                 ) : null}
               </span>
-            </h5>
           </div>
           <form
             action=''
