@@ -17,6 +17,7 @@ import {
   LOGIN_FAIL,
   LOGOUT_USER,
   HANDLE_REGISTER_SUCCESS,
+  HANDLE_SEARCH_INPUT
 } from '../types';
 
 export default (state, action) => {
@@ -154,6 +155,11 @@ export default (state, action) => {
           password: null,
         },
       };
+      case HANDLE_SEARCH_INPUT:
+        return {
+          ...state,
+          search: action.payload.value
+        };
     default:
       return state;
   }

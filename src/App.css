@@ -55,19 +55,20 @@ p {
   margin: 0 auto;
 }
 
-
-
 .navbar-buttons {
   display: flex;
 }
 
 /* Plus/Undo/Settings icons */
-.navbar #add-task, .navbar #undo, .navbar #user {
+.navbar #add-task, .navbar #undo {
   margin: auto;
-  color: var(--secondary-color);
   cursor: pointer;
   font-size: 2rem;
   padding: 0 5px;
+}
+
+.navbar #add-task {
+  color: var(--secondary-color);
 }
 
 .navbar #undo {
@@ -92,42 +93,34 @@ p {
   appearance: none;
   cursor: pointer;
 }
-
-/* App */
-
-.App-header {
+/* Container */
+.container {
+  width: 100%;
+  max-width: 600px;
   margin-top: 40px;
 }
 
-@media only screen  and (max-width: 600px){
-  .App-header {
-    margin-top: 56px;
+@media only screen and (max-width:600px){
+  .container {
+    padding: 0 3px;
   }
 }
 
 /* Sorting & Filter menus */
-
 .task-list-header {
   position: fixed;
   display: flex;
+  justify-content: space-between;
   width: 100%;
   max-width: 540px;
   z-index: 100;
   background-color: var(--background-color);
+  padding: 5px 2px;
 }
 
 .task-filter {
   display: flex;
-  margin: 0 auto;
-  align-items: center;
   background-color: var(--background-color);
-}
-
-.task-filter label {
-  margin: 0 auto;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0 5px 0 0;
 }
 
 .select-menu {
@@ -137,10 +130,6 @@ p {
   color: var(--primary-color);
   background-color: var(--background-color);
   width: 100%;
-  -o-appearance: none;
-  -ms-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
 .select-menu:focus {
@@ -149,6 +138,28 @@ p {
 
 .select-menu:hover {
   cursor: pointer;
+}
+
+.task-list {
+  margin-top: 41px;
+}
+
+@media screen and (max-width: 600px){
+  .task-list-header {
+    padding: 2px 0px;
+  }
+  .select-menu {
+    font-size: .9rem;
+  }
+  .select-menu:last-child{
+    margin-right: 10px;
+  }
+  #search-input {
+    max-width: 97%;
+  }
+  #search-input::placeholder {
+    font-size: .9rem;
+  }
 }
 
 /* Todo Card */
@@ -324,16 +335,7 @@ p {
  
 }
 
-.container {
-  width: 100%;
-  max-width: 600px;
-}
 
-@media only screen and (max-width:600px){
-  .container {
-    padding: 0 3px;
-  }
-}
 
 .text-center {
   text-align: center;
@@ -408,18 +410,12 @@ p {
  
 }
 
-.task-list {
-  padding-top: 15px;
-}
 
 
 @media only screen and (max-width: 600px) {
   .todo-container {
-    padding: 0;
-  }
-
-  .task-list {
-    padding-top: 25px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -581,4 +577,3 @@ p {
 .dropbtn:hover .dropdown-contents {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
-

@@ -19,7 +19,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_USER,
-  HANDLE_REGISTER_SUCCESS
+  HANDLE_REGISTER_SUCCESS,
+  HANDLE_SEARCH_INPUT
 } from '../types';
 
 const TodoState = (props) => {
@@ -43,6 +44,7 @@ const TodoState = (props) => {
     todos: [],
     todo: {},
     history: [],
+    search: '',
     modal: false,
     modalNew: true,
     deleteModal: '',
@@ -418,6 +420,15 @@ const TodoState = (props) => {
     }
   };
 
+  // Handle search input
+  const handleSearchInput = (e) => {
+    const { value } = e.target;
+    dispatch({
+      type: HANDLE_SEARCH_INPUT,
+      payload: { value },
+    });
+  };
+
   return (
     <TodoContext.Provider
       value={{
@@ -425,6 +436,7 @@ const TodoState = (props) => {
         user: state.user,
         todos: state.todos,
         todo: state.todo,
+        search: state.search,
         modal: state.modal,
         modalNew: state.modalNew,
         sortSelection: state.sortSelection,
@@ -451,6 +463,7 @@ const TodoState = (props) => {
         login,
         logout,
         register,
+        handleSearchInput
       }}
     >
       {props.children}

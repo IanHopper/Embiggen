@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
+import Search from './Search';
 import TodoContext from '../../context/todos/todoContext';
 
 const FilterHeader = ({ title, icon }) => {
@@ -7,9 +8,8 @@ const FilterHeader = ({ title, icon }) => {
 
   return (
     <div className='task-list-header'>
-      <div className="task-filter">
-        <label htmlFor='sort-select'>Sort</label>
-        <select className='select-menu' onChange={handleSort} id='sort-select'>
+      <div className='task-filter'>
+        <select className='select-menu' onChange={handleSort} id='sort-select' placeholder='sort'>
           <option value='date-ascending'>Date &#8595;</option>
           <option value='date-descending'>Date &#8593;</option>
           <option value='priority'>Priority &#8595;</option>
@@ -18,15 +18,14 @@ const FilterHeader = ({ title, icon }) => {
           <option value='cost'>Cost &#8595;</option>
         </select>
       </div>
-      <div className="task-filter">
-        <label htmlFor='filter-select'>Filter</label>
+      <div className='task-filter'>
         <select
           className='select-menu'
           onChange={handleFilter}
           id='filter-select'
         >
-          <option value='active'>Active Tasks</option>
-          <option value='all'>All Tasks</option>
+          <option value='active'>Active</option>
+          <option value='all'>All</option>
           <option value='today'>Due Today</option>
           <option value='1'>Vital</option>
           <option value='2'>Important</option>
@@ -37,6 +36,7 @@ const FilterHeader = ({ title, icon }) => {
           <option value='long'>(&gt; 60 mins)</option>
         </select>
       </div>
+      <Search />
     </div>
   );
 };

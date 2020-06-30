@@ -18,7 +18,6 @@ import PrivateRoute from './components/common/PrivateRoute';
 import './App.css';
 
 const App = () => {
- 
   return (
     <TodoState>
       <Router>
@@ -26,6 +25,7 @@ const App = () => {
           <Modal />
           <DeleteModal />
           <Navbar title='Embiggen' icon='fas fa-tree brand' />
+
           <header className='App-header'>
             <div className='container'>
               <Switch>
