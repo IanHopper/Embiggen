@@ -3,7 +3,14 @@ import TodoContext from '../../context/todos/todoContext';
 
 const Modal = () => {
   const todoContext = useContext(TodoContext);
-  const {displayModal, modal, todo, handleInputChange, handleSubmit } = todoContext
+  const {
+    displayModal,
+    modal,
+    todo,
+    handleInputChange,
+    handleSubmit,
+    displayDeleteModal,
+  } = todoContext;
 
   // Do not render modal if the App state is false
   if (!modal) {
@@ -22,11 +29,25 @@ const Modal = () => {
             <i className='fa fa-times'></i>
           </button>
           <div className='modal-header'>
-            <h5>{todo.task_name === '' ? 'New Task' : todo.task_name}</h5>
+            <h5>
+              {todo.task_name === '' ? 'New Task' : todo.task_name}
+              <span>
+                {' '}
+                &nbsp;
+                {todo.id ? (
+                  <i
+                    className='fas fa-trash-alt'
+                    id='deleteTask'
+                    onClick={() => displayDeleteModal(todo)}
+                  ></i>
+                ) : null}
+              </span>
+            </h5>
           </div>
-
-          <form action='' className='modal-form'
-          onSubmit={(e) => handleSubmit(e)}
+          <form
+            action=''
+            className='modal-form'
+            onSubmit={(e) => handleSubmit(e)}
           >
             <div>
               <label htmlFor='taskname'>Task Name</label>

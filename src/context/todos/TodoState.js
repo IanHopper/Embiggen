@@ -143,6 +143,7 @@ const TodoState = (props) => {
   // Delete task
   const deleteTodo = async (e, todo) => {
     e.preventDefault();
+    displayModal(e, todo)
     // Assign variable to task for deletion
     const deletedTask = todo;
     let token = localStorage.getItem('token')
@@ -172,8 +173,9 @@ const TodoState = (props) => {
       todo = currentTodo;
     } else {
       deleteModal = '';
-      todo = state.defaultTodo;
+      todo = currentTodo;
     }
+    
     dispatch({
       type: DISPLAY_DELETE_MODAL,
       payload: { deleteModal, todo },
@@ -182,9 +184,9 @@ const TodoState = (props) => {
 
   // Display create/update modal
   const displayModal = (e, currentTodo) => {
-    if(e.target.id === "deleteTask"){
-      return null
-    }
+    // if(e.target.id === "deleteTask"){
+    //   return null
+    // }
     // Open and close the task modal; modalType update for create or update
     let todo;
     let modal;

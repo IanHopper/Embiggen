@@ -17,7 +17,7 @@ const DeleteModal = () => {
           <button
             className='button close-btn'
             id='close'
-            onClick={() => displayDeleteModal()}
+            onClick={() => displayDeleteModal(todo)}
           >
             <i className='fa fa-times'></i>
           </button>

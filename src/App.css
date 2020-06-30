@@ -5,8 +5,8 @@
   --primary-color: rgb(4, 122, 87);
   --secondary-color: red;
   --background-color: rgb(194, 215, 229);
-  --money-color: rgb(48, 122, 48);
-  --money-background: rgba(90, 199, 90, 0.5);
+  --money-color: rgb(24, 189, 24);
+  --money-background: rgba(144, 223, 144, 0.509);
 }
 
 * {
@@ -27,70 +27,35 @@ p {
 /* Navbar */
 .navbar {
   position: fixed;
-  padding: 0.7rem 2rem;
   width: 100%;
-  overflow: hidden;
   background-color: #fff;
   top: 0;
   z-index: 100;
 }
 
 .navbar-container {
-  display: flex;
   align-items: center;
   max-width: 800px;
   width: 100%;
-  align-self: center;
-  margin: auto;
 }
 
-/* Brand */
+.navbar i:first-of-type {
+  color: var(--primary-color);
+  font-size: 2rem;
+  padding: 0 15px 0 0;
+}
+
 .navbar i span {
   font-family: 'Anton';
 }
 
-.navbar i:first-of-type {
-  /* display: flex; */
-  float: left;
-  color: var(--primary-color);
-  font-size: 2rem;
-}
-
-/* Sorting & Filter menus */
-
 .navbar div {
   display: flex;
+  justify-content:space-evenly;
   margin: 0 auto;
 }
 
-.navbar label {
-  display: relative;
-  margin: 0 auto;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0 5px 0 0;
-}
 
-.select-menu {
-  display: flex;
-  font-size: 1rem;
-  border: 0;
-  font-weight: bold;
-  color: var(--primary-color);
-  width: 100%;
-  -o-appearance: none;
-  -ms-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.select-menu:focus {
-  outline: none;
-}
-
-.select-menu:hover {
-  cursor: pointer;
-}
 
 .navbar-buttons {
   display: flex;
@@ -102,7 +67,7 @@ p {
   color: var(--secondary-color);
   cursor: pointer;
   font-size: 2rem;
-  padding: 0 10px;
+  padding: 0 5px;
 }
 
 .navbar #undo {
@@ -131,8 +96,62 @@ p {
 /* App */
 
 .App-header {
-  margin-top: 44px;
+  margin-top: 46px;
 }
+
+@media only screen  and (max-width: 600px){
+  .App-header {
+    margin-top: 56px;
+  }
+}
+
+/* Sorting & Filter menus */
+
+.task-list-header {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  max-width: 540px;
+  z-index: 100;
+  background-color: var(--background-color);
+}
+
+.task-filter {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  background-color: var(--background-color);
+}
+
+.task-filter label {
+  margin: 0 auto;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0 5px 0 0;
+}
+
+.select-menu {
+  font-size: 1rem;
+  border: 0;
+  font-weight: bold;
+  color: var(--primary-color);
+  background-color: var(--background-color);
+  width: 100%;
+  -o-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.select-menu:focus {
+  outline: none;
+}
+
+.select-menu:hover {
+  cursor: pointer;
+}
+
+
 
 /* Todo Card */
 
@@ -144,16 +163,18 @@ p {
   margin: 0.3rem 0;
   background-color: white;
   display: grid;
-  /* grid-template-columns: 30px;
+  grid-template-columns: 30px;
   grid-template-areas:
-    'completed header header header header . date'
-    'main main main . . . duration'
-    'main main main . . . .'
-    'cost cost cost . . . delete'; */
+      'completed header header header header header multi'
+      'date date duration duration duration cost cost'
+      'main main main main main main main'
+      'main main main main main main main'
 }
 
+
+
 .grid-item {
-  
+  /* display: flex; */
 }
 
 .item-header {
@@ -168,17 +189,28 @@ p {
 
 .item-main {
   grid-area: main;
-  max-width: 80%;
+  font-size: .9rem;
+  color: #555;
+}
+
+.item-multi {
+  grid-area: multi;
+  text-align: right;
+}
+
+.item-multi i:hover {
+  opacity: 0.6;
+  transform: scale(1.2)
 }
 
 .item-duration {
   grid-area: duration;
-  text-align: right;
+  text-align: left;
 }
 
 .item-date {
   grid-area: date;
-  text-align: right;
+  text-align: left;
 }
 
 .item-date.today {
@@ -190,21 +222,10 @@ p {
 }
 
 .item-cost {
-  display: inline-block;
   grid-area: cost;
-}
-
-.item-cost p {
+  text-align: right;
   color: var(--money-color);
   font-weight: bold;
-  padding-top: 6px;
-  margin: 3px 0;
-  max-width: 70px;
-  height: 30px;
-  border: 0.25px solid var(--money-color);
-  background-color: var(--money-background);
-  line-height: 0.75rem;
-  text-align: center;
 }
 
 .item-delete {
@@ -220,13 +241,14 @@ p {
 }
 
 .item-delete i:hover {
-  opacity: 0.8;
+  opacity: 0.6;
+  transform: scale(1.2)
 }
 
 .item-completed {
   grid-area: completed;
   text-align: left;
-  padding: 0 5px;
+  /* padding: 0 5px; */
 }
 
 .item-completed input[type='checkbox'] {
@@ -284,14 +306,36 @@ p {
   border-color: inherit;
 }
 
+/* Small screen for cards */
+@media screen and (max-width: 600px) {
 
+  .grid-card {
+    min-height: 80px;
+    padding: 0.5rem;
+    margin: 0;
+    background-color: white;
+    border-top: 1px solid var(--background-color);
+  }
+
+  .item-header, .item-completed {
+    font-size: 1rem;
+    padding: 0 0 5px 0;
+  }
+  .item-main, .item-date, .item-duration, .item-cost {
+    font-size: .8em;
+  }
+ 
+}
 
 .container {
   width: 100%;
   max-width: 600px;
-  margin: auto;
-  overflow: hidden;
-  background-color: var(--background-color);
+}
+
+@media only screen and (max-width:600px){
+  .container {
+    padding: 0 3px;
+  }
 }
 
 .text-center {
@@ -361,23 +405,30 @@ p {
   color: blue;
 }
 
-.todo-list {
+/* Todo List */
+
+.todo-container {
   padding: 1rem;
+ 
 }
 
-.todo-list .add-task-icon h3 {
-  font-size: 1.5rem;
-  vertical-align: center;
+.task-list {
+  padding-top: 15px;
 }
 
-#add-task-purchase-div {
-  font-size: 1rem;
-  padding: 4px;
+
+@media only screen and (max-width: 600px) {
+  .todo-container {
+    padding: 0;
+  }
+
+  .task-list {
+    padding-top: 25px;
+  }
 }
 
-#add-task-purchase-div input {
-  transform: scale(1.5);
-}
+
+/* Modal */
 
 .modal-container {
   background-color: rgba(255, 255, 255, 0.6);
@@ -386,7 +437,7 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 105;
 }
 
 .modal-container.show-modal {
@@ -395,7 +446,6 @@ p {
 
 .modal-contents {
   background-color: white;
-  /* border-radius: 5px; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: absolute;
   overflow: hidden;
@@ -403,12 +453,12 @@ p {
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 100%;
+  max-height: 100%;
   width: 400px;
-  padding: ;
 }
 
 .modal-header {
-  background: var(--secondary-color);
+  background: var(--primary-color);
   color: white;
   padding: 15px;
   border: none;
@@ -427,17 +477,11 @@ p {
 
 .modal-form {
   background-color: var(--background-color);
-  padding: 20px;
+  padding: 10px;
 }
 
 .modal-form div {
-  margin: 15px 0;
-}
-
-.modal-form label {
-  display: block;
-  margin-bottom: 5px;
-  /* font-weight: bold; */
+  margin: 0px 0px 15px 0;
 }
 
 .modal-form .form-input {
@@ -466,6 +510,18 @@ p {
 
 .close-btn:focus {
   outline: none;
+}
+
+@media only screen and (max-width: 600px){
+  .modal-form div {
+    margin: 0px 0px 5px 0;
+  }
+ 
+  .modal-header h5 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
 }
 
 .footer {

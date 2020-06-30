@@ -2,10 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import TodoItem from './TodoItem';
 import TodoContext from '../../context/todos/todoContext';
 // import MultiSelect from '../layout/MultiSelect';
+import FilterHeader from '../layout/FilterHeader';
 
 const TodoList = () => {
   const todoContext = useContext(TodoContext);
-  const { todos, sortSelection, filterSelection, fetchTodos } = todoContext;
+  const {
+    todos,
+    sortSelection,
+    filterSelection,
+    fetchTodos
+  } = todoContext;
 
   let token = localStorage.getItem('token');
 
@@ -56,11 +62,9 @@ const TodoList = () => {
   };
 
   return (
-    <div className='todo-list'>
-      <div>
-        {/* <MultiSelect /> */}
-      </div>
-      <div>{todos ? mapTodos() : null}</div>
+    <div className='todo-container'>
+      <FilterHeader />
+      <div className='task-list'>{todos ? mapTodos() : null}</div>
     </div>
   );
 };

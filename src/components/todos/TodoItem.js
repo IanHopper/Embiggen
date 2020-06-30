@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import TodoContext from '../../context/todos/todoContext';
 
-const TodoItem = ({todo}) => {
+const TodoItem = ({ todo }) => {
   const todoContext = useContext(TodoContext);
   const { displayModal, displayDeleteModal, updateTodoCompleted } = todoContext;
 
@@ -65,6 +65,26 @@ const TodoItem = ({todo}) => {
     return `${months[monthNumber - 1]} ${day}, ${year}`;
   };
 
+  const due_date_function = () => {
+    if (due_date) {
+      return (
+        <div className={dateClass()}>
+          <p>
+            {due_date ? (
+              <i
+                className='fa fa-calendar-alt'
+                onClick={() => console.log(due_date, new Date())}
+              ></i>
+            ) : null}{' '}
+            &nbsp; {due_date ? dateTranslate() : null}
+          </p>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
+
   // Task card layout
   return (
     <div className='grid-card' onClick={(e) => displayModal(e, todo)}>
@@ -82,14 +102,12 @@ const TodoItem = ({todo}) => {
       <div className='grid-item item-header'>
         <p className={priorityList[priority]}>{task_name}</p>
       </div>
-      <div className={dateClass()}>
-        <p>
-          {due_date ? dateTranslate() : null} &nbsp;
-          {due_date ? <i className='fa fa-calendar-alt' onClick={()=>console.log(due_date, new Date())}></i> : null}
-        </p>
-      </div>
+      {due_date_function()}
       <div className='grid-item item-main'>
         <p>{description}</p>
+      </div>
+      <div className='grid-item item-multi'>
+        <i className='far fa-list-alt'></i>
       </div>
       <div className='grid-item item-duration'>
         {duration > 0 ? (
@@ -99,16 +117,7 @@ const TodoItem = ({todo}) => {
         ) : null}
       </div>
       <div className='grid-item item-cost'>
-        {cost > 0 ? (
-          <p>
-            <i className='fas fa-dollar-sign'></i> {cost.slice(0, -3)}
-          </p>
-        ) : null}
-      </div>
-      <div className='grid-item item-delete'>
-        {/* Click delete icon to delete task */}
-        {/* <i className='fas fa-trash-alt' onClick={() => deleteTodo(id)}></i> */}
-        <i className='fas fa-trash-alt' id="deleteTask" onClick={() => displayDeleteModal(todo)}></i>
+        {cost > 0 ? <span>$ {cost.slice(0, -3)}</span> : null}
       </div>
     </div>
   );
