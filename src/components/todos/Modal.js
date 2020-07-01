@@ -12,7 +12,7 @@ const Modal = () => {
     displayDeleteModal,
   } = todoContext;
 
-  // Do not render modal if the App state is false
+  // Do not render modal if state is false
   if (!modal) {
     return null;
   }
@@ -119,12 +119,8 @@ const Modal = () => {
                 onChange={handleInputChange}
               />
             </div>
-            {/* type="button" prevents warning, but takes away submit on enter */}
             <button
-              // type='button'
-              className='button btn-save'
-              // onClick={(e) => handleSubmit(e)}
-            >
+              className='button btn-save'>
               Save
             </button>
           </form>

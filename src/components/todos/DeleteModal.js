@@ -3,9 +3,9 @@ import TodoContext from '../../context/todos/todoContext';
 
 const DeleteModal = () => {
   const todoContext = useContext(TodoContext);
-  const {deleteTodo, deleteModal, displayDeleteModal, todo } = todoContext
+  const { deleteTodo, deleteModal, displayDeleteModal, todo } = todoContext;
 
-  // Do not render modal if the App state is false
+  // Do not render modal if state is empty
   if (deleteModal === '') {
     return null;
   }
@@ -26,10 +26,7 @@ const DeleteModal = () => {
           </div>
 
           <form action='' className='modal-form'>
-            
-            {/* type="button" prevents warning, but takes away submit on enter */}
             <button
-              // type='button'
               className='button btn-delete'
               onClick={(e) => deleteTodo(e, deleteModal)}
             >

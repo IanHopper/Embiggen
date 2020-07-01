@@ -9,6 +9,7 @@ const TodoList = () => {
 
   let token = localStorage.getItem('token');
 
+  // Fetches todos when list mounts
   useEffect(() => {
     if (token) {
       fetchTodos();
@@ -16,9 +17,12 @@ const TodoList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Filter then sort the todos
   const mapTodos = () => {
     
     let displayList = [];
+
+    // Filter todos
     if (filterSelection === 'active') {
       displayList = todos.filter((todo) => todo.completed !== true);
     } else if (filterSelection === 'all') {
@@ -38,8 +42,7 @@ const TodoList = () => {
     } else if (filterSelection === 'long') {
       displayList = todos.filter((todo) => parseInt(todo.duration) >= 60);
     }
-
-    // This changes the state directly which I think is incorrect
+    // Sort after filtering
     if (sortSelection === 'priority') {
       displayList.sort((a, b) => a.priority - b.priority);
     } else if (sortSelection === 'date-ascending') {
@@ -53,11 +56,11 @@ const TodoList = () => {
     } else if (sortSelection === 'duration-descending') {
       displayList.sort((a, b) => a.duration - b.duration);
     }
-
+    // Search filter
     if(search){
       displayList = displayList.filter((todo)=> todo.task_name.toUpperCase().includes(search.toUpperCase()))
     }
-
+    // Map the filtered and sorted todo array
     return displayList.map((todo) => <TodoItem key={todo.id} todo={todo} />);
   };
 

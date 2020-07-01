@@ -6,6 +6,7 @@ const Register = () => {
   const todoContext = useContext(TodoContext);
   const { register, handleRegisterChange, registration, auth } = todoContext;
 
+  // Redirect to main if user is already logged in
   if(auth.isAuthenticated){
     return <Redirect to="/" />
   }

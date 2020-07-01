@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Search from './Search';
 import TodoContext from '../../context/todos/todoContext';
 
-const FilterHeader = ({ title, icon }) => {
+const FilterHeader = () => {
   const todoContext = useContext(TodoContext);
   const { handleSort, handleFilter } = todoContext;
 
@@ -28,7 +28,6 @@ const FilterHeader = ({ title, icon }) => {
           className='select-menu'
           onChange={handleFilter}
           id='filter-select'
-          // multiple
         >
           <option value='active'>Active</option>
           <option value='all'>All</option>

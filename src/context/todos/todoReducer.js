@@ -18,7 +18,6 @@ import {
   LOGOUT_USER,
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
-  // HANDLE_HOTKEYS
 } from '../types';
 
 export default (state, action) => {

@@ -6,6 +6,7 @@ const Login = () => {
   const todoContext = useContext(TodoContext);
   const { login, handleLoginChange, loginCredentials, auth } = todoContext;
   
+  // Redirect to main if user is already logged in
   if(auth.isAuthenticated){
     return <Redirect to="/" />
   }

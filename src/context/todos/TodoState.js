@@ -21,7 +21,6 @@ import {
   LOGOUT_USER,
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
-  // HANDLE_HOTKEYS,
 } from '../types';
 
 const TodoState = (props) => {
@@ -46,10 +45,6 @@ const TodoState = (props) => {
     todo: {},
     history: [],
     search: '',
-    hotkeys: {
-      a: false,
-      s: false,
-    },
     modal: false,
     modalNew: true,
     deleteModal: '',
@@ -354,7 +349,6 @@ const TodoState = (props) => {
     };
     // Login credentials
     const body = JSON.stringify({ username, password });
-    console.log(body)
     try {
       const res = await axios.post(
         'http://localhost:8000/api/auth/login',
@@ -434,9 +428,6 @@ const TodoState = (props) => {
     });
   };
 
-  // // Handle hotkeys
-  // const handleHotkeys = (e) => {};
-
   return (
     <TodoContext.Provider
       value={{
@@ -453,7 +444,6 @@ const TodoState = (props) => {
         history: state.history,
         loginCredentials: state.loginCredentials,
         registration: state.registration,
-        hotkeys: state.hotkeys,
         fetchTodos,
         handleSort,
         handleFilter,
@@ -473,7 +463,6 @@ const TodoState = (props) => {
         logout,
         register,
         handleSearchInput,
-        // handleHotkeys,
       }}
     >
       {props.children}
