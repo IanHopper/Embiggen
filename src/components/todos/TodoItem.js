@@ -73,7 +73,7 @@ const TodoItem = ({ todo }) => {
         <p>
           <i
             className='fa fa-calendar-alt'
-            onClick={() => console.log(due_date, new Date())}
+            onClick={() => console.log(due_date, new Date().toISOString().slice(0, 10))}
           ></i>
           &nbsp; {dateTranslate()}
         </p>

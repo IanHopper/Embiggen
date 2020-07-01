@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext } from 'react';
 import Search from './Search';
 import TodoContext from '../../context/todos/todoContext';
 
@@ -9,7 +9,12 @@ const FilterHeader = ({ title, icon }) => {
   return (
     <div className='task-list-header'>
       <div className='task-filter'>
-        <select className='select-menu' onChange={handleSort} id='sort-select' placeholder='sort'>
+        <select
+          className='select-menu'
+          onChange={handleSort}
+          id='sort-select'
+          placeholder='sort'
+        >
           <option value='date-ascending'>Date &#8595;</option>
           <option value='date-descending'>Date &#8593;</option>
           <option value='priority'>Priority &#8595;</option>
@@ -23,6 +28,7 @@ const FilterHeader = ({ title, icon }) => {
           className='select-menu'
           onChange={handleFilter}
           id='filter-select'
+          // multiple
         >
           <option value='active'>Active</option>
           <option value='all'>All</option>

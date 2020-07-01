@@ -20,7 +20,8 @@ import {
   LOGIN_FAIL,
   LOGOUT_USER,
   HANDLE_REGISTER_SUCCESS,
-  HANDLE_SEARCH_INPUT
+  HANDLE_SEARCH_INPUT,
+  // HANDLE_HOTKEYS,
 } from '../types';
 
 const TodoState = (props) => {
@@ -45,6 +46,10 @@ const TodoState = (props) => {
     todo: {},
     history: [],
     search: '',
+    hotkeys: {
+      a: false,
+      s: false,
+    },
     modal: false,
     modalNew: true,
     deleteModal: '',
@@ -68,7 +73,7 @@ const TodoState = (props) => {
     let token = localStorage.getItem('token')
       ? localStorage.getItem('token')
       : '';
-      const config = {
+    const config = {
       headers: {
         Authorization: `Token ${token}`,
       },
@@ -145,7 +150,7 @@ const TodoState = (props) => {
   // Delete task
   const deleteTodo = async (e, todo) => {
     e.preventDefault();
-    displayModal(e, todo)
+    displayModal(e, todo);
     // Assign variable to task for deletion
     const deletedTask = todo;
     let token = localStorage.getItem('token')
@@ -177,7 +182,7 @@ const TodoState = (props) => {
       deleteModal = '';
       todo = currentTodo;
     }
-    
+
     dispatch({
       type: DISPLAY_DELETE_MODAL,
       payload: { deleteModal, todo },
@@ -322,21 +327,20 @@ const TodoState = (props) => {
     if (token) {
       config.headers['Authorization'] = `Token ${token}`;
       await axios
-      .get('http://localhost:8000/api/auth/user', config)
-      .then((res) => {
-        dispatch({
-          type: USER_LOADED,
-          payload: res.data,
+        .get('http://localhost:8000/api/auth/user', config)
+        .then((res) => {
+          dispatch({
+            type: USER_LOADED,
+            payload: res.data,
+          });
+        })
+        .catch((err) => {
+          console.log(err.response.data, err.response.status);
+          dispatch({
+            type: AUTH_ERROR,
+          });
         });
-      })
-      .catch((err) => {
-        console.log(err.response.data, err.response.status);
-        dispatch({
-          type: AUTH_ERROR,
-        });
-      });
     }
-    
   };
 
   // Login user
@@ -350,6 +354,7 @@ const TodoState = (props) => {
     };
     // Login credentials
     const body = JSON.stringify({ username, password });
+    console.log(body)
     try {
       const res = await axios.post(
         'http://localhost:8000/api/auth/login',
@@ -389,7 +394,7 @@ const TodoState = (props) => {
       dispatch({
         type: HANDLE_REGISTER_SUCCESS,
         payload: res.data,
-      })
+      });
     } catch (err) {
       console.log(err.response.data, err.response.status);
     }
@@ -429,6 +434,9 @@ const TodoState = (props) => {
     });
   };
 
+  // // Handle hotkeys
+  // const handleHotkeys = (e) => {};
+
   return (
     <TodoContext.Provider
       value={{
@@ -445,6 +453,7 @@ const TodoState = (props) => {
         history: state.history,
         loginCredentials: state.loginCredentials,
         registration: state.registration,
+        hotkeys: state.hotkeys,
         fetchTodos,
         handleSort,
         handleFilter,
@@ -463,7 +472,8 @@ const TodoState = (props) => {
         login,
         logout,
         register,
-        handleSearchInput
+        handleSearchInput,
+        // handleHotkeys,
       }}
     >
       {props.children}
