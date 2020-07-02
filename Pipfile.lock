@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "db4f85000aa4e0406c8df8b4c35ecf1bb7820d77ea5f9733e9ada6ae510a3e40"
+            "sha256": "8c1e125e070cf5be2e39d85cc1ad3275cf708d9a22a7a14247c79594eb12057b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -89,6 +89,14 @@
             ],
             "index": "pypi",
             "version": "==3.0.8"
+        },
+        "django-admin-honeypot": {
+            "hashes": [
+                "sha256:88e72753f5cbda88d909292d9f3fe7741fb74a8afad083f96e86114238f9b364",
+                "sha256:e18a52832b82740917737873c6f34117d15631565e9e4b7dbb9df48a29250796"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
         },
         "django-cors-headers": {
             "hashes": [

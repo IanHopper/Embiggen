@@ -13,6 +13,7 @@ psycopg2-binary = "*"
 django-cors-headers = "*"
 django-rest-knox = "*"
 whitenoise = "*"
+django-admin-honeypot = "*"
 
 [requires]
 python_version = "3.8"
