@@ -140,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #new
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #new
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #new
 # STATICFILES_FINDERS = [
 #     'django.contrib.staticfiles.finders.FileSystemFinder',
 #     'django.contrib.statifiles.finders.AppDirectoriesFinder'
@@ -165,4 +165,11 @@ AUTH_USER_MODEL = 'users.CustomUser'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
+
+# Heroku
+import dj_database_url
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+
+DATABASES['default'].update(db_from_env)
 
