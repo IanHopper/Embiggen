@@ -339,7 +339,7 @@ p {
 /* Modal */
 
 .modal-container {
-  background-color: rgba(249, 249, 249, 0.8);
+  background-color: rgba(20, 20, 20, 0.5);
   position: fixed;
   top: 0;
   left: 0;
@@ -348,12 +348,7 @@ p {
   z-index: 105;
 }
 
-.modal-container.show-modal {
-  display: block;
-}
-
 .modal-contents {
-  background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: absolute;
   overflow: hidden;
@@ -366,22 +361,18 @@ p {
 }
 
 .modal-header {
-  background: var(--brand-color);
-  color: white;
+  background: white;
+  color: var(--brand-color);
   padding: 15px;
   border: none;
   border-radius: 0;
-}
-
-.modal-header.delete {
-  background: var(--brand-color);
 }
 
 .modal-header h5 {
   margin: 0;
   font-weight: bold;
   font-size: 1.3em;
-  padding: 0 52px 0 0;
+  padding: 0 55px 0 0;
 }
 
 .modal-form {
@@ -399,71 +390,34 @@ p {
   border: none;
 }
 
+.modal-form label {
+  font-weight: bold;
+}
+
 .modal-form .form-input:focus {
   outline: none;
 }
 
 .modal-header .trash-icon {
-  padding: 0 0 0 15px;
   color: #999;
   cursor: pointer;
   position: absolute;
-  top: 8px;
-  right: 38px;
-  font-size: 1.5rem;
-}
-
-.close-btn {
-  background: transparent;
-  font-size: 25px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  outline: none;
-  border: 0;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  padding: 8px 12px;
-}
-
-.close-btn:focus {
-  outline: none;
-}
-
-.input {
-  padding: 1rem;
-  border: none;
-  border-radius: 5px;
-  margin: 5px;
-  font-size: 1rem;
-}
-
-.input:focus {
-  outline: none;
-}
-
-.input::placeholder {
-  font-size: 1rem;
-  line-height: 1.6;
+  top: 10px;
+  right: 43px;
+  font-size: 1.4rem;
 }
 
 .button {
   padding: 8px 15px;
   border: none;
-  border-radius: 4px;
-  background-color: var(--brand-color);
-  color: white;
+  /* border-radius: 4px; */
   font-weight: bold;
-}
-
-.btn-cancel {
-  background-color: red;
 }
 
 .btn-save,
 .btn-delete, .btn-account, .btn-logout {
-  background-color: var(--brand-color);
+  background-color: steelblue;
+  color: white;
   width: 100%;
   margin-top: 10px;
 }
@@ -474,7 +428,24 @@ p {
 }
 
 .btn-delete {
-  background-color: black;
+  background-color: red;
+}
+
+.btn-close-modal {
+  background: transparent;
+  font-size: 25px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.btn-close-modal:focus {
+  outline: none;
 }
 
 .navbar-buttons li {

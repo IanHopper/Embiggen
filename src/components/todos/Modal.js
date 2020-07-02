@@ -22,7 +22,7 @@ const Modal = () => {
       <div className='modal-container' id='modal-container'>
         <div className='modal-contents'>
           <button
-            className='button close-btn'
+            className='button btn-close-modal'
             id='close'
             onClick={(e) => displayModal(e, null)}
           >

@@ -15,14 +15,14 @@ const DeleteModal = () => {
       <div className='modal-container' id='modal-container'>
         <div className='modal-contents'>
           <button
-            className='button close-btn'
+            className='button btn-close-modal'
             id='close'
             onClick={() => displayDeleteModal(todo)}
           >
             <i className='fa fa-times'></i>
           </button>
-          <div className='modal-header delete'>
-            <p>{todo.task_name}</p>
+          <div className='modal-header'>
+            <h5>{todo.task_name}</h5>
           </div>
 
           <form action='' className='modal-form'>
