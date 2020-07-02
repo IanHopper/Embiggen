@@ -339,7 +339,7 @@ p {
 /* Modal */
 
 .modal-container {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(249, 249, 249, 0.8);
   position: fixed;
   top: 0;
   left: 0;
@@ -451,9 +451,9 @@ p {
 .button {
   padding: 8px 15px;
   border: none;
+  border-radius: 4px;
   background-color: var(--brand-color);
   color: white;
-  font-size: 1.2rem;
   font-weight: bold;
 }
 
