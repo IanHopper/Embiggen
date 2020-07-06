@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /Todo_App
 
 # Install dependencies
-COPY Pipfile Pipfile.lock /code/
+COPY Pipfile Pipfile.lock /Todo_App/
 RUN pip install pipenv && pipenv install --system
 
 # Copy project
