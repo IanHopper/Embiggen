@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'todos.apps.TodosConfig',
     'apis.apps.ApisConfig',
+    'frontend',
 ]
 
 MIDDLEWARE = [

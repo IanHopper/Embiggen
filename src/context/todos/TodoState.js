@@ -23,7 +23,14 @@ import {
   HANDLE_SEARCH_INPUT,
 } from '../types';
 
-const appUrl = 'https://mysterious-fjord-32459.herokuapp.com'
+const DEBUG = false;
+let appUrl;
+
+if(!DEBUG){
+  appUrl = 'https://mysterious-fjord-32459.herokuapp.com'
+} else {
+  appUrl = 'http://localhost:8000' 
+}
 
 const TodoState = (props) => {
   const initialState = {
