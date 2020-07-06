@@ -28,7 +28,7 @@ const FilterHeader = () => {
           className='select-menu'
           onChange={handleFilter}
           id='filter-select'
-        >
+        > 
           <option value='active'>Active</option>
           <option value='all'>All</option>
           <option value='today'>Due Today</option>
