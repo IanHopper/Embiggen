@@ -23,6 +23,8 @@ import {
   HANDLE_SEARCH_INPUT,
 } from '../types';
 
+const appUrl = 'https://mysterious-fjord-32459.herokuapp.com'
+
 const TodoState = (props) => {
   const initialState = {
     auth: {
@@ -87,7 +89,7 @@ const TodoState = (props) => {
         duration: state.todo.duration,
       };
     }
-    await axios.post('http://127.0.0.1:8000/api/', data, config);
+    await axios.post(`${appUrl}/api/`, data, config);
     fetchTodos();
   };
 
@@ -101,7 +103,7 @@ const TodoState = (props) => {
         Authorization: `Token ${token}`,
       },
     };
-    const res = await axios.get('http://127.0.0.1:8000/api/', config);
+    const res = await axios.get(`${appUrl}/api/`, config);
 
     dispatch({
       type: FETCH_TODOS,
@@ -135,7 +137,7 @@ const TodoState = (props) => {
           : state.todo.duration,
     };
     await axios.put(
-      `http://127.0.0.1:8000/api/${state.todo.id}/`,
+      `${appUrl}/api/${state.todo.id}/`,
       data,
       config
     );
@@ -156,7 +158,7 @@ const TodoState = (props) => {
         Authorization: `Token ${token}`,
       },
     };
-    await axios.delete(`http://127.0.0.1:8000/api/${todo.id}`, config);
+    await axios.delete(`${appUrl}/api/${todo.id}`, config);
     displayDeleteModal(todo.id);
     // dispatch deleted task to get added to history array in state
     dispatch({
@@ -281,7 +283,7 @@ const TodoState = (props) => {
       task_name: todo.task_name,
       completed: e.target.checked === true,
     };
-    await axios.put(`http://127.0.0.1:8000/api/${todo.id}/`, data, config);
+    await axios.put(`${appUrl}/api/${todo.id}/`, data, config);
     fetchTodos();
   };
 
@@ -322,7 +324,7 @@ const TodoState = (props) => {
     if (token) {
       config.headers['Authorization'] = `Token ${token}`;
       await axios
-        .get('http://localhost:8000/api/auth/user', config)
+        .get(`${appUrl}/api/auth/user`, config)
         .then((res) => {
           dispatch({
             type: USER_LOADED,
@@ -351,7 +353,7 @@ const TodoState = (props) => {
     const body = JSON.stringify({ username, password });
     try {
       const res = await axios.post(
-        'http://localhost:8000/api/auth/login',
+        `${appUrl}/api/auth/login`,
         body,
         config
       );
@@ -381,7 +383,7 @@ const TodoState = (props) => {
     const body = JSON.stringify({ username, email, password });
     try {
       const res = await axios.post(
-        'http://localhost:8000/api/auth/register',
+        `${appUrl}/api/auth/register`,
         body,
         config
       );
@@ -410,7 +412,7 @@ const TodoState = (props) => {
       config.headers['Authorization'] = `Token ${token}`;
     }
     try {
-      await axios.post('http://localhost:8000/api/auth/logout', null, config);
+      await axios.post(`${appUrl}/api/auth/logout`, null, config);
       dispatch({
         type: LOGOUT_USER,
       });
