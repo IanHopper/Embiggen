@@ -15,7 +15,7 @@
 
 # production
 /build
-# /staticfiles
+/staticfiles
 
 # misc
 .DS_Store

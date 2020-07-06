@@ -14,3 +14,5 @@ RUN pip install pipenv && pipenv install --system
 
 # Copy project
 COPY . /Todo_App/
+
+RUN python manage.py collectstatic
