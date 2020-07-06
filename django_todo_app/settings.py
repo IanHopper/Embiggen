@@ -162,7 +162,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "https://lit-fortress-39009.herokuapp.com"
+    "https://mysterious-fjord-32459.herokuapp.com"
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
