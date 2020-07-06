@@ -11,7 +11,6 @@ WORKDIR /Todo_App
 # Install dependencies
 COPY Pipfile Pipfile.lock /Todo_App/
 RUN pip install pipenv && pipenv install --system
-RUN python manage.py collectstatic --noinput
 
 # Copy project
 COPY . /Todo_App/
