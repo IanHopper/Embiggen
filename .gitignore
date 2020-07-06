@@ -9,11 +9,13 @@
 /frontend/node_modules
 /frontend/migrations
 
+
 # testing
 /coverage
 
 # production
 /build
+# /staticfiles
 
 # misc
 .DS_Store
