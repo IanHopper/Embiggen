@@ -83,7 +83,7 @@ const TodoItem = ({ todo }) => {
 
   // Task card layout
   return (
-    <div className='grid-card' onClick={(e) => displayModal(e, todo)}>
+    <div className='grid-card' >
       {/* Click on task name to open update modal */}
       <div className='item-completed'>
         <input
@@ -102,7 +102,7 @@ const TodoItem = ({ todo }) => {
       <div className='grid-item item-main'>
         <p>{description}</p>
       </div>
-      <div className='grid-item item-multi'>
+      <div className='grid-item item-multi' onClick={(e) => displayModal(e, todo)}>
         <i className='far fa-list-alt'></i>
       </div>
       <div className='grid-item item-duration'>
