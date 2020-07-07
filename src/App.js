@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import TodoState from './context/todos/TodoState';
 import Login from './components/accounts/Login';
 import Register from './components/accounts/Register';
+import UserModal from './components/accounts/UserModal';
 import PrivateRoute from './components/common/PrivateRoute';
 import './App.css';
 
@@ -23,6 +24,7 @@ const App = () => {
         <div className='App'>
           <Modal />
           <DeleteModal />
+          <UserModal />
           <Navbar title='Embiggen' icon='fas fa-tree brand' />
 
           <header className='App-header'>

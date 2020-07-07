@@ -21,6 +21,7 @@ import {
   LOGOUT_USER,
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
+  DISPLAY_USER_MODAL
 } from '../types';
 
 const DEBUG = false;
@@ -57,6 +58,7 @@ const TodoState = (props) => {
     modal: false,
     modalNew: true,
     deleteModal: '',
+    userModal: false,
     sortSelection: 'date-ascending',
     filterSelection: 'active',
     defaultTodo: {
@@ -218,6 +220,23 @@ const TodoState = (props) => {
     dispatch({
       type: DISPLAY_MODAL,
       payload: { modal, modalNew, todo },
+    });
+  }
+  // Display create/update modal
+  const displayUserModal = () => {
+  
+    // Open and close the task modal; modalType update for create or update
+  
+    let userModal;
+   
+    if (!state.userModal) {     
+      userModal = true;
+    } else {
+      userModal = false;
+    }
+    dispatch({
+      type: DISPLAY_USER_MODAL,
+      payload: { userModal },
     });
   };
 
@@ -450,6 +469,7 @@ const TodoState = (props) => {
         sortSelection: state.sortSelection,
         filterSelection: state.filterSelection,
         deleteModal: state.deleteModal,
+        userModal: state.userModal,
         history: state.history,
         loginCredentials: state.loginCredentials,
         registration: state.registration,
@@ -472,6 +492,7 @@ const TodoState = (props) => {
         logout,
         register,
         handleSearchInput,
+        displayUserModal
       }}
     >
       {props.children}

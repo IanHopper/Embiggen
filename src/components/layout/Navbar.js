@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import TodoContext from '../../context/todos/todoContext';
 
 const Navbar = ({ title, icon }) => {
@@ -12,6 +11,7 @@ const Navbar = ({ title, icon }) => {
     logout,
     auth,
     history,
+    displayUserModal,
   } = todoContext;
 
   useEffect(() => {
@@ -30,21 +30,13 @@ const Navbar = ({ title, icon }) => {
         id='add-task'
         onClick={(e) => displayModal(e, null)}
       ></i>
-      <p className='nav-link' onClick={logout}>
-        {user}
-      </p>
-    </div>
-  );
-
-  const guestLinks = (
-    <div>
-      <Link to='/register' className='nav-link'>
-        Register
-      </Link>
-
-      <Link to='/login' className='nav-link'>
-        Login
-      </Link>
+      <div>
+        <i
+          className='fas fa-user'
+          id='user-icon'
+          onClick={() => displayUserModal()}
+        ></i>
+      </div>
     </div>
   );
 
@@ -62,9 +54,7 @@ const Navbar = ({ title, icon }) => {
             </i>
           </Link>
         </div>
-        <div>
-          {auth.isAuthenticated ? authLinks(auth.user.username) : guestLinks}
-        </div>
+        <div>{auth.isAuthenticated ? authLinks(auth.user.username) : null}</div>
       </div>
     </nav>
   );
