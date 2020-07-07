@@ -415,6 +415,11 @@ p {
   cursor: pointer;
 }
 
+.button:focus {
+  outline: none;
+  opacity: .7;
+}
+
 .btn-save,
 .btn-delete, .btn-account, .btn-logout {
   background-color: steelblue;

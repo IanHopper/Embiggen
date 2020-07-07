@@ -41,7 +41,7 @@ const Login = () => {
             />
           </div>
           <div className='form-group'>
-            <button type='submit' className='button btn-account' onClick={(e)=>login(e, loginCredentials.username, loginCredentials.password)}>
+            <button type='submit' className='button btn-account' onPress={(e)=>login(e, loginCredentials.username, loginCredentials.password)}>
               Login
             </button>
           </div>
