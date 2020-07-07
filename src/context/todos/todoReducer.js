@@ -48,7 +48,7 @@ export default (state, action) => {
     case DISPLAY_USER_MODAL:
       return {
         ...state,
-        userModal: action.payload.userModal
+        userModal: action.payload
       }
     case HANDLE_INPUT_CHANGE:
       return {

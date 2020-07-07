@@ -8,7 +8,6 @@ const Navbar = ({ title, icon }) => {
     displayModal,
     handleUndo,
     loadUser,
-    logout,
     auth,
     history,
     displayUserModal,

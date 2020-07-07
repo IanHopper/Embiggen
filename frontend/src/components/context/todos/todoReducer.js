@@ -18,6 +18,7 @@ import {
   LOGOUT_USER,
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
+  DISPLAY_USER_MODAL
 } from '../types';
 
 export default (state, action) => {
@@ -44,6 +45,11 @@ export default (state, action) => {
         modalNew: action.payload.modalNew,
         todo: action.payload.todo,
       };
+    case DISPLAY_USER_MODAL:
+      return {
+        ...state,
+        userModal: action.payload
+      }
     case HANDLE_INPUT_CHANGE:
       return {
         ...state,

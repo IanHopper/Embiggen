@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import TodoContext from '../../context/todos/todoContext';
 
 const Navbar = ({ title, icon }) => {
@@ -9,9 +8,9 @@ const Navbar = ({ title, icon }) => {
     displayModal,
     handleUndo,
     loadUser,
-    logout,
     auth,
     history,
+    displayUserModal,
   } = todoContext;
 
   useEffect(() => {
@@ -30,21 +29,13 @@ const Navbar = ({ title, icon }) => {
         id='add-task'
         onClick={(e) => displayModal(e, null)}
       ></i>
-      <p className='nav-link' onClick={logout}>
-        {user}
-      </p>
-    </div>
-  );
-
-  const guestLinks = (
-    <div>
-      <Link to='/register' className='nav-link'>
-        Register
-      </Link>
-
-      <Link to='/login' className='nav-link'>
-        Login
-      </Link>
+      <div>
+        <i
+          className='fas fa-user'
+          id='user-icon'
+          onClick={() => displayUserModal()}
+        ></i>
+      </div>
     </div>
   );
 
@@ -54,29 +45,18 @@ const Navbar = ({ title, icon }) => {
         <div>
           <Link to='/'>
             <i
-              className={icon}
+              className='fas fa-tree'
               onClick={() => todoContext.fetchTodos()}
               id='brand'
             >
-              <span>&nbsp;{title}</span>
+              <span>&nbsp;Embiggen</span>
             </i>
           </Link>
         </div>
-        <div>
-          {auth.isAuthenticated ? authLinks(auth.user.username) : guestLinks}
-        </div>
+        <div>{auth.isAuthenticated ? authLinks(auth.user.username) : null}</div>
       </div>
     </nav>
   );
 };
 
-Navbar.defaultProps = {
-  title: 'Embiggen',
-  icon: 'fas fa-tree',
-};
-
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
-};
 export default Navbar;
