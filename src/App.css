@@ -91,6 +91,14 @@ p {
   padding: 3px 5px;
 }
 
+@media only screen and (max-width:600px){
+  .navbar i:first-of-type {
+    color: var(--brand-color);
+    font-size: 1.7rem;
+    
+  }
+}
+
 /* Container */
 .container {
   width: 100%;
