@@ -411,8 +411,8 @@ p {
 .button {
   padding: 8px 15px;
   border: none;
-  /* border-radius: 4px; */
   font-weight: bold;
+  cursor: 'pointer';
 }
 
 .btn-save,
