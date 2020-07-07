@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import TodoContext from '../../context/todos/todoContext';
 
 const UserModal = () => {
@@ -21,29 +20,13 @@ const UserModal = () => {
     </div>
   );
 
-  const guestLinks = (
-    <div>
-      <Link
-        to='/register'
-        className='nav-link'
-        onClick={() => displayUserModal()}
-      >
-        Register
-      </Link>
-
-      <Link to='/login' className='nav-link' onClick={() => displayUserModal()}>
-        Login
-      </Link>
-    </div>
-  );
-
   return (
     <div>
       <div className='modal-container' id='modal-container'>
         <div className='modal-contents'>
           <div className='modal-header'>
             <h5>
-              {auth.user ? auth.user.username : 'Welcome'}
+              {auth.user ? auth.user.username : null}
             </h5>
             <button
               className='button btn-close-modal'
@@ -57,7 +40,7 @@ const UserModal = () => {
             <div>
               {auth.isAuthenticated
                 ? authLinks(auth.user.username)
-                : guestLinks}
+                : null}
             </div>
           </form>
         </div>

@@ -223,6 +223,7 @@ p {
 .item-multi {
   grid-area: multi;
   text-align: right;
+  padding: 0 5px;
 }
 
 .item-multi i:hover {
@@ -253,6 +254,7 @@ p {
   text-align: right;
   color: var(--money-color);
   font-weight: bold;
+  padding: 0 3px;
 }
 
 .item-completed {
