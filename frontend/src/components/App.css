@@ -56,7 +56,8 @@ p {
   display: flex;
 }
 
-.navbar #add-task, .navbar #undo {
+.navbar #add-task,
+.navbar #undo {
   margin: auto;
   cursor: pointer;
   padding: 0 5px;
@@ -76,6 +77,11 @@ p {
   color: #999;
 }
 
+.navbar .fas.fa-user {
+  color: #666;
+  padding: 0 5px 0 5px;
+}
+
 .nav-link {
   display: flex;
   font-size: 1rem;
@@ -91,11 +97,10 @@ p {
   padding: 3px 5px;
 }
 
-@media only screen and (max-width:600px){
+@media only screen and (max-width: 600px) {
   .navbar i:first-of-type {
     color: var(--brand-color);
     font-size: 1.7rem;
-    
   }
 }
 
@@ -106,7 +111,7 @@ p {
   margin-top: 30.3px;
 }
 
-@media only screen and (max-width:600px){
+@media only screen and (max-width: 600px) {
   .container {
     padding: 0 3px;
   }
@@ -136,7 +141,7 @@ p {
   color: var(--brand-color);
   background-color: var(--background-color);
   width: 100%;
-  -webkit-appearance:none;
+  -webkit-appearance: none;
   border-radius: 0;
 }
 
@@ -152,29 +157,27 @@ p {
   margin-top: 48px;
 }
 
-
-@media screen and (max-width: 600px){
+@media screen and (max-width: 600px) {
   .task-list-header {
     padding: 2px 0px;
   }
   .select-menu {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
-  .select-menu:last-child{
+  .select-menu:last-child {
     margin-right: 10px;
   }
   #search-input {
     max-width: 97%;
   }
   #search-input::placeholder {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 }
 
 /* Todo List */
 .todo-container {
   padding: 1rem;
- 
 }
 
 @media only screen and (max-width: 600px) {
@@ -195,10 +198,10 @@ p {
   display: grid;
   grid-template-columns: 30px;
   grid-template-areas:
-      'completed header header header header header multi'
-      'date date duration duration duration cost cost'
-      'main main main main main main main'
-      'main main main main main main main'
+    'completed header header header header header multi'
+    'date date duration duration duration cost cost'
+    'main main main main main main main'
+    'main main main main main main main';
 }
 
 .item-header {
@@ -213,18 +216,19 @@ p {
 
 .item-main {
   grid-area: main;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: #555;
 }
 
 .item-multi {
   grid-area: multi;
   text-align: right;
+  padding: 0 5px;
 }
 
 .item-multi i:hover {
   opacity: 0.6;
-  transform: scale(1.2)
+  transform: scale(1.2);
 }
 
 .item-duration {
@@ -250,6 +254,7 @@ p {
   text-align: right;
   color: var(--money-color);
   font-weight: bold;
+  padding: 0 3px;
 }
 
 .item-completed {
@@ -320,15 +325,19 @@ p {
     border-top: 1px solid var(--background-color);
   }
 
-  .item-header, .item-completed {
+  .item-header,
+  .item-completed {
     font-size: 1rem;
     padding: 0 0 5px 0;
   }
-  .item-main, .item-date, .item-duration, .item-cost {
-    font-size: .8em;
+  .item-main,
+  .item-date,
+  .item-duration,
+  .item-cost {
+    font-size: 0.8em;
   }
 
-  .item-completed label::before{
+  .item-completed label::before {
     height: 20px;
     width: 20px;
     border: 1.5px solid;
@@ -433,11 +442,13 @@ p {
 
 .button:focus {
   outline: none;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .btn-save,
-.btn-delete, .btn-account, .btn-logout {
+.btn-delete,
+.btn-account,
+.btn-logout {
   background-color: steelblue;
   color: white;
   width: 100%;
@@ -486,7 +497,7 @@ p {
   color: blue;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px) {
   .modal-contents {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     position: absolute;
@@ -498,11 +509,11 @@ p {
     max-height: 100%;
     width: 400px;
   }
-  
+
   .modal-form div {
     margin: 0px 0px 5px 0;
   }
- 
+
   .modal-header h5 {
     margin: 0;
     font-weight: bold;
@@ -511,7 +522,8 @@ p {
 }
 
 /* Account login/registration */
-.account-form, .loading {
+.account-form,
+.loading {
   margin-top: 50px;
 }
 
