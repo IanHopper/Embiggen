@@ -412,7 +412,7 @@ p {
   padding: 8px 15px;
   border: none;
   font-weight: bold;
-  cursor: 'pointer';
+  cursor: pointer;
 }
 
 .btn-save,
