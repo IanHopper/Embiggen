@@ -337,6 +337,11 @@ p {
     left: -9px;
     top: -2px;
   }
+
+  .item-completed input[type='checkbox']:hover + label::after {
+    content: '';
+    display: none;
+  }
 }
 
 /* Modal */
@@ -354,7 +359,6 @@ p {
 .modal-contents {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: absolute;
-  overflow: hidden;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -475,6 +479,18 @@ p {
 }
 
 @media only screen and (max-width: 600px){
+  .modal-contents {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    /* overflow: hidden; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    width: 400px;
+  }
+  
   .modal-form div {
     margin: 0px 0px 5px 0;
   }

@@ -54,11 +54,11 @@ const Navbar = ({ title, icon }) => {
         <div>
           <Link to='/'>
             <i
-              className={icon}
+              className='fas fa-tree'
               onClick={() => todoContext.fetchTodos()}
               id='brand'
             >
-              <span>&nbsp;{title}</span>
+              <span>&nbsp;Embiggen</span>
             </i>
           </Link>
         </div>
@@ -70,13 +70,4 @@ const Navbar = ({ title, icon }) => {
   );
 };
 
-Navbar.defaultProps = {
-  title: 'Embiggen',
-  icon: 'fas fa-tree',
-};
-
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
-};
 export default Navbar;
