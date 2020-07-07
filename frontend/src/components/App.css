@@ -1,0 +1,489 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Anton&display=swap');
+
+/* Color variables */
+:root {
+  --brand-color: rgb(4, 122, 87);
+  --background-color: rgb(194, 215, 229);
+  --money-color: rgb(24, 189, 24);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  background-color: var(--background-color);
+}
+
+p {
+  margin: 0;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  top: 0;
+  z-index: 100;
+  padding: 6px 4px;
+  margin: 0;
+}
+
+.navbar-container {
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.navbar i:first-of-type {
+  color: var(--brand-color);
+  font-size: 2rem;
+}
+
+.navbar i span {
+  font-family: 'Anton';
+}
+
+.navbar-container div {
+  display: flex;
+}
+
+.navbar #add-task, .navbar #undo {
+  margin: auto;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.navbar #add-task {
+  color: red;
+  font-size: 2rem;
+}
+
+.navbar #undo {
+  color: #555;
+  font-size: 1.5rem;
+}
+
+.navbar #user {
+  color: #999;
+}
+
+.nav-link {
+  display: flex;
+  font-size: 1rem;
+  border: 0;
+  font-weight: bold;
+  color: var(--brand-color);
+  width: 100%;
+  -o-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  padding: 3px 5px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 30.3px;
+}
+
+@media only screen and (max-width:600px){
+  .container {
+    padding: 0 3px;
+  }
+}
+
+/* Sorting & Filter menus */
+.task-list-header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 540px;
+  z-index: 100;
+  background-color: var(--background-color);
+  padding: 5px 2px;
+}
+
+.task-filter {
+  display: flex;
+  background-color: var(--background-color);
+}
+
+.select-menu {
+  font-size: 1rem;
+  border: 0;
+  font-weight: bold;
+  color: var(--brand-color);
+  background-color: var(--background-color);
+  width: 100%;
+  /* -webkit-appearance:none; */
+}
+
+.select-menu:focus {
+  outline: none;
+}
+
+.select-menu:hover {
+  cursor: pointer;
+}
+
+.task-list {
+  margin-top: 48px;
+}
+
+@media screen and (max-width: 600px){
+  .task-list-header {
+    padding: 2px 0px;
+  }
+  .select-menu {
+    font-size: .9rem;
+  }
+  .select-menu:last-child{
+    margin-right: 10px;
+  }
+  #search-input {
+    max-width: 97%;
+  }
+  #search-input::placeholder {
+    font-size: .9rem;
+  }
+}
+
+/* Todo List */
+.todo-container {
+  padding: 1rem;
+ 
+}
+
+@media only screen and (max-width: 600px) {
+  .todo-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Todo Card */
+
+.grid-card {
+  cursor: pointer;
+  padding: 1rem;
+  border: #ccc 1px solid;
+  margin: 0.3rem 0;
+  background-color: white;
+  display: grid;
+  grid-template-columns: 30px;
+  grid-template-areas:
+      'completed header header header header header multi'
+      'date date duration duration duration cost cost'
+      'main main main main main main main'
+      'main main main main main main main'
+}
+
+.item-header {
+  grid-area: header;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.item-header p:hover {
+  opacity: 0.8;
+}
+
+.item-main {
+  grid-area: main;
+  font-size: .9rem;
+  color: #555;
+}
+
+.item-multi {
+  grid-area: multi;
+  text-align: right;
+}
+
+.item-multi i:hover {
+  opacity: 0.6;
+  transform: scale(1.2)
+}
+
+.item-duration {
+  grid-area: duration;
+  text-align: left;
+}
+
+.item-date {
+  grid-area: date;
+  text-align: left;
+}
+
+.item-date.today {
+  color: var(--brand-color);
+}
+
+.item-date.overdue {
+  color: red;
+}
+
+.item-cost {
+  grid-area: cost;
+  text-align: right;
+  color: var(--money-color);
+  font-weight: bold;
+}
+
+.item-completed {
+  grid-area: completed;
+  text-align: left;
+}
+
+.item-completed input[type='checkbox'] {
+  opacity: 0;
+}
+
+.item-completed label {
+  position: relative;
+  cursor: pointer;
+}
+
+.item-completed label::before,
+.item-completed label::after {
+  position: absolute;
+}
+
+.item-completed label::before {
+  content: '';
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border: 2px solid;
+  top: -6px;
+  left: -15px;
+  border-radius: 50%;
+}
+
+.item-completed label::after {
+  content: '';
+  display: inline-block;
+  height: 6px;
+  width: 9px;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(-45deg);
+  left: -9px;
+  top: 0px;
+}
+
+.item-completed input[type='checkbox'] + label::after {
+  content: none;
+}
+
+.item-completed input[type='checkbox']:checked + label::after {
+  content: '';
+}
+
+.item-completed input[type='checkbox']:hover + label::after {
+  content: '';
+  border-color: #999;
+}
+
+.item-completed input[type='checkbox']:hover:checked + label::after {
+  content: '';
+  border-color: inherit;
+}
+
+@media screen and (max-width: 600px) {
+  .grid-card {
+    padding: 5px 5px 5px 10px;
+    margin: 0;
+    background-color: white;
+    border-top: 1px solid var(--background-color);
+  }
+
+  .item-header, .item-completed {
+    font-size: 1rem;
+    padding: 0 0 5px 0;
+  }
+  .item-main, .item-date, .item-duration, .item-cost {
+    font-size: .8em;
+  }
+
+  .item-completed label::before{
+    height: 20px;
+    width: 20px;
+    border: 1.5px solid;
+    top: -8px;
+    left: -15px;
+    border-radius: 50%;
+  }
+  .item-completed label::after {
+    height: 6px;
+    width: 9px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    transform: rotate(-45deg);
+    left: -9px;
+    top: -2px;
+  }
+}
+
+/* Modal */
+
+.modal-container {
+  background-color: rgba(20, 20, 20, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 105;
+}
+
+.modal-contents {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  width: 400px;
+}
+
+.modal-header {
+  background: white;
+  color: var(--brand-color);
+  padding: 15px;
+  border: none;
+  border-radius: 0;
+}
+
+.modal-header h5 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 0 55px 0 0;
+}
+
+.modal-form {
+  background-color: var(--background-color);
+  padding: 10px;
+}
+
+.modal-form div {
+  margin: 0px 0px 15px 0;
+}
+
+.modal-form .form-input {
+  padding: 8px;
+  width: 100%;
+  border: none;
+}
+
+.modal-form label {
+  font-weight: bold;
+}
+
+.modal-form .form-input:focus {
+  outline: none;
+}
+
+.modal-header .trash-icon {
+  color: #999;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 43px;
+  font-size: 1.4rem;
+}
+
+.button {
+  padding: 8px 15px;
+  border: none;
+  /* border-radius: 4px; */
+  font-weight: bold;
+}
+
+.btn-save,
+.btn-delete, .btn-account, .btn-logout {
+  background-color: steelblue;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-logout {
+  background-color: var(--background-color);
+  margin-top: 0px;
+}
+
+.btn-delete {
+  background-color: red;
+}
+
+.btn-close-modal {
+  background: transparent;
+  font-size: 25px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.btn-close-modal:focus {
+  outline: none;
+}
+
+.navbar-buttons li {
+  list-style: none;
+}
+
+.vital {
+  color: red;
+}
+
+.important {
+  color: orange;
+}
+
+.urgent {
+  color: blue;
+}
+
+@media only screen and (max-width: 600px){
+  .modal-form div {
+    margin: 0px 0px 5px 0;
+  }
+ 
+  .modal-header h5 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+}
+
+/* Account login/registration */
+.account-form, .loading {
+  margin-top: 50px;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  text-align: center;
+}
