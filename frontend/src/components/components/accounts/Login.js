@@ -5,17 +5,21 @@ import TodoContext from '../../context/todos/todoContext';
 const Login = () => {
   const todoContext = useContext(TodoContext);
   const { login, handleLoginChange, loginCredentials, auth } = todoContext;
-  
+
   // Redirect to main if user is already logged in
-  if(auth.isAuthenticated){
-    return <Redirect to="/" />
+  if (auth.isAuthenticated) {
+    return <Redirect to='/' />;
   }
 
   return (
     <div className='account-form'>
       <div>
         <h2>Login</h2>
-        <form onSubmit={(e)=>login(e, loginCredentials.username, loginCredentials.password)}>
+        <form
+          onSubmit={(e) =>
+            login(e, loginCredentials.username, loginCredentials.password)
+          }
+        >
           <div>
             <label>Username</label>
             <input
@@ -23,7 +27,7 @@ const Login = () => {
               type='text'
               className='form-control'
               name='username'
-              value ={loginCredentials.username ? loginCredentials.username : ''}
+              value={loginCredentials.username ? loginCredentials.username : ''}
               onChange={handleLoginChange}
               required
             />
@@ -35,13 +39,16 @@ const Login = () => {
               type='password'
               className='form-control'
               name='password'
-              value ={loginCredentials.password ? loginCredentials.password : ''}
+              value={loginCredentials.password ? loginCredentials.password : ''}
               onChange={handleLoginChange}
               required
             />
           </div>
           <div className='form-group'>
-            <button type='submit' className='button btn-account' onClick={(e)=>login(e, loginCredentials.username, loginCredentials.password)}>
+            <button
+              type='submit'
+              className='button btn-account'
+            >
               Login
             </button>
           </div>

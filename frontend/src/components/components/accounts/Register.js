@@ -15,7 +15,7 @@ const Register = () => {
     <div className='account-form'>
       <div>
         <h2>Register</h2>
-        <form onSubmit={(e,registration) => register(e)}>
+        <form onSubmit={(e) => register(e)}>
           <div>
             <label>Username</label>
             <input
