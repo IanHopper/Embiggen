@@ -128,7 +128,8 @@ p {
   color: var(--brand-color);
   background-color: var(--background-color);
   width: 100%;
-  /* -webkit-appearance:none; */
+  -webkit-appearance:none;
+  border-radius: 0;
 }
 
 .select-menu:focus {
@@ -142,6 +143,7 @@ p {
 .task-list {
   margin-top: 48px;
 }
+
 
 @media screen and (max-width: 600px){
   .task-list-header {
@@ -389,6 +391,8 @@ p {
   padding: 8px;
   width: 100%;
   border: none;
+  border-radius: 0;
+  -webkit-appearance: none;
 }
 
 .modal-form label {
@@ -485,6 +489,16 @@ p {
 /* Account login/registration */
 .account-form, .loading {
   margin-top: 50px;
+}
+
+.form-control {
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.form-control:focus {
+  outline: none;
+  -webkit-appearance: none;
 }
 
 /* Footer */
