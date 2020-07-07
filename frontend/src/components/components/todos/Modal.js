@@ -29,21 +29,18 @@ const Modal = () => {
             <i className='fa fa-times'></i>
           </button>
           <div className='modal-header'>
-            <h5>
-              {todo.task_name === '' ? 'New Task' : todo.task_name}
-              
-            </h5>
+            <h5>{todo.task_name === '' ? 'New Task' : todo.task_name}</h5>
             <span className='trash-icon'>
-                {' '}
-                &nbsp;
-                {todo.id ? (
-                  <i
-                    className='fas fa-trash-alt'
-                    id='deleteTask'
-                    onClick={() => displayDeleteModal(todo)}
-                  ></i>
-                ) : null}
-              </span>
+              {' '}
+              &nbsp;
+              {todo.id ? (
+                <i
+                  className='fas fa-trash-alt'
+                  id='deleteTask'
+                  onClick={() => displayDeleteModal(todo)}
+                ></i>
+              ) : null}
+            </span>
           </div>
           <form
             action=''
@@ -78,6 +75,7 @@ const Modal = () => {
                 type='date'
                 id='due_date'
                 className='form-input'
+                placeholder='MM/DD/YYYY'
                 value={todo.due_date ? todo.due_date : ''}
                 onChange={handleInputChange}
               />
@@ -119,10 +117,7 @@ const Modal = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <button
-              className='button btn-save'>
-              Save
-            </button>
+            <button className='button btn-save'>Save</button>
           </form>
         </div>
       </div>

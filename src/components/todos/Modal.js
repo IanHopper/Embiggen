@@ -78,6 +78,7 @@ const Modal = () => {
                 type='date'
                 id='due_date'
                 className='form-input'
+                placeholder='MM/DD/YYYY'
                 value={todo.due_date ? todo.due_date : ''}
                 onChange={handleInputChange}
               />
