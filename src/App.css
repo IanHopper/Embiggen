@@ -97,13 +97,6 @@ p {
   padding: 3px 5px;
 }
 
-@media only screen and (max-width: 600px) {
-  .navbar i:first-of-type {
-    color: var(--brand-color);
-    font-size: 1.7rem;
-  }
-}
-
 /* Container */
 .container {
   width: 100%;
@@ -190,7 +183,6 @@ p {
 /* Todo Card */
 
 .grid-card {
-  cursor: pointer;
   padding: 1rem;
   border: #ccc 1px solid;
   margin: 0.3rem 0;
@@ -208,10 +200,6 @@ p {
   grid-area: header;
   font-weight: bold;
   font-size: 1.2rem;
-}
-
-.item-header p:hover {
-  opacity: 0.8;
 }
 
 .item-main {
@@ -307,15 +295,6 @@ p {
   content: '';
 }
 
-.item-completed input[type='checkbox']:hover + label::after {
-  content: '';
-  border-color: #999;
-}
-
-.item-completed input[type='checkbox']:hover:checked + label::after {
-  content: '';
-  border-color: inherit;
-}
 
 @media screen and (max-width: 600px) {
   .grid-card {
@@ -353,11 +332,6 @@ p {
     transform: rotate(-45deg);
     left: -9px;
     top: -2px;
-  }
-
-  .item-completed input[type='checkbox']:hover + label::after {
-    content: '';
-    display: none;
   }
 }
 

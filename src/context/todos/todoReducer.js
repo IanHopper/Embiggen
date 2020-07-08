@@ -75,11 +75,6 @@ export default (state, action) => {
         ...state,
         history: state.history.concat([action.payload.deletedTask]),
       };
-    case HANDLE_CHECKBOX_CHANGE:
-      return {
-        ...state,
-        todo: action.payload.todo,
-      };
     case HANDLE_LOGIN_CHANGE:
       return {
         ...state,

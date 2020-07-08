@@ -21,16 +21,16 @@ import {
   LOGOUT_USER,
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
-  DISPLAY_USER_MODAL
+  DISPLAY_USER_MODAL,
 } from '../types';
 
 const DEBUG = false;
 let appUrl;
 
-if(!DEBUG){
-  appUrl = 'https://mysterious-fjord-32459.herokuapp.com'
+if (!DEBUG) {
+  appUrl = 'https://mysterious-fjord-32459.herokuapp.com';
 } else {
-  appUrl = 'http://localhost:8000' 
+  appUrl = 'http://localhost:8000';
 }
 
 const TodoState = (props) => {
@@ -145,11 +145,26 @@ const TodoState = (props) => {
           ? null
           : state.todo.duration,
     };
-    await axios.put(
-      `${appUrl}/api/${state.todo.id}/`,
-      data,
-      config
-    );
+    await axios.put(`${appUrl}/api/${state.todo.id}/`, data, config);
+    fetchTodos();
+  };
+
+  // Update todo when box checked/unchecked
+  const updateTodoCompleted = async (e, todo) => {
+    let token = localStorage.getItem('token')
+      ? localStorage.getItem('token')
+      : '';
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    const data = {
+      username: state.auth.user.id,
+      task_name: todo.task_name,
+      completed: e.target.checked === true,
+    };
+    await axios.put(`${appUrl}/api/${todo.id}/`, data, config);
     fetchTodos();
   };
 
@@ -197,9 +212,6 @@ const TodoState = (props) => {
 
   // Display create/update modal
   const displayModal = (e, currentTodo) => {
-    // if(e.target.id === "deleteTask"){
-    //   return null
-    // }
     // Open and close the task modal; modalType update for create or update
     let todo;
     let modal;
@@ -221,15 +233,14 @@ const TodoState = (props) => {
       type: DISPLAY_MODAL,
       payload: { modal, modalNew, todo },
     });
-  }
+  };
   // Display create/update modal
   const displayUserModal = () => {
-  
     // Open and close the task modal; modalType update for create or update
-  
+
     let userModal;
-   
-    if (!state.userModal) {     
+
+    if (!state.userModal) {
       userModal = true;
     } else {
       userModal = false;
@@ -291,25 +302,6 @@ const TodoState = (props) => {
       type: HANDLE_UNDO,
       payload: { newHistory },
     });
-    fetchTodos();
-  };
-
-  // Update todo when box checked/unchecked
-  const updateTodoCompleted = async (e, todo) => {
-    let token = localStorage.getItem('token')
-      ? localStorage.getItem('token')
-      : '';
-    const config = {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    };
-    const data = {
-      username: state.auth.user.id,
-      task_name: todo.task_name,
-      completed: e.target.checked === true,
-    };
-    await axios.put(`${appUrl}/api/${todo.id}/`, data, config);
     fetchTodos();
   };
 
@@ -378,11 +370,7 @@ const TodoState = (props) => {
     // Login credentials
     const body = JSON.stringify({ username, password });
     try {
-      const res = await axios.post(
-        `${appUrl}/api/auth/login`,
-        body,
-        config
-      );
+      const res = await axios.post(`${appUrl}/api/auth/login`, body, config);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -408,11 +396,7 @@ const TodoState = (props) => {
     // Login credentials
     const body = JSON.stringify({ username, email, password });
     try {
-      const res = await axios.post(
-        `${appUrl}/api/auth/register`,
-        body,
-        config
-      );
+      const res = await axios.post(`${appUrl}/api/auth/register`, body, config);
       dispatch({
         type: HANDLE_REGISTER_SUCCESS,
         payload: res.data,
@@ -492,7 +476,7 @@ const TodoState = (props) => {
         logout,
         register,
         handleSearchInput,
-        displayUserModal
+        displayUserModal,
       }}
     >
       {props.children}
