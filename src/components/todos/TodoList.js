@@ -11,9 +11,13 @@ const TodoList = () => {
     filterSelection,
     fetchTodos,
     search,
+    addTaskData
   } = todoContext;
 
   let token = localStorage.getItem('token');
+  let totalTasks = 0
+  let totalTime = 0;
+  let totalCost = 0;
 
   // Fetches todos when list mounts
   useEffect(() => {
@@ -22,6 +26,12 @@ const TodoList = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+ 
+
+  useEffect(()=> {
+    addTaskData(totalTasks, totalTime, totalCost)
+  },[todos, filterSelection, sortSelection, search]);
 
   // Filter then sort the todos
   const mapTodos = () => {
@@ -104,19 +114,30 @@ const TodoList = () => {
       });
     }
 
-
     // Search filter
     if (search) {
       displayList = displayList.filter((todo) =>
         todo.task_name.toUpperCase().includes(search.toUpperCase())
       );
     }
+
+    // Set visible task variables
+    totalTasks = displayList.length
+    displayList.map((todo) => {
+      if (todo.duration !== null){
+        totalTime += parseInt(todo.duration)
+      }
+      if (todo.cost) {
+        totalCost += parseInt(todo.cost)
+      }
+    })                                    
     // Map the filtered and sorted todo array
     return displayList.map((todo) => <TodoItem key={todo.id} todo={todo} />);
+
   };
 
   return (
-    <div className='todo-container'>
+    <div className='todo-container' onClick={()=>addTaskData(totalTasks, totalTime, totalCost)}>
       <FilterHeader />
       <div className='task-list'>{todos ? mapTodos() : null}</div>
     </div>

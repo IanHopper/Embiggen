@@ -5,6 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
+import Statbar from './components/layout/Statbar';
 import Footer from './components/layout/Footer';
 import TodoList from './components/todos/TodoList';
 import Modal from './components/todos/Modal';
@@ -37,6 +38,7 @@ const App = () => {
             </div>
           </header>
         </div>
+        <Statbar />
         <Footer />
       </Router>
     </TodoState>

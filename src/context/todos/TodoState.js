@@ -22,6 +22,7 @@ import {
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
   DISPLAY_USER_MODAL,
+  UPDATE_TASK_DATA
 } from '../types';
 
 const DEBUG = false;
@@ -51,6 +52,7 @@ const TodoState = (props) => {
       password: null,
       password2: null,
     },
+    taskData: {},
     todos: [],
     todo: {},
     history: [],
@@ -440,6 +442,15 @@ const TodoState = (props) => {
     });
   };
 
+  // Total Task information
+  const addTaskData = (number, duration, cost) => {
+    const taskData = { number, duration, cost }
+    dispatch({
+      type: UPDATE_TASK_DATA,
+      payload: { taskData }
+    })
+  }
+
   return (
     <TodoContext.Provider
       value={{
@@ -457,6 +468,7 @@ const TodoState = (props) => {
         history: state.history,
         loginCredentials: state.loginCredentials,
         registration: state.registration,
+        taskData: state.taskData,
         fetchTodos,
         handleSort,
         handleFilter,
@@ -477,6 +489,7 @@ const TodoState = (props) => {
         register,
         handleSearchInput,
         displayUserModal,
+        addTaskData
       }}
     >
       {props.children}

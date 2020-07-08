@@ -516,3 +516,41 @@ p {
   width: 100%;
   text-align: center;
 }
+
+/* Statbar */
+.statbar {
+  position: fixed;
+  width: 100%;
+  background-color: #ddd;
+  color: #333;
+  bottom: 0;
+  z-index: 100;
+  padding: 6px 4px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.statbar-container {
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+  
+}
+
+.statbar-container div {
+  display: flex;
+  margin: auto;
+}
+
+.statbar-container div i {
+  padding: 4px 0;
+}
+
+.statbar-container div:last-of-type {
+  color: var(--money-color)
+}

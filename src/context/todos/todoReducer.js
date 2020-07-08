@@ -7,7 +7,6 @@ import {
   DISPLAY_DELETE_MODAL,
   HANDLE_UNDO,
   DELETE_TODO,
-  HANDLE_CHECKBOX_CHANGE,
   HANDLE_LOGIN_CHANGE,
   HANDLE_REGISTER_CHANGE,
   USER_LOADING,
@@ -18,7 +17,8 @@ import {
   LOGOUT_USER,
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
-  DISPLAY_USER_MODAL
+  DISPLAY_USER_MODAL,
+  UPDATE_TASK_DATA
 } from '../types';
 
 export default (state, action) => {
@@ -163,5 +163,10 @@ export default (state, action) => {
       };
     default:
       return state;
+    case UPDATE_TASK_DATA:
+      return {
+        ...state,
+        taskData: action.payload.taskData
+      }
   }
 };
