@@ -21,8 +21,9 @@ const Modal = () => {
   }
 
   const dateConverter = () => {
-    // I set the timezone effectively to nothing; this will change in a more sophisticated app
-    const date = new Date(`${todo.due_date}T00:00:00`)
+    // This is a hack; add a day to get around timezone problems.
+    const rawdate = new Date(todo.due_date)
+    const date = new Date(rawdate.setDate(rawdate.getDate() + 1))
     return date
   }
 
