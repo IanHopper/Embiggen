@@ -27,9 +27,9 @@ const TodoItem = ({ todo }) => {
 
   // Add classes for styling overdue tasks and tasks for today
   const dateClass = () => {
-    if (due_date === new Date().toISOString().slice(0, 10)) {
+    if (due_date === new Date().toLocaleString("sv-SE").slice(0,10)) {
       return 'grid-item item-date today';
-    } else if (new Date(due_date) < new Date() && due_date) {
+    } else if (new Date(`${todo.due_date}T00:00:00`) < new Date()) {
       return 'grid-item item-date overdue';
     } else {
       return 'grid-item item-date';
@@ -41,9 +41,9 @@ const TodoItem = ({ todo }) => {
     // Return today if task is due today
     if (!due_date) {
       return 'No Date';
-    } else if (due_date === new Date().toISOString().slice(0, 10)) {
+    } else if (due_date === new Date().toLocaleString("sv-SE").slice(0,10)) {
       return 'Today';
-    } else if (new Date(due_date) < new Date()) {
+    } else if (new Date(`${todo.due_date}T00:00:00`) < new Date()) {
       return 'Overdue';
     }
     const months = [
@@ -73,7 +73,6 @@ const TodoItem = ({ todo }) => {
         <p>
           <i
             className='fa fa-calendar-alt'
-            onClick={() => console.log(due_date, new Date().toISOString().slice(0, 10))}
           ></i>
           &nbsp; {dateTranslate()}
         </p>

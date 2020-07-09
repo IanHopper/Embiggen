@@ -11,11 +11,11 @@ const TodoList = () => {
     filterSelection,
     fetchTodos,
     search,
-    addTaskData
+    addTaskData,
   } = todoContext;
 
   let token = localStorage.getItem('token');
-  let totalTasks = 0
+  let totalTasks = 0;
   let totalTime = 0;
   let totalCost = 0;
 
@@ -27,11 +27,10 @@ const TodoList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
- 
-
-  useEffect(()=> {
-    addTaskData(totalTasks, totalTime, totalCost)
-  },[todos, filterSelection, sortSelection, search]);
+  useEffect(() => {
+    addTaskData(totalTasks, totalTime, totalCost);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [todos, filterSelection, sortSelection, search]);
 
   // Filter then sort the todos
   const mapTodos = () => {
@@ -64,25 +63,39 @@ const TodoList = () => {
         if (a.priority === b.priority) {
           return a.id - b.id;
         } else {
-          return null
+          return null;
         }
       });
     } else if (sortSelection === 'date-ascending') {
-      displayList.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
       displayList.sort((a, b) => {
-        if (new Date(a.due_date).toISOString().slice(0, 10) === new Date(b.due_date).toISOString().slice(0, 10)) {
+        if (!a.due_date) {
+          return 1;
+        } else if (!b.due_date) {
+          return -1;
+        } else {
+          return new Date(a.due_date) - new Date(b.due_date);
+        }
+      });
+      displayList.sort((a, b) => {
+        if (
+          new Date(a.due_date).toISOString().slice(0, 10) ===
+          new Date(b.due_date).toISOString().slice(0, 10)
+        ) {
           return a.id - b.id;
         } else {
-          return null
+          return null;
         }
       });
     } else if (sortSelection === 'date-descending') {
       displayList.sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
       displayList.sort((a, b) => {
-        if (new Date(a.due_date).toISOString().slice(0, 10) === new Date(b.due_date).toISOString().slice(0, 10)) {
+        if (
+          new Date(a.due_date).toISOString().slice(0, 10) ===
+          new Date(b.due_date).toISOString().slice(0, 10)
+        ) {
           return a.id - b.id;
         } else {
-          return null
+          return null;
         }
       });
     } else if (sortSelection === 'cost') {
@@ -91,7 +104,7 @@ const TodoList = () => {
         if (b.cost === a.cost) {
           return a.id - b.id;
         } else {
-          return null
+          return null;
         }
       });
     } else if (sortSelection === 'duration-ascending') {
@@ -100,7 +113,7 @@ const TodoList = () => {
         if (b.duration === a.duration) {
           return a.id - b.id;
         } else {
-          return null
+          return null;
         }
       });
     } else if (sortSelection === 'duration-descending') {
@@ -109,7 +122,7 @@ const TodoList = () => {
         if (a.duration === b.duration) {
           return a.id - b.id;
         } else {
-          return null
+          return null;
         }
       });
     }
@@ -122,22 +135,26 @@ const TodoList = () => {
     }
 
     // Set visible task variables
-    totalTasks = displayList.length
+    
     displayList.map((todo) => {
-      if (todo.duration !== null){
-        totalTime += parseInt(todo.duration)
+      if (todo.duration !== null) {
+        totalTime += parseInt(todo.duration);
       }
       if (todo.cost) {
-        totalCost += parseInt(todo.cost)
+        totalCost += parseInt(todo.cost);
       }
-    })                                    
+      totalTasks = displayList.length;
+      return null;
+    });
     // Map the filtered and sorted todo array
     return displayList.map((todo) => <TodoItem key={todo.id} todo={todo} />);
-
   };
 
   return (
-    <div className='todo-container' onClick={()=>addTaskData(totalTasks, totalTime, totalCost)}>
+    <div
+      className='todo-container'
+      onClick={() => addTaskData(totalTasks, totalTime, totalCost)}
+    >
       <FilterHeader />
       <div className='task-list'>{todos ? mapTodos() : null}</div>
     </div>

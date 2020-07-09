@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import TodoContext from '../../context/todos/todoContext';
 
 const Statbar = ({ title, icon }) => {

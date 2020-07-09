@@ -379,7 +379,15 @@ p {
 }
 
 .modal-form div {
-  margin: 0px 0px 15px 0;
+  margin: 0px 0px 12px 0;
+}
+
+.modal-form div:nth-of-type(2) {
+  margin: 0px 0px 6px 0;
+}
+
+.modal-form div:nth-of-type(3), .modal-form div:nth-of-type(3) div {
+  margin: 0 0 3px 0;
 }
 
 .modal-form .form-input {
@@ -405,6 +413,24 @@ p {
   top: 10px;
   right: 43px;
   font-size: 1.4rem;
+}
+
+.react-date-picker {
+  margin: 0;
+}
+
+.react-date-picker__wrapper {
+  background-color: white;
+  border: none;
+  padding: 5px;
+}
+.react-date-picker__wrapper div input {
+  /* padding-top: 4px */
+}
+
+.react-calendar {
+  font-family: 'Lato';
+  
 }
 
 .button {
@@ -554,3 +580,4 @@ p {
 .statbar-container div:last-of-type {
   color: var(--money-color)
 }
+

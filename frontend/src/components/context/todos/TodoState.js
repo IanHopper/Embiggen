@@ -265,11 +265,22 @@ const TodoState = (props) => {
   // Handle change in form input
   const handleInputChange = (e) => {
     const { id, value } = e.target;
+    console.log(id, value)
     dispatch({
       type: HANDLE_INPUT_CHANGE,
       payload: { id, value },
     });
   };
+
+  // Handle date change
+  const handleDateChange = (e) => {
+    const id = 'due_date'
+    const value = e.toLocaleString("sv-SE").slice(0,10)
+    dispatch({
+      type: HANDLE_INPUT_CHANGE,
+      payload: { id, value}
+    })
+  }
 
   // Update based on filter change
   const handleFilter = (e) => {
@@ -489,7 +500,8 @@ const TodoState = (props) => {
         register,
         handleSearchInput,
         displayUserModal,
-        addTaskData
+        addTaskData,
+        handleDateChange
       }}
     >
       {props.children}

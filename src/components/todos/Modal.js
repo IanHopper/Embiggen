@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import DatePicker from 'react-date-picker';
 import TodoContext from '../../context/todos/todoContext';
+
 
 const Modal = () => {
   const todoContext = useContext(TodoContext);
@@ -10,11 +12,18 @@ const Modal = () => {
     handleInputChange,
     handleSubmit,
     displayDeleteModal,
+    handleDateChange
   } = todoContext;
 
   // Do not render modal if state is false
   if (!modal) {
     return null;
+  }
+
+  const dateConverter = () => {
+    // I set the timezone effectively to nothing; this will change in a more sophisticated app
+    const date = new Date(`${todo.due_date}T00:00:00`)
+    return date
   }
 
   return (
@@ -29,21 +38,18 @@ const Modal = () => {
             <i className='fa fa-times'></i>
           </button>
           <div className='modal-header'>
-            <h5>
-              {todo.task_name === '' ? 'New Task' : todo.task_name}
-              
-            </h5>
+            <h5>{todo.task_name === '' ? 'New Task' : todo.task_name}</h5>
             <span className='trash-icon'>
-                {' '}
-                &nbsp;
-                {todo.id ? (
-                  <i
-                    className='fas fa-trash-alt'
-                    id='deleteTask'
-                    onClick={() => displayDeleteModal(todo)}
-                  ></i>
-                ) : null}
-              </span>
+              {' '}
+              &nbsp;
+              {todo.id ? (
+                <i
+                  className='fas fa-trash-alt'
+                  id='deleteTask'
+                  onClick={() => displayDeleteModal(todo)}
+                ></i>
+              ) : null}
+            </span>
           </div>
           <form
             action=''
@@ -59,6 +65,7 @@ const Modal = () => {
                 className='form-input'
                 value={todo.task_name ? todo.task_name : ''}
                 onChange={handleInputChange}
+
                 required
               />
             </div>
@@ -73,16 +80,13 @@ const Modal = () => {
               />
             </div>
             <div>
-              <label htmlFor='due_date'>Due Date</label>
-              <input
-                type='date'
-                id='due_date'
-                className='form-input'
-                placeholder='MM/DD/YYYY'
-                value={todo.due_date ? todo.due_date : ''}
-                onChange={handleInputChange}
-              />
+              <label htmlFor='due_date'>Due Date</label> <br></br>
+              <DatePicker
+                value={todo.due_date ? dateConverter() : ''}
+                onChange={handleDateChange}
+                />
             </div>
+
             <div>
               <label htmlFor='priority'>Priority</label>
               <select
@@ -120,10 +124,7 @@ const Modal = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <button
-              className='button btn-save'>
-              Save
-            </button>
+            <button className='button btn-save'>Save</button>
           </form>
         </div>
       </div>
