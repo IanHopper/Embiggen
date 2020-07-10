@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Statbar from './components/layout/Statbar';
-import Footer from './components/layout/Footer';
+// import Footer from './components/layout/Footer';
 import TodoList from './components/todos/TodoList';
 import Modal from './components/todos/Modal';
 import DeleteModal from './components/todos/DeleteModal';
@@ -27,7 +27,6 @@ const App = () => {
           <DeleteModal />
           <UserModal />
           <Navbar title='Embiggen' icon='fas fa-tree brand' />
-
           <header className='App-header'>
             <div className='container'>
               <Switch>
@@ -39,7 +38,7 @@ const App = () => {
           </header>
         </div>
         <Statbar />
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </TodoState>
   );

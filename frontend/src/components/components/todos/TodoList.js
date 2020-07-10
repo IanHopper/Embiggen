@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
 import TodoItem from './TodoItem';
 import TodoContext from '../../context/todos/todoContext';
 import FilterHeader from '../layout/FilterHeader';
@@ -135,7 +135,7 @@ const TodoList = () => {
     }
 
     // Set visible task variables
-    
+
     displayList.map((todo) => {
       if (todo.duration !== null) {
         totalTime += parseInt(todo.duration);
@@ -151,13 +151,10 @@ const TodoList = () => {
   };
 
   return (
-    <div
-      className='todo-container'
-      onClick={() => addTaskData(totalTasks, totalTime, totalCost)}
-    >
+    <Fragment>
       <FilterHeader />
       <div className='task-list'>{todos ? mapTodos() : null}</div>
-    </div>
+    </Fragment>
   );
 };
 

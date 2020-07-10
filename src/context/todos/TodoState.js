@@ -276,6 +276,7 @@ const TodoState = (props) => {
   const handleDateChange = (e) => {
     const id = 'due_date'
     let value = e ? e.toLocaleString("sv-SE").slice(0,10) : null
+
     console.log(value)
     dispatch({
       type: HANDLE_INPUT_CHANGE,
