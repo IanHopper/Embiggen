@@ -25,11 +25,18 @@ const TodoItem = ({ todo }) => {
     4: 'trivial',
   };
 
+
+  const rawdate = new Date(todo.due_date)
+  const date = new Date(rawdate.setDate(rawdate.getDate() + 1))
+  const today = new Date().toLocaleString("sv-SE").slice(0,10)
+
   // Add classes for styling overdue tasks and tasks for today
   const dateClass = () => {
-    if (due_date === new Date().toLocaleString("sv-SE").slice(0,10)) {
+    if (due_date === today) {
       return 'grid-item item-date today';
-    } else if (new Date(`${todo.due_date}T00:00:00`) < new Date()) {
+    } else if (!due_date) {
+      return 'grid-item item-date';
+    } else if (date < new Date()) {
       return 'grid-item item-date overdue';
     } else {
       return 'grid-item item-date';
@@ -38,12 +45,11 @@ const TodoItem = ({ todo }) => {
 
   // Change date to better human readable format
   const dateTranslate = () => {
-    // Return today if task is due today
     if (!due_date) {
       return 'No Date';
-    } else if (due_date === new Date().toLocaleString("sv-SE").slice(0,10)) {
+    } else if (due_date === today) {
       return 'Today';
-    } else if (new Date(`${todo.due_date}T00:00:00`) < new Date()) {
+    } else if (date < new Date()) {
       return 'Overdue';
     }
     const months = [

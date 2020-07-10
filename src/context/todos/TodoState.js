@@ -275,7 +275,8 @@ const TodoState = (props) => {
   // Handle date change
   const handleDateChange = (e) => {
     const id = 'due_date'
-    const value = e.toLocaleString("sv-SE").slice(0,10)
+    let value = e ? e.toLocaleString("sv-SE").slice(0,10) : null
+    console.log(value)
     dispatch({
       type: HANDLE_INPUT_CHANGE,
       payload: { id, value}
