@@ -1,10 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Anton&family=Satisfy&display=swap');
 
 /* Color variables */
 :root {
   --brand-color: rgb(4, 122, 87);
   --background-color: rgb(194, 215, 229);
+  --secondary-background-color: #eee;
+  --grid-card-background-color: white;
+  --navbar-background-color: white;
+  --grid-card-text-color: #555;
   --money-color: rgb(24, 189, 24);
+  --brand-font: 'Satisfy';
+}
+
+html {
+  overflow-y: scroll;
 }
 
 * {
@@ -25,11 +34,12 @@ p {
 .navbar {
   position: fixed;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--navbar-background-color);
   top: 0;
   z-index: 104;
   padding: 6px 4px;
   margin: 0;
+  border-bottom: 1px solid var(--background-color);
 }
 
 .navbar-container {
@@ -37,10 +47,13 @@ p {
   max-width: 800px;
   width: 100%;
   margin: 0;
-  padding: 0;
   display: flex;
   margin: 0 auto;
   justify-content: space-between;
+}
+
+.navbar div {
+  padding: 0;
 }
 
 .navbar i:first-of-type {
@@ -49,11 +62,9 @@ p {
 }
 
 .navbar i span {
-  font-family: 'Anton';
-}
-
-.navbar-container div {
-  display: flex;
+  position: absolute;
+  top: 5px;
+  font-family: var(--brand-font);
 }
 
 .navbar #add-task,
@@ -73,42 +84,23 @@ p {
   font-size: 1.5rem;
 }
 
-.navbar #user {
-  color: #999;
-}
-
-.navbar .fas.fa-user {
-  color: #666;
-  padding: 0 5px 0 5px;
-}
-
-.nav-link {
-  display: flex;
-  font-size: 1rem;
-  border: 0;
-  font-weight: bold;
-  color: var(--brand-color);
-  width: 100%;
-  -o-appearance: none;
-  -ms-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  padding: 3px 5px;
+.navbar #user-icon {
+  color: #777;
+  font-size: 2rem;
 }
 
 /* Container */
 .container {
+  position: relative;
   width: 100%;
   max-width: 800px;
-  margin-top: 50px;
-  display: flex;
+  margin-top: 46px;
   flex-direction: row;
   position: relative;
   padding: 0;
 }
 
-@media screen and (max-width:600px){
+@media screen and (max-width: 600px) {
   .container {
     margin-top: 46px;
   }
@@ -119,24 +111,26 @@ p {
   display: flex;
   flex-direction: column;
   position: fixed;
-  width: 220px;
+  width: 180px;
   height: 100%;
   z-index: 100;
-  background-color: var(--background-color);
+  background-color: var(--secondary-background-color);
 }
 
 .task-filter {
   display: flex;
-  background-color: var(--background-color);
-  padding-top: 20px;
+  background-color: var(--secondary-background-color);
+  padding-bottom: 8px;
+  margin: 0px 5px;
 }
 
 .select-menu {
-  font-size: 1rem;
+  padding: 5px 5px;
+  font-size: 1.1rem;
   border: 0;
   font-weight: bold;
   color: var(--brand-color);
-  background-color: var(--background-color);
+  background-color: var(--secondary-background-color);
   width: 100%;
   -webkit-appearance: none;
   border-radius: 0;
@@ -150,45 +144,88 @@ p {
   cursor: pointer;
 }
 
+.fas.fa-sort-down {
+  color: var(--brand-color);
+  padding-top: 8px;
+  padding-right: 2px;
+}
 
-@media screen and (max-width: 600px) {
+#search-bar {
+  border: none;
+  margin-top: 5px;
+}
+
+#search-input {
+  padding-left: 23px;
+  color: var(--brand-color);
+  font-weight: bold;
+}
+
+.fas.fa-search {
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  color: var(--brand-color);
+}
+
+@media screen and (max-width: 800px) {
   .task-list-header {
     width: 100%;
-    padding: 2px 0px;
     flex-direction: row;
-    height: 40px;
+    justify-content: inline;
+    height: 38.5px;
   }
 
   .task-filter {
     padding: 0;
+    border: none;
+    min-width: 100px;
   }
 
   .select-menu {
     font-size: 0.9rem;
+    padding: 0;
   }
-  .select-menu:last-child {
-    margin-right: 10px;
+
+  #search-bar {
+    margin: 0;
+    min-width: 180px;
   }
+
   #search-input {
     max-width: 100%;
+    padding-left: 28px;
   }
+
   #search-input::placeholder {
     font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  .fas.fa-search {
+    position: absolute;
+    top: 13px;
+    left: 10px;
+    color: var(--brand-color);
   }
 }
 
 /* Task List */
 .task-list {
   position: absolute;
-  width: 600px;
-  max-width: 80%;
-  left: 220px;
+  display: inline-block;
+  width: 625px;
+  max-width: 100%;
+  left: 180px;
+  margin-bottom: 35px;
+  padding-bottom: 35px;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 800px) {
   .task-list {
-    top: 52px;
+    top: 38px;
     left: 0;
+    width: 100%;
     max-width: 100%;
   }
 }
@@ -197,8 +234,9 @@ p {
 .grid-card {
   padding: 1rem;
   border-top: 1px solid var(--background-color);
-  background-color: white;
+  background-color: var(--grid-card-background-color);
   display: grid;
+  color: var(--grid-card-text-color);
   grid-template-columns: 30px;
   grid-template-areas:
     'completed header header header header header multi'
@@ -216,7 +254,6 @@ p {
 .item-main {
   grid-area: main;
   font-size: 0.9rem;
-  color: #555;
 }
 
 .item-multi {
@@ -310,8 +347,6 @@ p {
   .grid-card {
     padding: 5px 5px 5px 10px;
     margin: 0;
-    background-color: white;
-    
   }
 
   .item-header,
@@ -365,7 +400,7 @@ p {
   transform: translate(-50%, -50%);
   max-width: 100%;
   max-height: 100%;
-  width: 400px;
+  width: 450px;
 }
 
 .modal-header {
@@ -427,13 +462,9 @@ p {
   border: none;
   padding: 5px;
 }
-.react-date-picker__wrapper div input {
-  /* padding-top: 4px */
-}
 
 .react-calendar {
   font-family: 'Lato';
-  
 }
 
 .button {
@@ -497,19 +528,25 @@ p {
 }
 
 .urgent {
-  color: blue;
+  color: rgb(41, 154, 247);
+}
+
+@media only screen and (max-width: 850px) {
+  .modal-contents {
+    top: 35%;
+    left: 50%;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-  .modal-contents {
+  .modal-contents#task-modal {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    transform: none;
     max-width: 100%;
     max-height: 100%;
-    width: 400px;
   }
 
   .modal-form div {
@@ -530,7 +567,9 @@ p {
 /* Account login/registration */
 .account-form,
 .loading {
-  margin-top: 50px;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 400px;
 }
 
 .form-control {
@@ -541,6 +580,14 @@ p {
 .form-control:focus {
   outline: none;
   -webkit-appearance: none;
+}
+
+.nav-link {
+  font-size: 1rem;
+  border: 0;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 3px 5px;
 }
 
 /* Footer */
@@ -558,8 +605,9 @@ p {
   bottom: 0;
   z-index: 100;
   padding: 6px 4px;
-  margin: 0;
   font-weight: bold;
+  border-top: 1px solid var(--background-color);
+  /* overflow: auto; */
 }
 
 .statbar-container {
@@ -571,7 +619,6 @@ p {
   display: flex;
   margin: 0 auto;
   justify-content: space-between;
-  
 }
 
 .statbar-container div {
@@ -584,6 +631,5 @@ p {
 }
 
 .statbar-container div:last-of-type {
-  color: var(--money-color)
+  color: var(--money-color);
 }
-

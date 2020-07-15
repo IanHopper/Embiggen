@@ -18,7 +18,8 @@ import {
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
   DISPLAY_USER_MODAL,
-  UPDATE_TASK_DATA
+  UPDATE_TASK_DATA,
+  DISPLAY_FAILED_LOGIN_MODAL
 } from '../types';
 
 export default (state, action) => {
@@ -63,6 +64,11 @@ export default (state, action) => {
         ...state,
         deleteModal: action.payload.deleteModal,
         todo: action.payload.todo,
+      };
+    case DISPLAY_FAILED_LOGIN_MODAL:
+      return {
+        ...state,
+        failedLoginModal: action.payload.message
       };
     case HANDLE_UNDO:
       if (!state.history.length) return state;

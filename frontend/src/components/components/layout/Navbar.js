@@ -29,13 +29,11 @@ const Navbar = ({ title, icon }) => {
         id='add-task'
         onClick={(e) => displayModal(e, null)}
       ></i>
-      <div>
-        <i
-          className='fas fa-user'
-          id='user-icon'
-          onClick={() => displayUserModal()}
-        ></i>
-      </div>
+      <i
+        className='fas fa-user'
+        id='user-icon'
+        onClick={() => displayUserModal()}
+      ></i>
     </div>
   );
 
@@ -53,7 +51,7 @@ const Navbar = ({ title, icon }) => {
             </i>
           </Link>
         </div>
-        <div>{auth.isAuthenticated ? authLinks(auth.user.username) : null}</div>
+        {auth.isAuthenticated ? authLinks(auth.user.username) : null}
       </div>
     </nav>
   );

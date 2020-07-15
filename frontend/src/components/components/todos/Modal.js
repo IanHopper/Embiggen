@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import DatePicker from 'react-date-picker';
 import TodoContext from '../../context/todos/todoContext';
 
-
 const Modal = () => {
   const todoContext = useContext(TodoContext);
   const {
@@ -12,7 +11,7 @@ const Modal = () => {
     handleInputChange,
     handleSubmit,
     displayDeleteModal,
-    handleDateChange
+    handleDateChange,
   } = todoContext;
 
   // Do not render modal if state is false
@@ -22,15 +21,15 @@ const Modal = () => {
 
   const dateConverter = () => {
     // This is a hack; add a day to get around timezone problems.
-    const rawdate = new Date(todo.due_date)
-    const date = new Date(rawdate.setDate(rawdate.getDate() + 1))
-    return date
-  }
+    const rawdate = new Date(todo.due_date);
+    const date = new Date(rawdate.setDate(rawdate.getDate() + 1));
+    return date;
+  };
 
   return (
     <div>
       <div className='modal-container' id='modal-container'>
-        <div className='modal-contents'>
+        <div className='modal-contents' id='task-modal'>
           <button
             className='button btn-close-modal'
             id='close'
@@ -66,7 +65,6 @@ const Modal = () => {
                 className='form-input'
                 value={todo.task_name ? todo.task_name : ''}
                 onChange={handleInputChange}
-
                 required
               />
             </div>
@@ -85,7 +83,7 @@ const Modal = () => {
               <DatePicker
                 value={todo.due_date ? dateConverter() : ''}
                 onChange={handleDateChange}
-                />
+              />
             </div>
 
             <div>

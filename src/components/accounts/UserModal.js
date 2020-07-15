@@ -23,7 +23,7 @@ const UserModal = () => {
   return (
     <div>
       <div className='modal-container' id='modal-container'>
-        <div className='modal-contents'>
+        <div className='modal-contents' id="user-modal">
           <div className='modal-header'>
             <h5>
               {auth.user ? auth.user.username : null}

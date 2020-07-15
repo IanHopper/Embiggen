@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Statbar from './components/layout/Statbar';
 // import Footer from './components/layout/Footer';
@@ -13,6 +9,7 @@ import DeleteModal from './components/todos/DeleteModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TodoState from './context/todos/TodoState';
 import Login from './components/accounts/Login';
+import FailedLoginModal from './components/accounts/FailedLoginModal';
 import Register from './components/accounts/Register';
 import UserModal from './components/accounts/UserModal';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -26,19 +23,17 @@ const App = () => {
           <Modal />
           <DeleteModal />
           <UserModal />
+          <FailedLoginModal />
           <Navbar title='Embiggen' icon='fas fa-tree brand' />
-          <header className='App-header'>
-            <div className='container'>
-              <Switch>
-                <PrivateRoute exact path='/' component={TodoList} />
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/register' component={Register} />
-              </Switch>
-            </div>
-          </header>
+          <div className='container'>
+            <Switch>
+              <PrivateRoute exact path='/' component={TodoList} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/register' component={Register} />
+            </Switch>
+          </div>
+          <Statbar />
         </div>
-        <Statbar />
-        {/* <Footer /> */}
       </Router>
     </TodoState>
   );

@@ -22,7 +22,8 @@ import {
   HANDLE_REGISTER_SUCCESS,
   HANDLE_SEARCH_INPUT,
   DISPLAY_USER_MODAL,
-  UPDATE_TASK_DATA
+  UPDATE_TASK_DATA,
+  DISPLAY_FAILED_LOGIN_MODAL
 } from '../types';
 
 const DEBUG = false;
@@ -60,6 +61,7 @@ const TodoState = (props) => {
     modal: false,
     modalNew: true,
     deleteModal: '',
+    failedLoginModal: '',
     userModal: false,
     sortSelection: 'date-ascending',
     filterSelection: 'active',
@@ -209,6 +211,14 @@ const TodoState = (props) => {
     dispatch({
       type: DISPLAY_DELETE_MODAL,
       payload: { deleteModal, todo },
+    });
+  };
+
+  // Display delete modal
+  const displayFailedLoginModal = (message) => {
+    dispatch({
+      type: DISPLAY_FAILED_LOGIN_MODAL,
+      payload: { message },
     });
   };
 
@@ -392,9 +402,14 @@ const TodoState = (props) => {
       });
     } catch (err) {
       console.log(err.response.data, err.response.status);
+      let message = 'Your login failed'
       dispatch({
         type: LOGIN_FAIL,
       });
+      dispatch({
+        type: DISPLAY_FAILED_LOGIN_MODAL,
+        payload: { message }
+      })
     }
   };
 
@@ -417,7 +432,12 @@ const TodoState = (props) => {
         payload: res.data,
       });
     } catch (err) {
+      let message = 'Your username or email has been taken'
       console.log(err.response.data, err.response.status);
+      dispatch({
+        type: DISPLAY_FAILED_LOGIN_MODAL,
+        payload: {message}
+      });
     }
   };
 
@@ -482,6 +502,7 @@ const TodoState = (props) => {
         loginCredentials: state.loginCredentials,
         registration: state.registration,
         taskData: state.taskData,
+        failedLoginModal: state.failedLoginModal,
         fetchTodos,
         handleSort,
         handleFilter,
@@ -503,7 +524,8 @@ const TodoState = (props) => {
         handleSearchInput,
         displayUserModal,
         addTaskData,
-        handleDateChange
+        handleDateChange,
+        displayFailedLoginModal
       }}
     >
       {props.children}

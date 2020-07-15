@@ -6,8 +6,9 @@ const Search = () => {
   const { search, handleSearchInput } = todoContext;
 
   return (
-    <form className='task-filter'>
-      <div>
+    <div className='task-filter' id="search-bar">
+    <i className='fas fa-search'></i>
+      <form id='search-filter'>
         <input
           className='form-control'
           type='search'
@@ -15,10 +16,9 @@ const Search = () => {
           name='search-input'
           value={search ? search : ''}
           onChange={handleSearchInput}
-          placeholder='Search tasks'
         />
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

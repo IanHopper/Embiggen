@@ -4,10 +4,16 @@ import TodoContext from '../../context/todos/todoContext';
 const Statbar = ({ title, icon }) => {
   const todoContext = useContext(TodoContext);
   const {
-    taskData
+    taskData,
+    auth
   } = todoContext;
 
   const {cost, duration, number } = taskData
+
+  // Redirect to main if user is already logged in
+  if(!auth.isAuthenticated){
+    return null
+  } 
 
   return (
     <nav className='statbar'>

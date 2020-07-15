@@ -8,7 +8,28 @@ const FilterHeader = () => {
 
   return (
     <div className='task-list-header'>
+      <Search />
       <div className='task-filter'>
+        <i className='fas fa-sort-down'></i>
+        <select
+          className='select-menu'
+          onChange={handleFilter}
+          id='filter-select'
+        >
+          <option value='active'>Active Tasks</option>
+          <option value='all'>All Tasks</option>
+          <option value='today'>Due Today</option>
+          <option value='1'>Vital</option>
+          <option value='2'>Important</option>
+          <option value='3'>Urgent</option>
+          <option value='4'>Trivial</option>
+          <option value='$'>Purchase</option>
+          <option value='short'>(&lt; 15 mins)</option>
+          <option value='long'>(&gt; 60 mins)</option>
+        </select>
+      </div>
+      <div className='task-filter'>
+        <i className='fas fa-sort-down'></i>
         <select
           className='select-menu'
           onChange={handleSort}
@@ -23,25 +44,6 @@ const FilterHeader = () => {
           <option value='cost'>Cost &#8595;</option>
         </select>
       </div>
-      <div className='task-filter'>
-        <select
-          className='select-menu'
-          onChange={handleFilter}
-          id='filter-select'
-        > 
-          <option value='active'>Active</option>
-          <option value='all'>All</option>
-          <option value='today'>Due Today</option>
-          <option value='1'>Vital</option>
-          <option value='2'>Important</option>
-          <option value='3'>Urgent</option>
-          <option value='4'>Trivial</option>
-          <option value='$'>Purchase</option>
-          <option value='short'>(&lt; 15 mins)</option>
-          <option value='long'>(&gt; 60 mins)</option>
-        </select>
-      </div>
-      <Search />
     </div>
   );
 };
