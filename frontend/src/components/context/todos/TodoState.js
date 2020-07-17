@@ -99,7 +99,7 @@ const TodoState = (props) => {
         task_name: state.todo.task_name,
         description: state.todo.description,
         due_date: state.todo.due_date,
-        project: state.project,
+        project: state.todo.project,
         priority: state.todo.priority,
         cost: state.todo.cost,
         duration: state.todo.duration,
