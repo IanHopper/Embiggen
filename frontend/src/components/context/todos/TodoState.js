@@ -26,7 +26,7 @@ import {
   DISPLAY_FAILED_LOGIN_MODAL
 } from '../types';
 
-const DEBUG = true;
+const DEBUG = false;
 let appUrl;
 
 if (!DEBUG) {
