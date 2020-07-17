@@ -251,6 +251,12 @@ p {
   font-size: 1.2rem;
 }
 
+.task-project {
+  color: #333;
+  font-size: .6rem;
+  text-align: right;
+}
+
 .item-main {
   grid-area: main;
   font-size: 0.9rem;
@@ -337,6 +343,11 @@ p {
 
 .item-completed input[type='checkbox'] + label::after {
   content: none;
+}
+
+.item-completed input[type='checkbox']:not(:checked):hover + label::after {
+  content: '';
+  color: #aaa;
 }
 
 .item-completed input[type='checkbox']:checked + label::after {

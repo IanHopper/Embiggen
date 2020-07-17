@@ -26,7 +26,7 @@ import {
   DISPLAY_FAILED_LOGIN_MODAL
 } from '../types';
 
-const DEBUG = false;
+const DEBUG = true;
 let appUrl;
 
 if (!DEBUG) {
@@ -56,6 +56,7 @@ const TodoState = (props) => {
     taskData: {},
     todos: [],
     todo: {},
+    projects: [],
     history: [],
     search: '',
     modal: false,
@@ -71,6 +72,7 @@ const TodoState = (props) => {
       description: '',
       due_date: null,
       priority: 4,
+      project: '',
       cost: null,
       duration: null,
     },
@@ -97,6 +99,7 @@ const TodoState = (props) => {
         task_name: state.todo.task_name,
         description: state.todo.description,
         due_date: state.todo.due_date,
+        project: state.project,
         priority: state.todo.priority,
         cost: state.todo.cost,
         duration: state.todo.duration,
@@ -139,6 +142,7 @@ const TodoState = (props) => {
       task_name: state.todo.task_name,
       description: state.todo.description,
       due_date: state.todo.due_date === '' ? null : state.todo.due_date,
+      project: state.todo.project,
       priority: state.todo.priority,
       cost:
         (state.todo.cost === '') | (parseInt(state.todo.cost) === 0)
@@ -503,6 +507,7 @@ const TodoState = (props) => {
         registration: state.registration,
         taskData: state.taskData,
         failedLoginModal: state.failedLoginModal,
+        projects: state.projects,
         fetchTodos,
         handleSort,
         handleFilter,

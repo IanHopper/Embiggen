@@ -15,6 +15,7 @@ const TodoItem = ({ todo }) => {
     duration,
     cost,
     completed,
+    project
   } = todo;
 
   // Names for priority numbers used to add classe for color coding
@@ -101,7 +102,7 @@ const TodoItem = ({ todo }) => {
         <label className={priorityList[priority]} htmlFor={id}></label>
       </div>
       <div className='grid-item item-header'>
-        <p className={priorityList[priority]}>{task_name}</p>
+        <p className={priorityList[priority]}>{task_name} <span className="task-project">{project}</span></p>
       </div>
       {due_date_function()}
       <div className='grid-item item-main'>
@@ -118,7 +119,7 @@ const TodoItem = ({ todo }) => {
         ) : null}
       </div>
       <div className='grid-item item-cost'>
-        {cost > 0 ? <span>$ {cost.slice(0, -3)}</span> : null}
+        {cost > 0 ? <span>${cost.slice(0, -3)}</span> : null}
       </div>
     </div>
   );

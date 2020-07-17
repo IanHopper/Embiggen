@@ -55,6 +55,8 @@ const TodoList = () => {
       displayList = todos.filter((todo) => parseInt(todo.duration) <= 15);
     } else if (filterSelection === 'long') {
       displayList = todos.filter((todo) => parseInt(todo.duration) >= 60);
+    } else {
+      displayList = todos.filter((todo) => filterSelection === todo.project)
     }
     // Sort after filtering
     if (sortSelection === 'priority') {

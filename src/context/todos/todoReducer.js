@@ -28,6 +28,7 @@ export default (state, action) => {
       return {
         ...state,
         todos: action.payload,
+        projects: Array.from(new Set(action.payload.filter((todo)=> todo.project!==null).map((todo)=> todo.project)))
       };
     case HANDLE_FILTER:
       return {

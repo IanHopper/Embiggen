@@ -85,7 +85,18 @@ const Modal = () => {
                 onChange={handleDateChange}
               />
             </div>
-
+            <div>
+              <label htmlFor='project'>Project Name</label>
+              <input
+                type='text'
+                id='project'
+                placeholder='Enter project name'
+                className='form-input'
+                value={todo.project ? todo.project : ''}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
             <div>
               <label htmlFor='priority'>Priority</label>
               <select
