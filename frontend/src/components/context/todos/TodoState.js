@@ -279,7 +279,6 @@ const TodoState = (props) => {
   // Handle change in form input
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    console.log(id, value)
     dispatch({
       type: HANDLE_INPUT_CHANGE,
       payload: { id, value },

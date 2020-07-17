@@ -94,7 +94,6 @@ const Modal = () => {
                 className='form-input'
                 value={todo.project ? todo.project : ''}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div>

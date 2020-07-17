@@ -8,7 +8,7 @@ const FilterHeader = () => {
 
   const projectList = () => {
     if (projects.length > 0){
-        return projects.map((project)=> <option value={project}>{project}</option>)
+        return projects.map((project)=> <option key={project} value={project}>{project}</option>)
     }
   }
 
