@@ -49,7 +49,7 @@ const Navbar = ({ title, icon }) => {
               onClick={() => todoContext.fetchTodos()}
               id='brand'
             >
-              <span>&nbsp;Evergreen</span>
+              <span>&nbsp;Embiggen</span>
             </i>
           </Link>
         </div>
