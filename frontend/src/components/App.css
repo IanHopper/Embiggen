@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Anton&family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,700&family=Anton&family=Satisfy&display=swap');
 
 /* Color variables */
 :root {
@@ -10,6 +10,7 @@
   --grid-card-text-color: #555;
   --money-color: rgb(24, 189, 24);
   --brand-font: 'Satisfy';
+  --red-color: rgb(207, 22, 22);
 }
 
 html {
@@ -63,19 +64,20 @@ p {
 
 .navbar i span {
   position: absolute;
-  top: 5px;
+  top: 6px;
   font-family: var(--brand-font);
 }
 
 .navbar #add-task,
-.navbar #undo {
+.navbar #undo,
+.navbar #user-icon {
   margin: auto;
   cursor: pointer;
   padding: 0 5px;
 }
 
 .navbar #add-task {
-  color: red;
+  color: var(--red-color);
   font-size: 2rem;
 }
 
@@ -93,7 +95,7 @@ p {
 .container {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 810px;
   margin-top: 46px;
   flex-direction: row;
   position: relative;
@@ -239,7 +241,7 @@ p {
   color: var(--grid-card-text-color);
   grid-template-columns: 30px;
   grid-template-areas:
-    'completed header header header header header multi'
+    'completed header header header header header edit'
     'date date duration duration duration cost cost'
     'main main main main main main main'
     'main main main main main main main';
@@ -253,7 +255,7 @@ p {
 
 .task-project {
   color: #333;
-  font-size: .6rem;
+  font-size: 0.6rem;
   text-align: right;
 }
 
@@ -262,15 +264,16 @@ p {
   font-size: 0.9rem;
 }
 
-.item-multi {
-  grid-area: multi;
+.item-edit {
+  grid-area: edit;
   text-align: right;
   padding: 0 5px;
 }
 
-.item-multi i:hover {
+.item-edit i:hover {
   opacity: 0.6;
   transform: scale(1.2);
+  cursor: pointer;
 }
 
 .item-duration {
@@ -288,7 +291,7 @@ p {
 }
 
 .item-date.overdue {
-  color: red;
+  color: var(--red-color);
 }
 
 .item-cost {
@@ -364,7 +367,9 @@ p {
   .item-completed {
     font-size: 1rem;
     padding: 0 0 5px 0;
+    font-weight: 700;
   }
+
   .item-main,
   .item-date,
   .item-duration,
@@ -375,7 +380,7 @@ p {
   .item-completed label::before {
     height: 20px;
     width: 20px;
-    border: 1.5px solid;
+    border: 2.5px solid;
     top: -8px;
     left: -15px;
     border-radius: 50%;
@@ -388,6 +393,12 @@ p {
     transform: rotate(-45deg);
     left: -9px;
     top: -2px;
+  }
+
+  .item-completed input[type='checkbox']:not(:checked) + label::after {
+    content: '';
+    color: #aaa;
+    opacity: 0.7;
   }
 }
 
@@ -411,7 +422,23 @@ p {
   transform: translate(-50%, -50%);
   max-width: 100%;
   max-height: 100%;
-  width: 450px;
+  width: 400px;
+}
+
+.user-modal-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 46px;
+  padding: 0;
+}
+
+.user-modal-contents {
+  position: absolute;
+  transform: none;
+  width: 200px;
+  right: 0px;
 }
 
 .modal-header {
@@ -435,7 +462,7 @@ p {
 }
 
 .modal-form div {
-  margin: 0px 0px 8px 0;
+  margin: 0px 0px 12px 0;
 }
 
 .modal-form .form-input {
@@ -464,6 +491,23 @@ p {
   font-size: 1.4rem;
 }
 
+.fa.fa-times {
+  color: #333;
+}
+
+.modal-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-row div:first-of-type {
+  margin: 0 5px 0 0;
+}
+
+.modal-row div {
+  width: 100%;
+}
+
 .react-date-picker {
   margin: 0;
 }
@@ -471,11 +515,13 @@ p {
 .react-date-picker__wrapper {
   background-color: white;
   border: none;
-  padding: 5px;
+  padding: 6.5px 0;
 }
 
 .react-calendar {
   font-family: 'Lato';
+  width: 300px;
+  min-width: 300px;
 }
 
 .button {
@@ -485,9 +531,13 @@ p {
   cursor: pointer;
 }
 
-.button:focus {
+.button:hover {
   outline: none;
   opacity: 0.7;
+}
+
+.button:focus {
+  outline: none;
 }
 
 .btn-save,
@@ -505,8 +555,9 @@ p {
   margin-top: 0px;
 }
 
-.btn-delete {
-  background-color: red;
+.btn-delete,
+.btn-logout {
+  background-color: var(--red-color);
 }
 
 .btn-close-modal {
@@ -531,7 +582,7 @@ p {
 }
 
 .vital {
-  color: red;
+  color: var(--red-color);
 }
 
 .important {
@@ -540,6 +591,10 @@ p {
 
 .urgent {
   color: rgb(41, 154, 247);
+}
+
+#task-name-form-warning {
+  display: none;
 }
 
 @media only screen and (max-width: 850px) {
@@ -560,6 +615,13 @@ p {
     max-height: 100%;
   }
 
+  .user-modal-contents {
+    position: absolute;
+    transform: none;
+    width: 100%;
+    right: 0px;
+  }
+
   .modal-form div {
     margin: 0px 0px 2px 0;
   }
@@ -578,6 +640,7 @@ p {
 /* Account login/registration */
 .account-form,
 .loading {
+  padding-top: 50px;
   margin: 0 auto;
   width: 90%;
   max-width: 400px;
@@ -601,6 +664,16 @@ p {
   padding: 3px 5px;
 }
 
+.form-warning {
+  font-size: 0.8rem;
+  color: var(--red-color);
+  line-height: 0.8rem;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
 /* Footer */
 .footer {
   width: 100%;
@@ -611,14 +684,13 @@ p {
 .statbar {
   position: fixed;
   width: 100%;
-  background-color: #ddd;
+  background-color: #eee;
   color: #333;
   bottom: 0;
   z-index: 100;
   padding: 6px 4px;
   font-weight: bold;
   border-top: 1px solid var(--background-color);
-  /* overflow: auto; */
 }
 
 .statbar-container {

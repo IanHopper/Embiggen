@@ -23,9 +23,10 @@ import {
   HANDLE_SEARCH_INPUT,
   DISPLAY_USER_MODAL,
   UPDATE_TASK_DATA,
-  DISPLAY_FAILED_LOGIN_MODAL
+  DISPLAY_FAILED_LOGIN_MODAL,
 } from '../types';
 
+// Variable to control which server to use
 const DEBUG = false;
 let appUrl;
 
@@ -37,35 +38,39 @@ if (!DEBUG) {
 
 const TodoState = (props) => {
   const initialState = {
+    // authentication credentials
     auth: {
       token: localStorage.getItem('token'),
       isAuthenticated: null,
       isLoading: false,
       user: null,
     },
+    // credentials to submit to API for login
     loginCredentials: {
       username: null,
       password: null,
     },
+    // data to submit to API for registration
     registration: {
       username: null,
       email: null,
       password: null,
       password2: null,
     },
-    taskData: {},
-    todos: [],
-    todo: {},
-    projects: [],
-    history: [],
-    search: '',
-    modal: false,
-    modalNew: true,
-    deleteModal: '',
+    taskData: {}, // object with total quantity, duration, and cost of displayed tasks
+    todos: [], // todo array from API
+    todo: {}, // selected todo
+    projects: [], // array derived from projects in objects in todos
+    history: [], // deleted todos that can be recreated
+    search: '', // search input
+    modal: false, // task create and update modal control
+    modalNew: true, // boolean for create or update task modal
+    deleteModal: '', // value of todo to be deleted
     failedLoginModal: '',
-    userModal: false,
+    userModal: false, // boolean to display logout modal
     sortSelection: 'date-ascending',
     filterSelection: 'active',
+    // default todo values for creating a new task
     defaultTodo: {
       username: null,
       task_name: '',
@@ -82,6 +87,10 @@ const TodoState = (props) => {
 
   // Add task
   const createTodo = async (optionalTodo) => {
+    // Check if there is a task name
+    if (!state.todo.task_name && state.modal) {
+      return null;
+    }
     let token = localStorage.getItem('token')
       ? localStorage.getItem('token')
       : '';
@@ -129,6 +138,10 @@ const TodoState = (props) => {
 
   // Update Task
   const updateTodo = async () => {
+    // Check if there is a task name
+    if (!state.todo.task_name && state.modal) {
+      return null;
+    }
     let token = localStorage.getItem('token')
       ? localStorage.getItem('token')
       : '';
@@ -179,6 +192,7 @@ const TodoState = (props) => {
   // Delete task
   const deleteTodo = async (e, todo) => {
     e.preventDefault();
+    displayDeleteModal(todo.id);
     displayModal(e, todo);
     // Assign variable to task for deletion
     const deletedTask = todo;
@@ -191,7 +205,6 @@ const TodoState = (props) => {
       },
     };
     await axios.delete(`${appUrl}/api/${todo.id}`, config);
-    displayDeleteModal(todo.id);
     // dispatch deleted task to get added to history array in state
     dispatch({
       type: DELETE_TODO,
@@ -287,15 +300,15 @@ const TodoState = (props) => {
 
   // Handle date change
   const handleDateChange = (e) => {
-    const id = 'due_date'
-    let value = e ? e.toLocaleString("sv-SE").slice(0,10) : null
+    const id = 'due_date';
+    let value = e ? e.toLocaleString('sv-SE').slice(0, 10) : null;
 
-    console.log(value)
+    console.log(value);
     dispatch({
       type: HANDLE_INPUT_CHANGE,
-      payload: { id, value}
-    })
-  }
+      payload: { id, value },
+    });
+  };
 
   // Update based on filter change
   const handleFilter = (e) => {
@@ -306,7 +319,7 @@ const TodoState = (props) => {
     });
   };
 
-  // Submit modal
+  // Submit task create or update
   const handleSubmit = (e) => {
     e.preventDefault();
     if (state.modalNew) {
@@ -314,7 +327,9 @@ const TodoState = (props) => {
     } else {
       updateTodo();
     }
-    displayModal(e, null);
+    if (state.todo.task_name) {
+      displayModal(e, null);
+    }
   };
 
   // Undo last task deletion
@@ -386,9 +401,21 @@ const TodoState = (props) => {
     }
   };
 
+  // Validate email
+  const validateEmail = (email) => {
+    // eslint-disable-next-line
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   // Login user
   const login = async (e, username, password) => {
     e.preventDefault();
+    if (!username | !password) {
+      return null;
+    } else if ((username.length < 6) | (password.length < 6)) {
+      return null;
+    }
     // Headers
     const config = {
       headers: {
@@ -405,21 +432,29 @@ const TodoState = (props) => {
       });
     } catch (err) {
       console.log(err.response.data, err.response.status);
-      let message = 'Your login failed'
+      let message = 'Invalid username or password';
       dispatch({
         type: LOGIN_FAIL,
       });
       dispatch({
         type: DISPLAY_FAILED_LOGIN_MODAL,
-        payload: { message }
-      })
+        payload: { message },
+      });
     }
   };
 
   // Login user
   const register = async (e) => {
-    const { username, email, password } = state.registration;
+    const { username, email, password, password2 } = state.registration;
     e.preventDefault();
+    // Check that all fields have entries
+    if (!username | !email | !password | !password2) {
+      return null;
+    } 
+    // Verify validity of field entries
+    else if ((username.length < 6) | (password.length < 6) | !validateEmail(email) | password !== password2) {
+      return null;
+    }
     // Headers
     const config = {
       headers: {
@@ -435,11 +470,11 @@ const TodoState = (props) => {
         payload: res.data,
       });
     } catch (err) {
-      let message = 'Your username or email has been taken'
+      let message = 'Username already in use';
       console.log(err.response.data, err.response.status);
       dispatch({
         type: DISPLAY_FAILED_LOGIN_MODAL,
-        payload: {message}
+        payload: { message },
       });
     }
   };
@@ -480,12 +515,12 @@ const TodoState = (props) => {
 
   // Total Task information
   const addTaskData = (number, duration, cost) => {
-    const taskData = { number, duration, cost }
+    const taskData = { number, duration, cost };
     dispatch({
       type: UPDATE_TASK_DATA,
-      payload: { taskData }
-    })
-  }
+      payload: { taskData },
+    });
+  };
 
   return (
     <TodoContext.Provider
@@ -529,7 +564,8 @@ const TodoState = (props) => {
         displayUserModal,
         addTaskData,
         handleDateChange,
-        displayFailedLoginModal
+        displayFailedLoginModal,
+        validateEmail,
       }}
     >
       {props.children}

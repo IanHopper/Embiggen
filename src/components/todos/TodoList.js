@@ -27,6 +27,7 @@ const TodoList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Add total quantity, time, and cost of displayed tasks
   useEffect(() => {
     addTaskData(totalTasks, totalTime, totalCost);
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import TodoContext from '../../context/todos/todoContext';
 
-const Statbar = ({ title, icon }) => {
+const Statbar = () => {
   const todoContext = useContext(TodoContext);
   const {
     taskData,

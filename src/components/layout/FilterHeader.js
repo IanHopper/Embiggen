@@ -1,4 +1,4 @@
-import React, { useContext, Fragment} from 'react';
+import React, { useContext, Fragment } from 'react';
 import Search from './Search';
 import TodoContext from '../../context/todos/todoContext';
 
@@ -6,14 +6,30 @@ const FilterHeader = () => {
   const todoContext = useContext(TodoContext);
   const { handleSort, handleFilter, projects } = todoContext;
 
-  const projectList = () => {
-    if (projects.length > 0){
-        return projects.map((project)=> <option key={project} value={project}>{project}</option>)
-    }
-  }
+  // Eliminates blank projects from project list
+  let realProjects = projects.filter((project) => project !== '')
 
+  // Return projects header for filter
+  const projectHeader = () => {
+    if (realProjects.length > 0) {
+      return <optgroup label='Projects'>{projectList()}</optgroup>;
+    }
+  };
+
+  // Return projects for filter
+  const projectList = () => {
+    if (realProjects.length > 0) {
+      return realProjects.map((project) => (
+        <option key={project} value={project}>
+          {project}
+        </option>
+      ));
+    }
+  };
+
+  // Return list of filter options
   const filterList = () => {
-    return(
+    return (
       <Fragment>
         <option value='active'>Active Tasks</option>
         <option value='all'>All Tasks</option>
@@ -25,8 +41,9 @@ const FilterHeader = () => {
         <option value='$'>Purchase</option>
         <option value='short'>(&lt; 15 mins)</option>
         <option value='long'>(&gt; 60 mins)</option>
-        {projectList()}
-      </Fragment>)
+        {projectHeader()}
+      </Fragment>
+    );
   };
 
   return (

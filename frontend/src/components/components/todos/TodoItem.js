@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import TodoContext from '../../context/todos/todoContext';
 
 const TodoItem = ({ todo }) => {
@@ -26,7 +25,7 @@ const TodoItem = ({ todo }) => {
     4: 'trivial',
   };
 
-
+  // Formatting to deal with timezone issues
   const rawdate = new Date(todo.due_date)
   const date = new Date(rawdate.setDate(rawdate.getDate() + 1))
   const today = new Date().toLocaleString("sv-SE").slice(0,10)
@@ -102,14 +101,14 @@ const TodoItem = ({ todo }) => {
         <label className={priorityList[priority]} htmlFor={id}></label>
       </div>
       <div className='grid-item item-header'>
-        <p className={priorityList[priority]}>{task_name} <span className="task-project">{project}</span></p>
+        <p className={priorityList[priority]}>{task_name} &nbsp;<span className="task-project">{project}</span></p>
       </div>
       {due_date_function()}
       <div className='grid-item item-main'>
         <p>{description}</p>
       </div>
-      <div className='grid-item item-multi' onClick={(e) => displayModal(e, todo)}>
-        <i className='far fa-list-alt'></i>
+      <div className='grid-item item-edit' onClick={(e) => displayModal(e, todo)}>
+        <i className='far fa-edit'></i>
       </div>
       <div className='grid-item item-duration'>
         {duration > 0 ? (
@@ -123,10 +122,6 @@ const TodoItem = ({ todo }) => {
       </div>
     </div>
   );
-};
-
-TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired,
 };
 
 export default TodoItem;

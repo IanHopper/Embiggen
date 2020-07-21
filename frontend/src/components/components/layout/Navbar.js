@@ -13,11 +13,13 @@ const Navbar = ({ title, icon }) => {
     displayUserModal,
   } = todoContext;
 
+  // Load the current user
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Return task and user logout icon
   const authLinks = (user) => (
     <div>
       {history.length > 0 ? (
@@ -51,6 +53,7 @@ const Navbar = ({ title, icon }) => {
             </i>
           </Link>
         </div>
+        {/* Load add task and logout icons if user is logged in*/}
         {auth.isAuthenticated ? authLinks(auth.user.username) : null}
       </div>
     </nav>

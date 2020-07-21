@@ -10,9 +10,16 @@ const DeleteModal = () => {
     return null;
   }
 
+  // Close delete modal by clicking outside modal
+  const closeDeleteModal = (e) => {
+    if(e.target.className === 'modal-container'){
+      displayDeleteModal(todo)
+    }
+  }
+
   return (
     <div>
-      <div className='modal-container' id='modal-container'>
+      <div className='modal-container' id='modal-container' onClick={(e)=>{closeDeleteModal(e)}}>
         <div className='modal-contents'>
           <button
             className='button btn-close-modal'
@@ -29,6 +36,7 @@ const DeleteModal = () => {
             <button
               className='button btn-delete'
               onClick={(e) => deleteTodo(e, deleteModal)}
+              autoFocus
             >
               Delete Task
             </button>

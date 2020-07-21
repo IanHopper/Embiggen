@@ -19,16 +19,45 @@ const Modal = () => {
     return null;
   }
 
+  // This is a hack; add a day to get around timezone problems.
   const dateConverter = () => {
-    // This is a hack; add a day to get around timezone problems.
     const rawdate = new Date(todo.due_date);
     const date = new Date(rawdate.setDate(rawdate.getDate() + 1));
     return date;
   };
 
+  // Changes color of priority text based on selection
+  const priorityColor = () => {
+    let priorityClass;
+    const priorityValue = todo.priority.toString();
+    if (priorityValue === '1') {
+      priorityClass = 'vital';
+    } else if (priorityValue === '2') {
+      priorityClass = 'important';
+    } else if (priorityValue === '3') {
+      priorityClass = 'urgent';
+    } else {
+      priorityClass = 'trivial';
+    }
+    return `${priorityClass} form-input`;
+  };
+
+  // Close modal by clicking outside modal
+  const closeTaskModal = (e) => {
+    if(e.target.className === 'modal-container'){
+      console.log('modal-container')
+      displayModal(e, null)
+    }
+  }
+
+  // Add alert if save button hit and there is no task name
+  const validateTaskName = ()=> {
+      document.getElementById('task-name-form-warning').style.display = 'inline-block';
+  }
+
   return (
     <div>
-      <div className='modal-container' id='modal-container'>
+      <div className='modal-container' id='modal-container' onClick={(e)=>{closeTaskModal(e)}}>
         <div className='modal-contents' id='task-modal'>
           <button
             className='button btn-close-modal'
@@ -55,18 +84,34 @@ const Modal = () => {
             action=''
             className='modal-form'
             onSubmit={(e) => handleSubmit(e)}
+            noValidate
           >
-            <div>
-              <label htmlFor='taskname'>Task Name</label>
-              <input
-                type='text'
-                id='task_name'
-                placeholder='Enter task name'
-                className='form-input'
-                value={todo.task_name ? todo.task_name : ''}
-                onChange={handleInputChange}
-                required
-              />
+            <div className='modal-row'>
+              <div>
+                <label htmlFor='taskname'>Task Name <span className='form-warning' id='task-name-form-warning'> &nbsp; Required Field</span></label>
+                <input
+                  type='text'
+                  id='task_name'
+                  // placeholder='Enter task name'
+                  className='form-input'
+                  value={todo.task_name ? todo.task_name : ''}
+                  onChange={handleInputChange}
+                  required
+                  autoFocus
+                />
+              </div>
+              <div>
+                <label htmlFor='project'>Project Name</label>
+                <input
+                  type='text'
+                  id='project'
+                  // placeholder='Enter project name'
+                  className='form-input'
+                  value={todo.project ? todo.project : ''}
+                  onChange={handleInputChange}
+                />
+              </div>
+              
             </div>
             <div>
               <label htmlFor='description'>Description</label>
@@ -78,62 +123,56 @@ const Modal = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
-              <label htmlFor='due_date'>Due Date</label> <br></br>
-              <DatePicker
-                value={todo.due_date ? dateConverter() : ''}
-                onChange={handleDateChange}
-              />
+
+            <div className='modal-row'>
+              <div>
+                <label htmlFor='due_date'>Due Date</label> <br></br>
+                <DatePicker
+                  value={todo.due_date ? dateConverter() : ''}
+                  onChange={handleDateChange}
+                />
+              </div>
+              <div>
+                <label htmlFor='priority'>Priority</label>
+                <select
+                  className={priorityColor()}
+                  id='priority'
+                  value={todo.priority}
+                  onChange={handleInputChange}
+                >
+                  <option value='1'>Vital</option>
+                  <option value='2'>Important</option>
+                  <option value='3'>Urgent</option>
+                  <option value='4'>Trivial</option>
+                </select>
+              </div>
             </div>
-            <div>
-              <label htmlFor='project'>Project Name</label>
-              <input
-                type='text'
-                id='project'
-                placeholder='Enter project name'
-                className='form-input'
-                value={todo.project ? todo.project : ''}
-                onChange={handleInputChange}
-              />
+            <div className='modal-row'>
+              <div>
+                <label htmlFor='cost'>Cost</label>
+                <input
+                  type='number'
+                  id='cost'
+                  placeholder='Cost in $'
+                  className='form-input'
+                  value={todo.cost ? todo.cost : ''}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label htmlFor='username'>Duration</label>
+                <input
+                  type='number'
+                  id='duration'
+                  placeholder='Duration in minutes'
+                  className='form-input'
+                  value={todo.duration ? todo.duration : ''}
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor='priority'>Priority</label>
-              <select
-                className='form-input'
-                id='priority'
-                value={todo.priority}
-                onChange={handleInputChange}
-              >
-                <option value='1'>Vital</option>
-                <option value='2'>Important</option>
-                <option value='3'>Urgent</option>
-                <option value='4'>Trivial</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor='cost'>Cost</label>
-              <input
-                type='number'
-                id='cost'
-                placeholder='Enter $ if this task is a purchase...'
-                className='form-input'
-                value={todo.cost ? todo.cost : ''}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor='username'>Duration</label>
-              <input
-                type='number'
-                id='duration'
-                placeholder='Enter duration in minutes'
-                className='form-input'
-                step='5'
-                value={todo.duration ? todo.duration : ''}
-                onChange={handleInputChange}
-              />
-            </div>
-            <button className='button btn-save'>Save</button>
+
+            <button className='button btn-save' onClick={()=>validateTaskName()}>Save</button>
           </form>
         </div>
       </div>

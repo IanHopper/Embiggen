@@ -10,39 +10,46 @@ const UserModal = () => {
     return null;
   }
 
-  const authLinks = (user) => (
-    <div>
-      <p className='nav-link' onClick={()=> {
-        displayUserModal()
-        logout()}}>
-        Logout
-      </p>
-    </div>
-  );
+  // Close close user modal by clicking outside of modal
+  const closeUserModal = (e) => {
+    if (e.target.className === 'modal-container') {
+      console.log('modal-container');
+      displayUserModal();
+    }
+  };
 
   return (
     <div>
-      <div className='modal-container' id='modal-container'>
-        <div className='modal-contents' id="user-modal">
-          <div className='modal-header'>
-            <h5>
-              {auth.user ? auth.user.username : null}
-            </h5>
-            <button
-              className='button btn-close-modal'
-              id='close'
-              onClick={() => displayUserModal()}
-            >
-              <i className='fa fa-times'></i>
-            </button>
-          </div>
-          <form action='' className='modal-form'>
-            <div>
-              {auth.isAuthenticated
-                ? authLinks(auth.user.username)
-                : null}
+      <div
+        className='modal-container'
+        id='modal-container'
+        onClick={(e) => closeUserModal(e)}
+      >
+        <div className='user-modal-container'>
+          <div className='user-modal-contents'>
+            <div className='modal-header'>
+              <h5>{auth.user ? auth.user.username : null}</h5>
+              <button
+                className='button btn-close-modal'
+                id='close'
+                onClick={() => displayUserModal()}
+              >
+                <i className='fa fa-times'></i>
+              </button>
             </div>
-          </form>
+            <form action='' className='modal-form'>
+              <button
+                className='button btn-logout'
+                onClick={() => {
+                  displayUserModal();
+                  logout();
+                }}
+                autoFocus
+              >
+                Logout
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
