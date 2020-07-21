@@ -28,7 +28,7 @@ if ENVIRONMENT == 'production':
     # SECURE_REFERRER_POLICY = 'same-origin'
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['mysterious-fjord-32459.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['embiggen.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -165,7 +165,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "https://mysterious-fjord-32459.herokuapp.com",
+    "https://embiggen.herokuapp.com",
     "http://localhost:8000",
     "http://127.0.0.1:8000"
 ]

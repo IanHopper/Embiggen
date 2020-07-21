@@ -31,7 +31,7 @@ const DEBUG = false;
 let appUrl;
 
 if (!DEBUG) {
-  appUrl = 'https://mysterious-fjord-32459.herokuapp.com';
+  appUrl = 'https://embiggen.herokuapp.com';
 } else {
   appUrl = 'http://localhost:8000';
 }
