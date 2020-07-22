@@ -24,6 +24,7 @@ import {
   DISPLAY_USER_MODAL,
   UPDATE_TASK_DATA,
   DISPLAY_FAILED_LOGIN_MODAL,
+  MULTI_SELECT,
 } from '../types';
 
 // Variable to control which server to use
@@ -60,6 +61,7 @@ const TodoState = (props) => {
     taskData: {}, // object with total quantity, duration, and cost of displayed tasks
     todos: [], // todo array from API
     todo: {}, // selected todo
+    multiSelection: [], // multiple selections for group editing
     projects: [], // array derived from projects in objects in todos
     history: [], // deleted todos that can be recreated
     search: '', // search input
@@ -120,6 +122,9 @@ const TodoState = (props) => {
 
   // Get tasks
   const fetchTodos = async () => {
+    if (!state.auth.isAuthenticated) {
+      return null;
+    }
     let token = localStorage.getItem('token')
       ? localStorage.getItem('token')
       : '';
@@ -134,6 +139,22 @@ const TodoState = (props) => {
       type: FETCH_TODOS,
       payload: res.data,
     });
+    setTimeout(()=>{
+      if (state.todo.length) {
+        const initialTodo = {
+          username: state.auth.user.id,
+          task_name: 'Create a new task in Embiggen',
+          description:
+            'Advanced filtering, projects, and live time and cost updates. New features are coming every day. Start creating your own tasks!',
+          due_date: state.todo.due_date,
+          project: 'Learn Embiggen',
+          priority: 1,
+          duration: 5,
+        };
+        createTodo(initialTodo);
+      }
+    }, 1200)
+   
   };
 
   // Update Task
@@ -189,13 +210,13 @@ const TodoState = (props) => {
     fetchTodos();
   };
 
-  // Delete task
-  const deleteTodo = async (e, todo) => {
+  // Delete single task
+  const deleteTodo = async (e, todoId) => {
     e.preventDefault();
-    displayDeleteModal(todo.id);
-    displayModal(e, todo);
+    displayDeleteModal('');
+    displayModal(e, '');
     // Assign variable to task for deletion
-    const deletedTask = todo;
+    const deletedTask = state.todo;
     let token = localStorage.getItem('token')
       ? localStorage.getItem('token')
       : '';
@@ -204,25 +225,51 @@ const TodoState = (props) => {
         Authorization: `Token ${token}`,
       },
     };
-    await axios.delete(`${appUrl}/api/${todo.id}`, config);
+    await axios.delete(`${appUrl}/api/${todoId}`, config);
     // dispatch deleted task to get added to history array in state
     dispatch({
       type: DELETE_TODO,
       payload: { deletedTask },
     });
+    if (state.multiSelection.includes(todoId)) {
+      multiSelect(todoId);
+    }
     fetchTodos();
   };
 
+  // Delete multiple tasks
+  const deleteTodos = (e) => {
+    e.preventDefault();
+    displayDeleteModal('');
+    const deletionTodos = state.multiSelection;
+    deletionTodos.forEach(async (todoId) => {
+      let token = localStorage.getItem('token')
+        ? localStorage.getItem('token')
+        : '';
+      const config = {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      };
+      await axios.delete(`${appUrl}/api/${todoId}`, config);
+      fetchTodos();
+    });
+
+    const newSelectionArray = [];
+    dispatch({
+      type: MULTI_SELECT,
+      payload: { newSelectionArray },
+    });
+  };
+
   // Display delete modal
-  const displayDeleteModal = (currentTodo) => {
+  const displayDeleteModal = (quantity) => {
     let deleteModal;
-    let todo;
+    const todo = state.todo;
     if (state.deleteModal === '') {
-      deleteModal = currentTodo;
-      todo = currentTodo;
+      deleteModal = quantity;
     } else {
       deleteModal = '';
-      todo = currentTodo;
     }
 
     dispatch({
@@ -302,8 +349,6 @@ const TodoState = (props) => {
   const handleDateChange = (e) => {
     const id = 'due_date';
     let value = e ? e.toLocaleString('sv-SE').slice(0, 10) : null;
-
-    console.log(value);
     dispatch({
       type: HANDLE_INPUT_CHANGE,
       payload: { id, value },
@@ -450,9 +495,14 @@ const TodoState = (props) => {
     // Check that all fields have entries
     if (!username | !email | !password | !password2) {
       return null;
-    } 
+    }
     // Verify validity of field entries
-    else if ((username.length < 6) | (password.length < 6) | !validateEmail(email) | password !== password2) {
+    else if (
+      (username.length < 6) |
+      (password.length < 6) |
+      !validateEmail(email) |
+      (password !== password2)
+    ) {
       return null;
     }
     // Headers
@@ -522,6 +572,35 @@ const TodoState = (props) => {
     });
   };
 
+  // Handles click for multi selection of task
+  const handleMultiSelect = (e, selectedTodo) => {
+    let targetClassList = '';
+    if (e.target) {
+      targetClassList = e.target.classList.value;
+    }
+    // Exclude clicks on checkbox or edit icon
+    if (targetClassList.includes('no-select')) {
+      return null;
+    } else {
+      multiSelect(selectedTodo);
+    }
+  };
+
+  // Adds or removes from multiSelection list of tasks
+  const multiSelect = (selectedTodo) => {
+    const selectedId = selectedTodo;
+    let newSelectionArray = state.multiSelection;
+    if (state.multiSelection.includes(selectedId)) {
+      newSelectionArray = newSelectionArray.filter((id) => id !== selectedId);
+    } else {
+      newSelectionArray.push(selectedId);
+    }
+    dispatch({
+      type: MULTI_SELECT,
+      payload: { newSelectionArray },
+    });
+  };
+
   return (
     <TodoContext.Provider
       value={{
@@ -529,6 +608,7 @@ const TodoState = (props) => {
         user: state.user,
         todos: state.todos,
         todo: state.todo,
+        multiSelection: state.multiSelection,
         search: state.search,
         modal: state.modal,
         modalNew: state.modalNew,
@@ -566,6 +646,8 @@ const TodoState = (props) => {
         handleDateChange,
         displayFailedLoginModal,
         validateEmail,
+        handleMultiSelect,
+        deleteTodos,
       }}
     >
       {props.children}

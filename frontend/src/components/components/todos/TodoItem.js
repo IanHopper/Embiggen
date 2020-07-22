@@ -3,7 +3,7 @@ import TodoContext from '../../context/todos/todoContext';
 
 const TodoItem = ({ todo }) => {
   const todoContext = useContext(TodoContext);
-  const { displayModal, updateTodoCompleted } = todoContext;
+  const { displayModal, updateTodoCompleted, handleMultiSelect, multiSelection } = todoContext;
 
   const {
     id,
@@ -86,29 +86,37 @@ const TodoItem = ({ todo }) => {
     );
   };
 
+  const selectionClass = () => {
+    if(multiSelection.includes(id)){
+      return 'grid-card selected'
+    } else {
+      return 'grid-card'
+    }
+  }
+
   // Task card layout
   return (
-    <div className='grid-card' >
+    <div className={selectionClass()} id={id} onClick={(e)=>handleMultiSelect(e,todo.id)}>
       {/* Click on task name to open update modal */}
       <div className='item-completed'>
         <input
           type='checkbox'
-          className='checkbox'
-          id={id}
+          className='checkbox no-select'
+          id={`checkbox ${id}`}
           onChange={(e) => updateTodoCompleted(e, todo)}
           checked={completed}
         />
-        <label className={priorityList[priority]} htmlFor={id}></label>
+        <label className={`${priorityList[priority]} no-select`} htmlFor={`checkbox ${id}`}></label>
       </div>
       <div className='grid-item item-header'>
-        <p className={priorityList[priority]}>{task_name} &nbsp;<span className="task-project">{project}</span></p>
+        <p className={todo.completed? `${priorityList[priority]} strikethrough`: priorityList[priority]}>{task_name} &nbsp;<span className="task-project">{project}</span></p>
       </div>
       {due_date_function()}
       <div className='grid-item item-main'>
         <p>{description}</p>
       </div>
-      <div className='grid-item item-edit' onClick={(e) => displayModal(e, todo)}>
-        <i className='far fa-edit'></i>
+      <div className='grid-item item-edit' >
+        <i className='far fa-edit no-select' onClick={(e) => displayModal(e, todo)}></i>
       </div>
       <div className='grid-item item-duration'>
         {duration > 0 ? (

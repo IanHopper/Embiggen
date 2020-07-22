@@ -3,7 +3,7 @@ import TodoContext from '../../context/todos/todoContext';
 
 const DeleteModal = () => {
   const todoContext = useContext(TodoContext);
-  const { deleteTodo, deleteModal, displayDeleteModal, todo } = todoContext;
+  const { deleteTodo, deleteModal, displayDeleteModal, todo, multiSelection, deleteTodos } = todoContext;
 
   // Do not render modal if state is empty
   if (deleteModal === '') {
@@ -13,7 +13,7 @@ const DeleteModal = () => {
   // Close delete modal by clicking outside modal
   const closeDeleteModal = (e) => {
     if(e.target.className === 'modal-container'){
-      displayDeleteModal(todo)
+      displayDeleteModal('')
     }
   }
 
@@ -24,21 +24,21 @@ const DeleteModal = () => {
           <button
             className='button btn-close-modal'
             id='close'
-            onClick={() => displayDeleteModal(todo)}
+            onClick={() => displayDeleteModal('')}
           >
             <i className='fa fa-times'></i>
           </button>
           <div className='modal-header'>
-            <h5>{todo.task_name}</h5>
+            <h5>{deleteModal === 'solo' ? todo.task_name : (`Delete ${multiSelection.length} todos`)}</h5>
           </div>
 
           <form action='' className='modal-form'>
             <button
               className='button btn-delete'
-              onClick={(e) => deleteTodo(e, deleteModal)}
+              onClick={deleteModal === 'solo' ? (e) => deleteTodo(e, todo.id): (e)=> deleteTodos(e)}
               autoFocus
             >
-              Delete Task
+              {deleteModal === 'solo' ? 'Delete Task': 'Permanently Delete Tasks'}
             </button>
           </form>
         </div>

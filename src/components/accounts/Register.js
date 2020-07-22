@@ -44,6 +44,7 @@ const Register = () => {
               onChange={handleRegisterChange}
               value={registration.username ? registration.username : ''}
               required
+              autoFocus
             />
             <span className='form-warning'>
               {registration.username &&

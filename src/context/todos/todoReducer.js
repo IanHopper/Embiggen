@@ -19,7 +19,8 @@ import {
   HANDLE_SEARCH_INPUT,
   DISPLAY_USER_MODAL,
   UPDATE_TASK_DATA,
-  DISPLAY_FAILED_LOGIN_MODAL
+  DISPLAY_FAILED_LOGIN_MODAL,
+  MULTI_SELECT,
 } from '../types';
 
 export default (state, action) => {
@@ -28,7 +29,13 @@ export default (state, action) => {
       return {
         ...state,
         todos: action.payload,
-        projects: Array.from(new Set(action.payload.filter((todo)=> todo.project!==null).map((todo)=> todo.project)))
+        projects: Array.from(
+          new Set(
+            action.payload
+              .filter((todo) => todo.project !== null)
+              .map((todo) => todo.project)
+          )
+        ),
       };
     case HANDLE_FILTER:
       return {
@@ -50,8 +57,8 @@ export default (state, action) => {
     case DISPLAY_USER_MODAL:
       return {
         ...state,
-        userModal: action.payload.userModal
-      }
+        userModal: action.payload.userModal,
+      };
     case HANDLE_INPUT_CHANGE:
       return {
         ...state,
@@ -69,7 +76,7 @@ export default (state, action) => {
     case DISPLAY_FAILED_LOGIN_MODAL:
       return {
         ...state,
-        failedLoginModal: action.payload.message
+        failedLoginModal: action.payload.message,
       };
     case HANDLE_UNDO:
       if (!state.history.length) return state;
@@ -173,7 +180,12 @@ export default (state, action) => {
     case UPDATE_TASK_DATA:
       return {
         ...state,
-        taskData: action.payload.taskData
-      }
+        taskData: action.payload.taskData,
+      };
+    case MULTI_SELECT:
+      return {
+        ...state,
+        multiSelection: action.payload.newSelectionArray
+      };
   }
 };

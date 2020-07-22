@@ -38,6 +38,7 @@ const Login = () => {
               value ={loginCredentials.username ? loginCredentials.username : ''}
               onChange={handleLoginChange}
               required
+              autoFocus
             />
             <span className='form-warning'>{loginCredentials.username && loginCredentials.username.length > 0 && loginCredentials.username.length < 6 ? 'Username must be at least 6 characters': <br></br>}</span>
           </div>

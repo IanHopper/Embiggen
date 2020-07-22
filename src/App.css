@@ -6,6 +6,7 @@
   --background-color: rgb(194, 215, 229);
   --secondary-background-color: #eee;
   --grid-card-background-color: white;
+  --grid-card-selected-background-color: #eee;
   --navbar-background-color: white;
   --grid-card-text-color: #555;
   --money-color: rgb(24, 189, 24);
@@ -62,6 +63,31 @@ p {
   font-size: 2rem;
 }
 
+.navbar-icons {
+  position: relative;
+  text-align: center;
+}
+
+.fas.fa-trash-alt#multi-delete {
+  color: #bbb;
+  font-size: 2rem;
+  cursor: pointer;
+
+}
+
+#multi-delete-number{
+  position: absolute;
+  font-family: 'Lato';
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #555;
+  right: 83px;
+  top: 5px;
+  text-align: center;
+  width: 23px;
+  pointer-events: none;
+}
+
 .navbar i span {
   position: absolute;
   top: 6px;
@@ -89,6 +115,20 @@ p {
 .navbar #user-icon {
   color: #777;
   font-size: 2rem;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  transform: translate(-70px, 40px);
+  z-index: 100;
+  color: #333;
+  font-size: 1rem;
+  width: 100px;
+}
+
+.toolti:hover .tooltiptext {
+  visibility: visible;
 }
 
 /* Container */
@@ -247,16 +287,26 @@ p {
     'main main main main main main main';
 }
 
+.grid-card.selected {
+  background-color: var(--grid-card-selected-background-color);
+}
+
 .item-header {
   grid-area: header;
   font-weight: bold;
   font-size: 1.2rem;
 }
 
+p.strikethrough{
+  text-decoration: line-through;
+}
+
 .task-project {
   color: #333;
   font-size: 0.6rem;
   text-align: right;
+  position: absolute;
+  transform: translateY(9px)
 }
 
 .item-main {
@@ -608,7 +658,7 @@ p {
   .modal-contents#task-modal {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
     transform: none;
     max-width: 100%;

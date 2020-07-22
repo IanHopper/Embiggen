@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, Fragment } from 'react';
 import TodoContext from '../../context/todos/todoContext';
+
 
 const Navbar = ({ title, icon }) => {
   const todoContext = useContext(TodoContext);
@@ -11,6 +11,9 @@ const Navbar = ({ title, icon }) => {
     auth,
     history,
     displayUserModal,
+    fetchTodos,
+    multiSelection,
+    displayDeleteModal
   } = todoContext;
 
   // Load the current user
@@ -20,22 +23,35 @@ const Navbar = ({ title, icon }) => {
   }, []);
 
   // Return task and user logout icon
-  const authLinks = (user) => (
-    <div>
+  const authLinks = () => (
+    <div className='navbar-icons'>
       {history.length > 0 ? (
-        <i className='fas fa-undo' id='undo' onClick={() => handleUndo()}></i>
+        <i className='fas fa-undo toolti' id='undo' onClick={() => handleUndo()}>
+          <span className="tooltiptext">Undo Delete</span>
+        </i>
       ) : null}
-
+      {multiSelection.length > 0 ? (
+        <Fragment>
+          <i className='fas fa-trash-alt toolti' id='multi-delete' onClick={(e) => displayDeleteModal('multi')}><span className="tooltiptext">Delete Selected</span></i>
+          
+          <span
+            id='multi-delete-number'
+            
+          >
+            {multiSelection.length}{' '}
+          </span>
+        </Fragment>
+      ) : null}
       <i
-        className='fas fa-plus-circle add-task'
+        className='fas fa-plus-circle add-task toolti'
         id='add-task'
         onClick={(e) => displayModal(e, null)}
-      ></i>
+      ><span className="tooltiptext">Add Task (q)</span></i>
       <i
-        className='fas fa-user'
+        className='fas fa-user toolti'
         id='user-icon'
         onClick={() => displayUserModal()}
-      ></i>
+      ><span className="tooltiptext">Logout</span></i>
     </div>
   );
 
@@ -43,15 +59,9 @@ const Navbar = ({ title, icon }) => {
     <nav className='navbar'>
       <div className='navbar-container'>
         <div>
-          <Link to='/'>
-            <i
-              className='fas fa-tree'
-              onClick={() => todoContext.fetchTodos()}
-              id='brand'
-            >
-              <span>&nbsp;Embiggen</span>
-            </i>
-          </Link>
+          <i className='fas fa-tree' onClick={() => fetchTodos()} id='brand'>
+            <span>&nbsp;Embiggen</span>
+          </i>
         </div>
         {/* Load add task and logout icons if user is logged in*/}
         {auth.isAuthenticated ? authLinks(auth.user.username) : null}

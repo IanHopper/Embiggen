@@ -14,6 +14,18 @@ const Modal = () => {
     handleDateChange,
   } = todoContext;
 
+  let modalOpen = modal;
+  // Opens modal by hitting letter 'q'
+  const keyModalOpen = (e) => {
+    if (e.keyCode === 81 && !modalOpen) {
+      modalOpen = !
+      setTimeout((e) => {
+        displayModal(null);
+      }, 100);
+    }
+  };
+  window.addEventListener('keyup', keyModalOpen);
+
   // Do not render modal if state is false
   if (!modal) {
     return null;
@@ -44,20 +56,26 @@ const Modal = () => {
 
   // Close modal by clicking outside modal
   const closeTaskModal = (e) => {
-    if(e.target.className === 'modal-container'){
-      console.log('modal-container')
-      displayModal(e, null)
+    if (e.target.className === 'modal-container') {
+      displayModal(e, null);
     }
-  }
+  };
 
   // Add alert if save button hit and there is no task name
-  const validateTaskName = ()=> {
-      document.getElementById('task-name-form-warning').style.display = 'inline-block';
-  }
+  const validateTaskName = () => {
+    document.getElementById('task-name-form-warning').style.display =
+      'inline-block';
+  };
 
   return (
     <div>
-      <div className='modal-container' id='modal-container' onClick={(e)=>{closeTaskModal(e)}}>
+      <div
+        className='modal-container'
+        id='modal-container'
+        onClick={(e) => {
+          closeTaskModal(e);
+        }}
+      >
         <div className='modal-contents' id='task-modal'>
           <button
             className='button btn-close-modal'
@@ -75,7 +93,7 @@ const Modal = () => {
                 <i
                   className='fas fa-trash-alt'
                   id='deleteTask'
-                  onClick={() => displayDeleteModal(todo)}
+                  onClick={() => displayDeleteModal('solo')}
                 ></i>
               ) : null}
             </span>
@@ -88,7 +106,13 @@ const Modal = () => {
           >
             <div className='modal-row'>
               <div>
-                <label htmlFor='taskname'>Task Name <span className='form-warning' id='task-name-form-warning'> &nbsp; Required Field</span></label>
+                <label htmlFor='taskname'>
+                  Task Name{' '}
+                  <span className='form-warning' id='task-name-form-warning'>
+                    {' '}
+                    &nbsp; Required Field
+                  </span>
+                </label>
                 <input
                   type='text'
                   id='task_name'
@@ -111,7 +135,6 @@ const Modal = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              
             </div>
             <div>
               <label htmlFor='description'>Description</label>
@@ -172,7 +195,12 @@ const Modal = () => {
               </div>
             </div>
 
-            <button className='button btn-save' onClick={()=>validateTaskName()}>Save</button>
+            <button
+              className='button btn-save'
+              onClick={() => validateTaskName()}
+            >
+              Save
+            </button>
           </form>
         </div>
       </div>
