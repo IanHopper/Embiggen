@@ -18,7 +18,7 @@ const Modal = () => {
   // Opens modal by hitting letter 'q'
   const keyModalOpen = (e) => {
     if (e.keyCode === 81 && !modalOpen) {
-      modalOpen = !
+      modalOpen = !modalOpen;
       setTimeout((e) => {
         displayModal(null);
       }, 100);
