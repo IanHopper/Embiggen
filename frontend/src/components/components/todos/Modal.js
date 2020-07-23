@@ -14,17 +14,24 @@ const Modal = () => {
     handleDateChange,
   } = todoContext;
 
-  let modalOpen = modal;
-  // Opens modal by hitting letter 'q'
+ 
+  // Opens task modal by pressing ';' key
   const keyModalOpen = (e) => {
-    if (e.keyCode === 81 && !modalOpen) {
-      modalOpen = !modalOpen;
-      setTimeout((e) => {
-        displayModal(null);
-      }, 100);
+    let modalOpen = modal;
+    if (e.keyCode === 186 && !modalOpen) { 
+      displayModal(null)
     }
   };
   window.addEventListener('keyup', keyModalOpen);
+
+  // Closes modal by pressing 'esc' key
+  const closeModal = (e) => {
+    let modalOpen = modal;
+    if(e.keyCode === 27 && modalOpen) {
+      displayModal(null);
+    }
+  }
+  window.addEventListener('keyup', closeModal);
 
   // Do not render modal if state is false
   if (!modal) {

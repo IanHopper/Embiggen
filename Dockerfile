@@ -1,7 +1,7 @@
 # Pull base image
 FROM python:3.8-slim
 
-# Set environment variables
+# Set environment variables (pseudo SECRET_KEY)
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV SECRET_KEY=opb&dzzbui0hpinot&xvj5e94q=01y43w_dg=3*13sewx2&nop

@@ -46,7 +46,7 @@ const Navbar = ({ title, icon }) => {
         className='fas fa-plus-circle add-task toolti'
         id='add-task'
         onClick={(e) => displayModal(e, null)}
-      ><span className="tooltiptext">Add Task (q)</span></i>
+      ><span className="tooltiptext">Add Task ( ; )</span></i>
       <i
         className='fas fa-user toolti'
         id='user-icon'
